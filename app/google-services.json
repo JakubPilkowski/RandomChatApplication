@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "793646808250",
+    "firebase_url": "https://randomchatapplication-7723b.firebaseio.com",
+    "project_id": "randomchatapplication-7723b",
+    "storage_bucket": "randomchatapplication-7723b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:793646808250:android:0fa5ccb44264b419121683",
+        "android_client_info": {
+          "package_name": "com.example.randomchatapplication"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "793646808250-njdunfpdrtqlk1k7mlgckncdq3bgjh49.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.randomchatapplication",
+            "certificate_hash": "d2b346a1dc884ca91c4aa0a39441dff2afe7d8f7"
+          }
+        },
+        {
+          "client_id": "793646808250-0ai2r6jsma1ohojuo1dt4fv3pf3rsmkl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgNJi3pofYrHMsPNxOUigP5rbP42ov6Ns"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "793646808250-0ai2r6jsma1ohojuo1dt4fv3pf3rsmkl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
