@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.auth.LoginViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".ui.auth.LoginFragment">
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <ImageView
+                android:id="@+id/login_mainPhoto"
+                android:layout_width="match_parent"
+                android:layout_height="256dp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/login_logo_wrapper"
+                app:layout_anchor="@id/login_mainPhoto"
+                app:layout_anchorGravity="bottom|center_horizontal" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="A czy ty chcesz się przekonać?"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="24dp"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Email:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <WebView
+                    android:id="@+id/webViewEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+<!--                <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_margin="4dp"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:inputType="textEmailAddress"-->
+<!--                    />-->
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hasło:"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp">
+                <WebView
+                    android:id="@+id/webViewPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    />
+<!--                <EditText-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:imeOptions="actionNext"-->
+<!--                    android:maxLines="1"-->
+<!--                    android:inputType="textPassword"-->
+<!--                    />-->
+            </RelativeLayout>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:textAlignment="textEnd"
+                android:text="@string/dont_have_account_register"
+                android:textColor="@color/colorPrimaryDark"
+                />
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

@@ -11,4 +11,5 @@
     <string name="menu_profile_tag">3</string>
     <string name="menu_earn_points_tag">4</string>
     <string name="menu_camera_tag">5</string>
+    <string name="dont_have_account_register"><u>Nie masz konta? Zarejestruj się</u></string>
 </resources>
