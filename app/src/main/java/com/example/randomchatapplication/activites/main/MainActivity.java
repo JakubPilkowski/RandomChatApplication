@@ -4,12 +4,15 @@ import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.activites.authentication.AuthActivity;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityMainBinding;
+import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 
@@ -27,11 +30,17 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
+        UserPreferences.initInstance(getApplicationContext());
         super.onCreate(savedInstanceState);
     }
 
     @Override
     protected void onResume() {
+        if(!UserPreferences.getINSTANCE().hasUser())
+        {
+            finish();
+            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+        }
         super.onResume();
     }
 

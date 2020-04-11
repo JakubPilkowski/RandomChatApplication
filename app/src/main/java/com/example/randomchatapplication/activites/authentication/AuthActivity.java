@@ -20,6 +20,7 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivity
     protected void initActivity(ActivityAuthBinding binding) {
         binding.setViewModel(viewModel);
         viewModel.setProviders(this);
+
         viewModel.init();
     }
 
