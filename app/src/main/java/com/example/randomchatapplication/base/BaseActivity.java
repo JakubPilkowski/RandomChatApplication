@@ -23,6 +23,7 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         navigator.setActivity(this);
+        navigator.setFragmentContainer(getIdFragmentContainer());
         binding = DataBindingUtil.setContentView(this, getLayoutRes());
         viewModel = ViewModelProviders.of(this).get(getViewModel());
         initActivity(binding);

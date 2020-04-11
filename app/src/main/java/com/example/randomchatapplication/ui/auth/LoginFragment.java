@@ -23,8 +23,10 @@ import com.example.randomchatapplication.navigation.Navigator;
 
 public class LoginFragment extends BaseFragment<LoginFragmentBinding,LoginViewModel> implements Providers {
 
-
-
+    public static final String TAG = "LoginFragment";
+    public static LoginFragment newInstance() {
+        return new LoginFragment();
+    }
     @Override
     public int getLayoutRes() {
         return R.layout.login_fragment;
@@ -39,6 +41,13 @@ public class LoginFragment extends BaseFragment<LoginFragmentBinding,LoginViewMo
     public void bindData(LoginFragmentBinding binding) {
         binding.setViewModel(viewModel);
         viewModel.setProviders(this);
+
+    }
+
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         viewModel.init();
     }
 

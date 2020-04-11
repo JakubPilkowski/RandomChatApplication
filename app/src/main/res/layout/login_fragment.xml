@@ -25,8 +25,8 @@
                 android:layout_height="256dp" />
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="140dp"
+                android:layout_height="80dp"
                 android:src="@drawable/login_logo_wrapper"
                 app:layout_anchor="@id/login_mainPhoto"
                 app:layout_anchorGravity="bottom|center_horizontal" />
@@ -55,10 +55,12 @@
                 android:textSize="16sp" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="48dp">
+                android:layout_height="200dp">
                 <WebView
                     android:id="@+id/webViewEmail"
                     android:layout_width="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
                     android:layout_height="match_parent"
                     />
 <!--                <EditText-->
@@ -76,22 +78,24 @@
                 android:text="Hasło:"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp">
-                <WebView
-                    android:id="@+id/webViewPassword"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    />
-<!--                <EditText-->
+<!--            <RelativeLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="48dp">-->
+<!--                <WebView-->
+<!--                    android:id="@+id/webViewPassword"-->
 <!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:imeOptions="actionNext"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:inputType="textPassword"-->
+<!--                    android:scrollbars="none"-->
+<!--                    android:overScrollMode="never"-->
+<!--                    android:layout_height="match_parent"-->
 <!--                    />-->
-            </RelativeLayout>
+<!--&lt;!&ndash;                <EditText&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:imeOptions="actionNext"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:maxLines="1"&ndash;&gt;-->
+<!--&lt;!&ndash;                    android:inputType="textPassword"&ndash;&gt;-->
+<!--&lt;!&ndash;                    />&ndash;&gt;-->
+<!--            </RelativeLayout>-->
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

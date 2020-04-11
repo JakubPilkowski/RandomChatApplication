@@ -12,6 +12,7 @@ import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityAuthBinding;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
+import com.example.randomchatapplication.ui.auth.LoginFragment;
 
 public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivityViewModel> implements Providers {
 
@@ -20,8 +21,8 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivity
     protected void initActivity(ActivityAuthBinding binding) {
         binding.setViewModel(viewModel);
         viewModel.setProviders(this);
-
         viewModel.init();
+        navigator.attach(LoginFragment.newInstance(),LoginFragment.TAG);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivity
 
     @Override
     public int getIdFragmentContainer() {
-        return 0;
+        return R.id.auth_fragment_container;
     }
 
     @Override
