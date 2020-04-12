@@ -51,12 +51,12 @@ public class Navigator {
                     .beginTransaction()
                     .addToBackStack(tag)
                     .replace(fragmentContainer, fragment, tag)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         } else {
             activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
             activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
-                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         }
     }

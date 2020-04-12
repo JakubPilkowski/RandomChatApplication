@@ -21,7 +21,7 @@ public class BindingAdapter {
                 .thumbnail(0.1f)
                 .into(imageView);
     }
-@androidx.databinding.BindingAdapter("effectType")
+    @androidx.databinding.BindingAdapter("effectType")
     public static void setHtmlCode(final WebView webView, final String type){
     ViewTreeObserver viewTreeObserver = webView.getViewTreeObserver();
 
@@ -45,8 +45,6 @@ public class BindingAdapter {
             }
         });
     }
-
-        webView.loadDataWithBaseURL(null,htmlCode,"text/html","utf-8",null);
-}
+    }
 
 }
