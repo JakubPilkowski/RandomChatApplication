@@ -4,14 +4,17 @@ import android.util.Log;
 
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
+import com.example.randomchatapplication.base.BaseFragment;
+import com.example.randomchatapplication.ui.auth.LoginFragment;
 
 public class Navigator {
     private FragmentActivity activity;
-
+    private int fragmentContainer;
     public void setActivity(FragmentActivity activity) {
         this.activity = activity;
     }
-
     public void clearBackStack() {
         for (int i = 1; i < activity.getSupportFragmentManager().getBackStackEntryCount(); i++) {
             FragmentManager.BackStackEntry entry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
@@ -42,7 +45,31 @@ public class Navigator {
         }
         return false;
     }
+    public void attach(BaseFragment fragment, String tag){
+        deleteUselessFragments(tag);
+        if (!isAvailable(tag)) {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .replace(fragmentContainer, fragment, tag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+        } else {
+            activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
+                    .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
+                    .commit();
+        }
+    }
 
+    public void showLoginScreen(){
+//        deleteUselessFragments(LoginFragment.TAG);
+    }
+
+    public void setFragmentContainer(int fragmentContainer) {
+        this.fragmentContainer = fragmentContainer;
+
+    }
 //    public void showNoticeBoard() {
 //        deleteUselessFragments(NoticeBoardFragment.TAG);
 //        if (!isAvailable(NoticeBoardFragment.TAG)) {
