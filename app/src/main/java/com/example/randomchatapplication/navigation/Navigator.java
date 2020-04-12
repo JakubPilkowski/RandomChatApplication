@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.randomchatapplication.base.BaseFragment;
-import com.example.randomchatapplication.ui.auth.LoginFragment;
 
 public class Navigator {
     private FragmentActivity activity;

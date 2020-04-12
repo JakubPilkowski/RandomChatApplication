@@ -1,10 +1,8 @@
 package com.example.randomchatapplication.activites.authentication;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 
 import android.app.Activity;
-import android.os.Bundle;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseActivity;
@@ -12,7 +10,7 @@ import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityAuthBinding;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
-import com.example.randomchatapplication.ui.auth.LoginFragment;
+import com.example.randomchatapplication.ui.auth.login.LoginFragment;
 
 public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivityViewModel> implements Providers {
 

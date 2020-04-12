@@ -6,14 +6,14 @@
 
         <variable
             name="viewModel"
-            type="com.example.randomchatapplication.ui.auth.LoginViewModel" />
+            type="com.example.randomchatapplication.ui.auth.login.LoginViewModel" />
     </data>
 
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".ui.auth.LoginFragment">
+        tools:context=".ui.auth.login.LoginFragment">
 
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
