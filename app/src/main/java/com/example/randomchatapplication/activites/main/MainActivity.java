@@ -6,6 +6,7 @@ import androidx.databinding.ViewDataBinding;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
@@ -36,11 +37,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
 
     @Override
     protected void onResume() {
-        if(!UserPreferences.getINSTANCE().hasUser())
-        {
-            finish();
-            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
-        }
+//        if(!UserPreferences.getINSTANCE().hasUser())
+//        {
+//            finish();
+//            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+//        }
         super.onResume();
     }
 
