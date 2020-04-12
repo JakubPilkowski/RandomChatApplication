@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">RandomChatApplication</string>
+    <string name="app_name">Tinder dla ubogich</string>
     <string name="search">Przeglądaj</string>
     <string name="chats">Czaty</string>
     <string name="profile">Profil</string>
@@ -12,4 +12,10 @@
     <string name="menu_earn_points_tag">4</string>
     <string name="menu_camera_tag">5</string>
     <string name="dont_have_account_register"><u>Nie masz konta? Zarejestruj się</u></string>
+    <string name="password">Hasło:</string>
+    <string name="email">Email:</string>
+    <string name="haslo_hint">Hasło</string>
+    <string name="email_hint">Email</string>
+    <string name="do_you_want_to_convince">A czy ty chcesz się przekonać?</string>
+    <string name="login_in">Zaloguj się</string>
 </resources>

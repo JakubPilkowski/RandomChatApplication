@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,8 +9,7 @@
             type="com.example.randomchatapplication.ui.auth.LoginViewModel" />
     </data>
 
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -22,11 +22,13 @@
             <ImageView
                 android:id="@+id/login_mainPhoto"
                 android:layout_width="match_parent"
-                android:layout_height="256dp" />
+                android:src="@drawable/login_image"
+                android:scaleType="fitXY"
+                android:layout_height="255dp" />
 
             <ImageView
-                android:layout_width="140dp"
-                android:layout_height="80dp"
+                android:layout_width="120dp"
+                android:layout_height="90dp"
                 android:src="@drawable/login_logo_wrapper"
                 app:layout_anchor="@id/login_mainPhoto"
                 app:layout_anchorGravity="bottom|center_horizontal" />
@@ -35,7 +37,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="A czy ty chcesz się przekonać?"
+            android:text="@string/do_you_want_to_convince"
             android:textAlignment="center"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="18sp" />
@@ -50,12 +52,14 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email:"
+                android:text="@string/email"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                >
                 <WebView
                     android:id="@+id/webViewEmail"
                     android:layout_width="match_parent"
@@ -63,48 +67,81 @@
                     android:overScrollMode="never"
                     android:layout_height="match_parent"
                     />
-<!--                <EditText-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    android:layout_margin="4dp"-->
-<!--                    android:imeOptions="actionNext"-->
-<!--                    android:maxLines="1"-->
-<!--                    android:inputType="textEmailAddress"-->
-<!--                    />-->
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:paddingBottom="6dp"
+                    android:hint="@string/email_hint"
+                    android:paddingTop="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@android:color/white"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:inputType="textEmailAddress"
+                    android:importantForAutofill="no" />
             </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Hasło:"
+                android:layout_marginTop="10dp"
+                android:text="@string/password"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="16sp" />
-<!--            <RelativeLayout-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="48dp">-->
-<!--                <WebView-->
-<!--                    android:id="@+id/webViewPassword"-->
-<!--                    android:layout_width="match_parent"-->
-<!--                    android:scrollbars="none"-->
-<!--                    android:overScrollMode="never"-->
-<!--                    android:layout_height="match_parent"-->
-<!--                    />-->
-<!--&lt;!&ndash;                <EditText&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_width="match_parent"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:layout_height="wrap_content"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:imeOptions="actionNext"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:maxLines="1"&ndash;&gt;-->
-<!--&lt;!&ndash;                    android:inputType="textPassword"&ndash;&gt;-->
-<!--&lt;!&ndash;                    />&ndash;&gt;-->
-<!--            </RelativeLayout>-->
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_marginTop="2dp"
+                >
+               <WebView
+                    android:id="@+id/webViewPassword"
+                    android:layout_width="match_parent"
+                    android:scrollbars="none"
+                    android:overScrollMode="never"
+                    android:layout_height="match_parent"
+                    />
+                <EditText
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="2dp"
+                    android:hint="@string/haslo_hint"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
+                    android:paddingStart="6dp"
+                    android:paddingEnd="6dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:background="@android:color/white"
+                    android:maxLength="30"
+                    android:maxLines="1"
+                    android:inputType="textPassword"
+                    android:importantForAutofill="no" />
+            </RelativeLayout>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:textAlignment="textEnd"
+                android:onClick="@{() -> viewModel.onRegisterClick()}"
                 android:text="@string/dont_have_account_register"
                 android:textColor="@color/colorPrimaryDark"
                 />
+            <Button
+                android:layout_marginTop="32dp"
+                android:layout_width="200dp"
+                android:layout_gravity="center"
+                android:layout_height="48dp"
+                android:text="@string/login_in"
+                android:textAllCaps="false"
+                android:onClick="@{() -> viewModel.onLoginClick()}"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/login_button_drawable"
+                />
         </LinearLayout>
+
     </LinearLayout>
 
 </layout>

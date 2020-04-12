@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Build;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -11,6 +12,7 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
+import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModel;
 
 import com.example.randomchatapplication.R;
@@ -21,7 +23,7 @@ public class LoginViewModel extends BaseViewModel {
     public void init(){
         final int[] dpWidth = new int[1];
         final WebView emailWebView = ((LoginFragmentBinding)getBinding()).webViewEmail;
-//        WebView passwordWebView = ((LoginFragmentBinding)getBinding()).webViewPassword;
+        final WebView passwordWebView = ((LoginFragmentBinding)getBinding()).webViewPassword;
         ViewTreeObserver viewTreeObserver = emailWebView.getViewTreeObserver();
         if (viewTreeObserver.isAlive()) {
             viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -29,51 +31,62 @@ public class LoginViewModel extends BaseViewModel {
                 public void onGlobalLayout() {
                     emailWebView.getViewTreeObserver().removeOnGlobalLayoutListener(this);
                     dpWidth[0] = emailWebView.getWidth();
-                    emailWebView.measure(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-                    Float widthPixels = (float) dpWidth[0];
+                    float widthPixels = convertPixelsToDp(dpWidth[0],getActivity().getApplicationContext());
                     Float heightPixels = 48.0F;
-                    Log.d("width", String.valueOf(widthPixels));
-                    Log.d("height" , String.valueOf(heightPixels));
                     String htmlCode = "<head>\n" +
                             "    <meta charset=\"UTF-8\">\n" +
                             "    <style type=\"text/css\">\n" +
+                            "           html, body, div {\n" +
+                            "            margin: 0;\n" +
+                            "            padding: 0;\n" +
+                            "            border: 0;\n" +
+                            "        }" +
                             "        polygon {\n" +
-                            "            stroke: red;\n" +
-                            "            stroke-width: 3;\n" +
-                            "            stroke-dasharray: 70, 910;\n" +
+                            "            stroke: #bc1e1b;\n" +
+                            "            stroke-width: 4;\n" +
+                            "            stroke-dasharray: "+widthPixels +","+ (widthPixels*2+heightPixels*2-widthPixels) +";\n" +
                             "            stroke-dashoffset: 0;\n" +
                             "            fill: none;\n" +
-                            "            animation: border 5s linear infinite;\n" +
+                            "            animation: border 4s linear infinite;\n" +
                             "        }\n" +
                             "        @keyframes border {\n" +
                             "            to {\n" +
-                            "                stroke-dashoffset: -980;\n" +
+                            "                stroke-dashoffset: -"+(widthPixels*2+heightPixels*2) +";\n" +
                             "            }\n" +
                             "        }\n" +
                             "\n" +
                             "\n" +
                             "    </style>\n" +
                             "</head>\n" +
-                            "<body>\n" +
+                            "<body >\n" +
                             "<div>\n" +
                             "    <svg width=\""+widthPixels +"\" height=\""+heightPixels +"\">\n" +
-                            "        <polygon points=\"5,5 "+ (widthPixels-5) +",5 "+ (widthPixels-5)+","+(heightPixels-5)+ " 5, "+(heightPixels-5)+"\" />\n" +
+                            "        <polygon points=\"0,0 "+ (widthPixels) +",0 "+ (widthPixels)+","+(heightPixels)+ " 0,"+(heightPixels)+"\" />\n" +
                             "    </svg>\n" +
                             "</div>\n" +
                             "</body>\n" +
                             "\n" +
                             "</html>";
-                    Log.d("cos"," <svg width=\""+widthPixels +"\" height=\""+heightPixels +"\">\n" +
-                            "        <polygon points=\"5,5 "+ (widthPixels-5) +",5 "+ (widthPixels-5)+","+(heightPixels-5)+ " 5, "+(heightPixels-5)+"\" />\n" +
-                            "    </svg>\n");
                     emailWebView.loadDataWithBaseURL(null,htmlCode,"text/html","utf-8",null);
+                    passwordWebView.loadDataWithBaseURL(null,htmlCode,"text/html", "utf-8", null);
                 }
             });
         }
 
 //        passwordWebView.loadData(htmlStart+css+htmlEnd, "text/html", null);
     }
+
+    public void onLoginClick(){
+
+    }
+    public void onRegisterClick(){
+
+    }
+
     public float convertDpToPx(Context context, float dp) {
         return dp * context.getResources().getDisplayMetrics().density;
+    }
+    public static float convertPixelsToDp(float px, Context context){
+        return px / ((float) context.getResources().getDisplayMetrics().densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 }
