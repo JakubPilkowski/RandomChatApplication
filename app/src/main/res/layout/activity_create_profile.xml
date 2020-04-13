@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -8,12 +10,91 @@
             type="com.example.randomchatapplication.activites.profile_creation.CreateProfileViewModel" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:orientation="vertical"
         tools:context=".activites.profile_creation.CreateProfileActivity">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.stepTitle}"
+            android:textAlignment="center"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="16sp"
+            android:layout_marginTop="20dp"
+            />
+        <ProgressBar
+            android:layout_marginTop="12dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:progressTint="@color/colorPrimaryDark"
+            android:background="@color/colorAccent"
+            android:max="@{viewModel.dotsCount}"
+            android:progress="@{viewModel.step}"
+            />
+        <LinearLayout
+            android:id="@+id/create_profile_container"
+            android:layout_width="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1"
+            android:layout_height="match_parent"
+            >
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            <androidx.viewpager.widget.ViewPager
+                android:id="@+id/create_profile_viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                app:setOffScreenPageLimit="@{viewModel.dotsCount}"
+                android:overScrollMode="never"
+                app:currentItem="@{viewModel.step}"
+                app:viewPagerAdapter="@{viewModel.pageListAdapter}" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:weightSum="1"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:orientation="horizontal">
+                <Button
+                    android:id="@+id/create_profile_back_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:padding="6dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/create_profile_back_button_background"
+                    android:text="@string/back"
+                    android:drawableEnd="@drawable/ic_heartbreak_red_24dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClick="@{()->viewModel.onBackClick()}"
+                    />
+                <com.example.randomchatapplication.custom_views.DotsView
+                    android:layout_width="0dp"
+                    android:layout_height="80dp"
+                    android:layout_weight="1"
+                    android:id="@+id/dots_view"
+                    app:dotsCount="@{viewModel.dotsCount}"
+                    />
+                <Button
+                    android:id="@+id/create_profile_next_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="48dp"
+                    android:background="@drawable/create_profile_next_button_background"
+                    android:layout_gravity="center_vertical"
+                    android:text="@string/go_next"
+                    android:padding="6dp"
+                    android:drawableStart="@drawable/ic_heart_24dp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:onClick="@{()->viewModel.onNextClick()}"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
 </layout>

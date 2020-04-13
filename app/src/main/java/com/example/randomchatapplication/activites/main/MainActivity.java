@@ -37,11 +37,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
 
     @Override
     protected void onResume() {
-//        if(!UserPreferences.getINSTANCE().hasUser())
-//        {
-//            finish();
-//            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
-//        }
+        if(!UserPreferences.getINSTANCE().hasUser())
+        {
+            finish();
+            startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+        }
         super.onResume();
     }
 
