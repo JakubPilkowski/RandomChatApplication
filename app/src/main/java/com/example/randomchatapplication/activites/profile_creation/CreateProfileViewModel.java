@@ -5,6 +5,7 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -27,6 +28,7 @@ public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt currentItem = new ObservableInt();
     public ObservableField<String> stepTitle = new ObservableField<>();
     public ObservableField<ViewPager.OnPageChangeListener> pageChangedListener = new ObservableField<>();
+    public ObservableBoolean swipeEnabled = new ObservableBoolean(false);
     public ImageView dot;
 
     public void init() {

@@ -40,7 +40,7 @@
                         android:layout_height="wrap_content"
                         android:text="Imię:"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorBlack"
                         />
                     <TextView
                         android:layout_width="0dp"
@@ -49,7 +49,7 @@
                         android:text="@{viewModel.textAmount}"
                         android:textAlignment="textEnd"
                         android:textSize="16sp"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorBlack"
                         />
                 </LinearLayout>
                 <EditText
@@ -64,7 +64,7 @@
                     android:background="@drawable/border"
                     android:imeOptions="actionNext"
                     android:padding="8dp"
-                    android:textColor="@color/colorPrimaryDark"
+                    android:textColor="@color/colorBlack"
                     />
                 <TextView
                     android:layout_width="match_parent"
@@ -73,7 +73,7 @@
                     android:layout_marginTop="2dp"
                     android:textSize="14sp"
                     android:text="Tego pola nie można potem edytować"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorBlack" />
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
                     android:layout_marginTop="2dp"
                     android:textSize="16sp"
                     android:text="Preferencje wiekowe"
-                    android:textColor="@color/colorPrimaryDark" />
+                    android:textColor="@color/colorBlack" />
 
                 <com.example.randomchatapplication.custom_views.CustomRangeSeekbar
                     android:layout_width="match_parent"
@@ -113,7 +113,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:text="@{viewModel.leftValue}"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorBlack"
                         android:textSize="14sp"
                         />
                     <TextView
@@ -121,12 +121,121 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:textAlignment="textEnd"
-                        android:textColor="@color/colorPrimaryDark"
+                        android:textColor="@color/colorBlack"
                         android:textSize="14sp"
                         android:text="@{viewModel.rightValue}"
                         />
 
                 </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dp"
+                    android:orientation="vertical" >
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:textSize="16sp"
+                        android:text="Wiek"
+                        android:textColor="@color/colorBlack" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:weightSum="4"
+                        android:layout_marginTop="6dp"
+                        android:orientation="horizontal">
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:text="Rok"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Miesiąc"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            />
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:text="Dzień"
+                            android:textSize="16sp"
+                            android:textAlignment="center"
+                            android:textColor="@color/colorBlack"
+                            />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:weightSum="4"
+                        android:background="@drawable/rounded_border"
+                        android:orientation="horizontal"
+                        >
+                        <NumberPicker
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:tag="YearPicker"
+                            android:layout_weight="2"
+                            android:theme="@style/AppTheme.Picker"
+                            app:minNumberPickerValue="@{viewModel.minYearValue}"
+                            app:maxNumberPickerValue="@{viewModel.maxYearValue}"
+                            app:numberPickerValue="@{viewModel.yearValue}"
+                            app:setWrapSelectorWheel="@{viewModel.wrapSelector}"
+                            app:numberPickerListener="@{viewModel.numberPickerListener}"
+                            android:descendantFocusability="blocksDescendants"
+                            />
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary"
+                            />
+                        <NumberPicker
+                            android:layout_width="0dp"
+                            android:tag="MonthPicker"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Picker"
+                            app:minNumberPickerValue="@{viewModel.minMonthValue}"
+                            app:maxNumberPickerValue="@{viewModel.maxMonthValue}"
+                            app:numberPickerValue="@{viewModel.monthValue}"
+                            app:setWrapSelectorWheel="@{viewModel.wrapSelector}"
+                            app:numberPickerListener="@{viewModel.numberPickerListener}"
+                            android:descendantFocusability="blocksDescendants"
+                            />
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorPrimary"
+                            />
+                        <NumberPicker
+                            android:layout_width="0dp"
+                            android:tag="DayPicker"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:theme="@style/AppTheme.Picker"
+                            app:minNumberPickerValue="@{viewModel.minDayValue}"
+                            app:maxNumberPickerValue="@{viewModel.maxDayValue}"
+                            app:numberPickerValue="@{viewModel.dayValue}"
+                            app:setWrapSelectorWheel="@{viewModel.wrapSelector}"
+                            app:numberPickerListener="@{viewModel.numberPickerListener}"
+                            android:descendantFocusability="blocksDescendants"
+                            />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
 

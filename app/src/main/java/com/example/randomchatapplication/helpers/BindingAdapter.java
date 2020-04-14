@@ -1,24 +1,21 @@
 package com.example.randomchatapplication.helpers;
 
 import android.content.Context;
-import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 
-import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
-import com.example.randomchatapplication.custom_views.ArrayView;
+import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
 
 public class BindingAdapter {
@@ -81,10 +78,10 @@ public class BindingAdapter {
         viewPager.setOffscreenPageLimit(pageLimit);
     }
 
-    @androidx.databinding.BindingAdapter("onPageChangedListener")
-    public static void setOnPageChangedListener(ViewPager viewPager, ViewPager.OnPageChangeListener listener)
+    @androidx.databinding.BindingAdapter("swipeEnabled")
+    public static void setSwipeEnabled(CustomViewPager viewPager, boolean swipeEnabled)
     {
-        viewPager.addOnPageChangeListener(listener);
+        viewPager.setSwipeEnabled(swipeEnabled);
     }
     @androidx.databinding.BindingAdapter("onTextChangedListener")
     public static void onTextChangedListener(final EditText editText, TextWatcher textWatcher) {
@@ -95,5 +92,23 @@ public class BindingAdapter {
     public static void setSeekBarListener(CrystalRangeSeekbar seekbar, OnRangeSeekbarChangeListener listener)
     {
         seekbar.setOnRangeSeekbarChangeListener(listener);
+    }
+    @androidx.databinding.BindingAdapter("minNumberPickerValue")
+    public static void setNumberPickerMinValue(NumberPicker numberPicker, int minValue)
+    {
+        numberPicker.setMinValue(minValue);
+    }
+    @androidx.databinding.BindingAdapter("maxNumberPickerValue")
+    public static void setNumberPickerMaxValue(NumberPicker numberPicker, int maxValue)
+    {
+        numberPicker.setMaxValue(maxValue);
+    }
+    @androidx.databinding.BindingAdapter("numberPickerValue")
+    public static void setNumberPickerValue(NumberPicker numberPicker, int value){
+        numberPicker.setValue(value);
+    }
+    @androidx.databinding.BindingAdapter("numberPickerListener")
+    public static void setNumberPickerListener(NumberPicker numberPicker, NumberPicker.OnValueChangeListener listener){
+        numberPicker.setOnValueChangedListener(listener);
     }
 }

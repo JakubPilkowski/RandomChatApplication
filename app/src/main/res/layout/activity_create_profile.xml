@@ -53,11 +53,12 @@
             android:layout_height="match_parent"
             >
 
-            <androidx.viewpager.widget.ViewPager
+            <com.example.randomchatapplication.custom_views.CustomViewPager
                 android:id="@+id/create_profile_viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
+                app:swipeEnabled="@{viewModel.swipeEnabled}"
                 app:setOffScreenPageLimit="@{viewModel.dotsCount}"
                 android:overScrollMode="never"
                 app:currentItem="@{viewModel.currentItem}"
