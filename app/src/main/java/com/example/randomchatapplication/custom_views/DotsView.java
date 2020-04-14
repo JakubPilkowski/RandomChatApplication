@@ -55,7 +55,7 @@ public class DotsView extends RelativeLayout {
             dots[i] = new ImageView(dotsContainer.getContext());
             dots[i].setImageDrawable(dotsContainer.getResources().getDrawable(R.drawable.dot));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-            params.setMargins(8, 0, 8, 0);
+            params.setMargins(6, 0, 6, 0);
             dotsContainer.addView(dots[i], params);
         }
         //        int dotsContainerWidth = dotsContainerParams.width;
@@ -73,7 +73,7 @@ public class DotsView extends RelativeLayout {
                     mainDot = new ImageView(mainDotContainer.getContext());
                     mainDot.setImageDrawable(mainDotContainer.getResources().getDrawable(R.drawable.active_dot));
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-                    params.setMargins(8, 0, 8, 0);
+                    params.setMargins(6, 0, 6, 0);
                     mainDotContainer.addView(mainDot, params);
                     RelativeLayout.LayoutParams relativeParams = (LayoutParams) mainDotContainer.getLayoutParams();
                     relativeParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
@@ -81,14 +81,6 @@ public class DotsView extends RelativeLayout {
                 }
             });
         }
-//        mainDotContainer.setLayoutParams(new LayoutParams(dotsContainer.getLayoutParams().width, LayoutParams.WRAP_CONTENT));
-//        mainDot = new ImageView(mainDotContainer.getContext());
-//        mainDot.setImageDrawable(mainDotContainer.getResources().getDrawable(R.drawable.active_dot));
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-//        params.setMargins(8, 0, 8, 0);
-//        mainDotContainer.addView(mainDot, params);
-
-//        dots[0].setImageDrawable(dotsContainer.getResources().getDrawable(R.drawable.active_dot));
     }
 
     public ImageView getMainDot() {

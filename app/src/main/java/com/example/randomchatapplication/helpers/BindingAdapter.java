@@ -1,16 +1,23 @@
 package com.example.randomchatapplication.helpers;
 
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageView;
 
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.interfaces.OnSeekbarChangeListener;
+import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.custom_views.ArrayView;
 import com.example.randomchatapplication.custom_views.DotsView;
 
@@ -78,5 +85,15 @@ public class BindingAdapter {
     public static void setOnPageChangedListener(ViewPager viewPager, ViewPager.OnPageChangeListener listener)
     {
         viewPager.addOnPageChangeListener(listener);
+    }
+    @androidx.databinding.BindingAdapter("onTextChangedListener")
+    public static void onTextChangedListener(final EditText editText, TextWatcher textWatcher) {
+        editText.addTextChangedListener(textWatcher);
+    }
+
+    @androidx.databinding.BindingAdapter("seekbarListener")
+    public static void setSeekBarListener(CrystalRangeSeekbar seekbar, OnRangeSeekbarChangeListener listener)
+    {
+        seekbar.setOnRangeSeekbarChangeListener(listener);
     }
 }

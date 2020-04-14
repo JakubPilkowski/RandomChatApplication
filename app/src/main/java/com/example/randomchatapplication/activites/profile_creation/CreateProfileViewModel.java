@@ -79,8 +79,8 @@ public class CreateProfileViewModel extends BaseViewModel {
     private void moveLeft() {
         float xFromDelta;
         float xToDelta;
-        xFromDelta = 32 * (step.get() -1) *2;
-        xToDelta = xFromDelta - 32 *2;
+        xFromDelta = 24 * (step.get() -1) *2;
+        xToDelta = xFromDelta - 24 *2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
@@ -88,7 +88,7 @@ public class CreateProfileViewModel extends BaseViewModel {
         Log.d("dane", fromXDelta + " " +xToDelta);
         dot = ((ActivityCreateProfileBinding) getBinding()).dotsView.getMainDot();
         Animation move = new TranslateAnimation(fromXDelta, xToDelta, 0, 0);
-        move.setDuration(300);
+        move.setDuration(250);
         move.setFillEnabled(true);
         move.setFillAfter(true);
         dot.startAnimation(move);
@@ -97,8 +97,8 @@ public class CreateProfileViewModel extends BaseViewModel {
     private void moveRight() {
         float xFromDelta;
         float xToDelta;
-        xFromDelta = 32 * (step.get()-1) *2;
-        xToDelta = xFromDelta + 32 *2;
+        xFromDelta = 24 * (step.get()-1) *2;
+        xToDelta = xFromDelta + 24 *2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
