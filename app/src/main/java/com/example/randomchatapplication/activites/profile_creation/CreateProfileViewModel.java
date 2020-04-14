@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
+import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.ui.create_profile.CreateProfileFragment;
 
 import java.util.List;
@@ -22,13 +24,15 @@ public class CreateProfileViewModel extends BaseViewModel {
     public ObservableField<ViewPagerListAdapter> pageListAdapter = new ObservableField<>();
     public ObservableInt dotsCount = new ObservableInt();
     public ObservableInt step = new ObservableInt();
+    public ObservableInt currentItem = new ObservableInt();
     public ObservableField<String> stepTitle = new ObservableField<>();
     public ObservableField<ViewPager.OnPageChangeListener> pageChangedListener = new ObservableField<>();
     public ImageView dot;
 
     public void init() {
 
-        ViewPagerListAdapter pageListAdapter = new ViewPagerListAdapter(((CreateProfileActivity)getActivity()).getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPagerListAdapter pageListAdapter = new ViewPagerListAdapter(((CreateProfileActivity) getActivity()).getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        pageListAdapter.addFragment(CreateProfileFragment.newInstance());
         pageListAdapter.addFragment(CreateProfileFragment.newInstance());
         pageListAdapter.addFragment(CreateProfileFragment.newInstance());
         pageListAdapter.addFragment(CreateProfileFragment.newInstance());
@@ -36,7 +40,6 @@ public class CreateProfileViewModel extends BaseViewModel {
         dotsCount.set(pageListAdapter.getFragments().size());
         step.set(1);
         stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
-        dot = ((ActivityCreateProfileBinding) getBinding()).dotsView.getMainDot();
 //        initViewPagerListener();
     }
 
@@ -61,10 +64,11 @@ public class CreateProfileViewModel extends BaseViewModel {
 
     public void onBackClick() {
         if (step.get() > 1) {
-//            moveLeft();
+            moveLeft();
             step.set(step.get() - 1);
-            step.set(step.get());
+            currentItem.set(step.get() - 1);
             stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
+
         } else {
             getActivity().finish();
             getActivity().onBackPressed();
@@ -73,34 +77,36 @@ public class CreateProfileViewModel extends BaseViewModel {
     }
 
     private void moveLeft() {
-        int xFromDelta;
-        int xToDelta;
-        xFromDelta = (int) (dot.getTranslationX() + 36 * step.get());
-        xToDelta = xFromDelta - 36;
+        float xFromDelta;
+        float xToDelta;
+        xFromDelta = 32 * (step.get() -1) *2;
+        xToDelta = xFromDelta - 32 *2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
-    private void translateAnimation(int xFromDelta, int xToDelta) {
-        Animation move = new TranslateAnimation(xFromDelta, xToDelta, 0, 0);
-        move.setDuration(1000);
+    private void translateAnimation(float fromXDelta, float xToDelta) {
+        Log.d("dane", fromXDelta + " " +xToDelta);
+        dot = ((ActivityCreateProfileBinding) getBinding()).dotsView.getMainDot();
+        Animation move = new TranslateAnimation(fromXDelta, xToDelta, 0, 0);
+        move.setDuration(300);
         move.setFillEnabled(true);
         move.setFillAfter(true);
         dot.startAnimation(move);
     }
 
     private void moveRight() {
-        int xFromDelta;
-        int xToDelta;
-        xFromDelta = (int) (dot.getTranslationX() + 36 * step.get());
-        xToDelta = xFromDelta + 36;
+        float xFromDelta;
+        float xToDelta;
+        xFromDelta = 32 * (step.get()-1) *2;
+        xToDelta = xFromDelta + 32 *2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
     public void onNextClick() {
         if (step.get() < dotsCount.get()) {
-//            moveRight();
+            moveRight();
             step.set(step.get() + 1);
-            step.set(step.get());
+            currentItem.set(step.get() - 1);
             stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
 
         } else {

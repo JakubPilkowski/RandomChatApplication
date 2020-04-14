@@ -51,7 +51,7 @@
                 android:layout_weight="1"
                 app:setOffScreenPageLimit="@{viewModel.dotsCount}"
                 android:overScrollMode="never"
-                app:currentItem="@{viewModel.step}"
+                app:currentItem="@{viewModel.currentItem}"
                 app:viewPagerAdapter="@{viewModel.pageListAdapter}" />
 
             <LinearLayout

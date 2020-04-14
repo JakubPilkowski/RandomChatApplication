@@ -9,7 +9,6 @@
         android:layout_width="wrap_content"
         android:orientation="horizontal"
         android:id="@+id/dots_container"
-        android:background="@drawable/border"
         android:layout_centerInParent="true"
         android:gravity="center"
         android:layout_height="wrap_content" >
@@ -49,7 +48,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:background="@drawable/border"
         android:orientation="horizontal"
         >
     </LinearLayout>

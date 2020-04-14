@@ -75,9 +75,9 @@ public class DotsView extends RelativeLayout {
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
                     params.setMargins(8, 0, 8, 0);
                     mainDotContainer.addView(mainDot, params);
-                    RelativeLayout.LayoutParams relativeParams = (LayoutParams) dotsMainView.getLayoutParams();
-                    relativeParams.alignWithParent = true;
-
+                    RelativeLayout.LayoutParams relativeParams = (LayoutParams) mainDotContainer.getLayoutParams();
+                    relativeParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+                    mainDotContainer.setLayoutParams(relativeParams);
                 }
             });
         }
