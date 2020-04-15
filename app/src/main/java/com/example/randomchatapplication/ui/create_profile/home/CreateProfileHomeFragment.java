@@ -1,47 +1,34 @@
-package com.example.randomchatapplication.ui.create_profile;
+package com.example.randomchatapplication.ui.create_profile.home;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseFragment;
-import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
+import com.example.randomchatapplication.databinding.CreateProfileHomeFragmentBinding;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 
-public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBinding, CreateProfileFragmentViewModel> implements Providers {
+public class CreateProfileHomeFragment extends BaseFragment<CreateProfileHomeFragmentBinding, CreateProfileHomeFragmentViewModel> implements Providers {
 
+    public static final String TAG = "CreateProfileHomeFragment";
 
-
-
-    public static CreateProfileFragment newInstance() {
-        return new CreateProfileFragment();
+    public static CreateProfileHomeFragment newInstance() {
+        return new CreateProfileHomeFragment();
     }
-
 
     @Override
     public int getLayoutRes() {
-        return R.layout.create_profile_fragment;
+        return R.layout.create_profile_home_fragment;
     }
 
     @Override
-    public Class<CreateProfileFragmentViewModel> getViewModelClass() {
-        return CreateProfileFragmentViewModel.class;
+    public Class<CreateProfileHomeFragmentViewModel> getViewModelClass() {
+        return CreateProfileHomeFragmentViewModel.class;
     }
 
     @Override
-    public void bindData(CreateProfileFragmentBinding binding) {
+    public void bindData(CreateProfileHomeFragmentBinding binding) {
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init();
@@ -79,7 +66,7 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
 
     @Override
     public ViewDataBinding getActivityOrFragmentBinding() {
-        return ((CreateProfileActivity)getActivity()).getBinding();
+        return ((CreateProfileActivity)getActivity()).binding;
     }
 
     @Override

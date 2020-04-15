@@ -1,4 +1,4 @@
-package com.example.randomchatapplication.ui.create_profile;
+package com.example.randomchatapplication.ui.create_profile.profile;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -10,13 +10,10 @@ import android.widget.NumberPicker;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
-import androidx.lifecycle.ViewModel;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
-import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
-import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
 import com.example.randomchatapplication.models.SpinnerItem;
 import com.example.randomchatapplication.ui.spinner.SpinnerFragment;
 
@@ -43,11 +40,7 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
     public ObservableBoolean wrapSelector = new ObservableBoolean(true);
     public ObservableField<NumberPicker.OnValueChangeListener> numberPickerListener = new ObservableField<>();
 
-//    public NumberPicker dayPicker;
-//    public NumberPicker monthPicker;
-//    public NumberPicker
     public void init(){
-//        dayPicker = ((CreateProfileFragmentBinding)getBinding()).dayPicker;
         textAmount.set("0/30");
         textChangeListener.set(new TextWatcher() {
             @Override
@@ -133,12 +126,10 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-        FrameLayout frameLayout = ((ActivityCreateProfileBinding)getFragmentBinding()).createProfileContainer;
-        frameLayout.setVisibility(View.VISIBLE);
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         getNavigator().attach(SpinnerFragment.newInstance(itemList),SpinnerFragment.TAG);
     }
 }

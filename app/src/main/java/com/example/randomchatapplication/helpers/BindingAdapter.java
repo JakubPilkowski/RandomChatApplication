@@ -1,12 +1,15 @@
 package com.example.randomchatapplication.helpers;
 
+import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.os.Build;
 import android.text.TextWatcher;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.ProgressBar;
 
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -59,6 +62,19 @@ public class BindingAdapter {
             });
         }
     }
+    @androidx.databinding.BindingAdapter("progressWithAnim")
+    public static void setProgressWithAnim(ProgressBar progressBar, int progress){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            progressBar.setProgress(progress,true);
+
+        }
+        else{
+            ObjectAnimator.ofInt(progressBar, "progress", progress)
+                    .setDuration(1500)
+                    .start();
+        }
+    }
+
     @androidx.databinding.BindingAdapter("viewPagerAdapter")
     public static void setViewPagerAdapter(ViewPager viewPager, FragmentPagerAdapter fragmentPagerAdapter) {
         viewPager.setAdapter(fragmentPagerAdapter);

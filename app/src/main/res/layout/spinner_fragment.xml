@@ -20,6 +20,7 @@
             android:id="@+id/app_bar"
             android:layout_width="match_parent"
             android:layout_height="200dp"
+            android:theme="@style/AppTheme.AppBarOverlay"
             android:fitsSystemWindows="true">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
@@ -33,7 +34,9 @@
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
+                    app:titleTextColor="@color/colorAccent"
                     android:layout_width="match_parent"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
                     android:layout_height="?attr/actionBarSize"
                     app:layout_collapseMode="pin" />
 
@@ -44,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
+            android:id="@+id/create_profile_recycler_view"
             android:paddingBottom="?attr/actionBarSize"
             app:layoutManager="@{viewModel.layoutManager}"
             app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"

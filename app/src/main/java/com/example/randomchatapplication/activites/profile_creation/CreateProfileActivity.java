@@ -12,6 +12,7 @@ import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
+import com.example.randomchatapplication.ui.create_profile.home.CreateProfileHomeFragment;
 
 public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBinding,CreateProfileViewModel> implements Providers {
 
@@ -21,6 +22,7 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init();
+        navigator.attach(CreateProfileHomeFragment.newInstance(), CreateProfileHomeFragment.TAG);
     }
 
     @Override

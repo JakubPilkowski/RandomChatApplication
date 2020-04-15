@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.ui.spinner;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -51,10 +52,22 @@ public class SpinnerFragment extends BaseFragment<SpinnerFragmentBinding, Spinne
 
     @Override
     public void bindData(SpinnerFragmentBinding binding) {
-            viewModel.setProviders(this);
-            binding.setViewModel(viewModel);
-            viewModel.init(values);
+        viewModel.setProviders(this);
+        binding.setViewModel(viewModel);
+        viewModel.init(values);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        Toolbar toolbar = view.findViewById(R.id.toolbar);
+        ((CreateProfileActivity) getActivity()).setSupportActionBar(toolbar);
+        ((CreateProfileActivity) getActivity()).getSupportActionBar().setTitle("Orientacja");
+        ((CreateProfileActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((CreateProfileActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+    }
+
+
 
     @Override
     public int getToolbarType() {
@@ -78,7 +91,7 @@ public class SpinnerFragment extends BaseFragment<SpinnerFragmentBinding, Spinne
 
     @Override
     public Navigator getNavigator() {
-        return ((CreateProfileActivity)getActivity()).navigator;
+        return ((CreateProfileActivity) getActivity()).navigator;
     }
 
     @Override
@@ -88,7 +101,7 @@ public class SpinnerFragment extends BaseFragment<SpinnerFragmentBinding, Spinne
 
     @Override
     public ViewDataBinding getActivityOrFragmentBinding() {
-        return ((CreateProfileActivity)getActivity()).binding;
+        return ((CreateProfileActivity) getActivity()).binding;
     }
 
     @Override
