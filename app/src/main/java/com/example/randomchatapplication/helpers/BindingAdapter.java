@@ -9,6 +9,9 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 
 import com.bumptech.glide.Glide;
@@ -111,4 +114,22 @@ public class BindingAdapter {
     public static void setNumberPickerListener(NumberPicker numberPicker, NumberPicker.OnValueChangeListener listener){
         numberPicker.setOnValueChangedListener(listener);
     }
+
+    @androidx.databinding.BindingAdapter("recyclerViewAdapter")
+    public static void setRecyclerViewAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
+    }
+
+    @androidx.databinding.BindingAdapter("layoutManager")
+    public static void setLayoutManager(RecyclerView recyclerView, String type) {
+        switch (type){
+            case "LinearLayoutManager":
+                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+                break;
+            case "GridLayoutManager":
+                recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
+                break;
+        }
+    }
+
 }

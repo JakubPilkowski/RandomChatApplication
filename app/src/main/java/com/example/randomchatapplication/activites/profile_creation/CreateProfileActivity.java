@@ -30,7 +30,7 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     @Override
     public int getIdFragmentContainer() {
-        return 0;
+        return R.id.create_profile_container;
     }
 
     @Override

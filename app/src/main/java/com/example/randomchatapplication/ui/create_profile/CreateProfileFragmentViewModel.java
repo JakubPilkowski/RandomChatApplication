@@ -3,6 +3,8 @@ package com.example.randomchatapplication.ui.create_profile;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.NumberPicker;
 
 import androidx.databinding.ObservableBoolean;
@@ -11,8 +13,15 @@ import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
+import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
+import com.example.randomchatapplication.models.SpinnerItem;
+import com.example.randomchatapplication.ui.spinner.SpinnerFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CreateProfileFragmentViewModel extends BaseViewModel {
     // TODO: Implement the ViewModel
@@ -113,5 +122,23 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
             }
         });
     }
-
+    public void onSelectClick(){
+        List<SpinnerItem> itemList = new ArrayList<>();
+        itemList.add(new SpinnerItem("hetero", "heteroseksualny","https://image.flaticon.com/icons/svg/2012/2012064.svg"));
+        itemList.add(new SpinnerItem("homo", "homoseksualny","https://image.flaticon.com/icons/svg/458/458860.svg"));
+        itemList.add(new SpinnerItem("bi", "biseksualny","https://image.flaticon.com/icons/svg/1864/1864625.svg"));
+        itemList.add(new SpinnerItem("tajemnica", "tajemnica", "https://image.flaticon.com/icons/svg/583/583673.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+//        itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
+        FrameLayout frameLayout = ((ActivityCreateProfileBinding)getFragmentBinding()).createProfileContainer;
+        frameLayout.setVisibility(View.VISIBLE);
+        getNavigator().attach(SpinnerFragment.newInstance(itemList),SpinnerFragment.TAG);
+    }
 }
