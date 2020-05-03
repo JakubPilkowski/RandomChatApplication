@@ -52,10 +52,10 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
             ((SpinnerItemBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
-        if (position+1 == getItemCount()) {
-            Log.d("recyclerview", "halo halo");
-            setBottomMargin(holder.itemView, (int) (24 * Resources.getSystem().getDisplayMetrics().density));
-        }
+//        if (position+1 == getItemCount()) {
+//            Log.d("recyclerview", "halo halo");
+//            setBottomMargin(holder.itemView, (int) (24 * Resources.getSystem().getDisplayMetrics().density));
+//        }
     }
 
 

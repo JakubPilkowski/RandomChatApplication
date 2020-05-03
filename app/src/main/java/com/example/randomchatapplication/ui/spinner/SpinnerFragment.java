@@ -60,11 +60,11 @@ public class SpinnerFragment extends BaseFragment<SpinnerFragmentBinding, Spinne
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        Toolbar toolbar = view.findViewById(R.id.toolbar);
-        ((CreateProfileActivity) getActivity()).setSupportActionBar(toolbar);
-        ((CreateProfileActivity) getActivity()).getSupportActionBar().setTitle("Orientacja");
-        ((CreateProfileActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((CreateProfileActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
+//        Toolbar toolbar = view.findViewById(R.id.toolbar);
+//        ((CreateProfileActivity) getActivity()).setSupportActionBar(toolbar);
+//        ((CreateProfileActivity) getActivity()).getSupportActionBar().setTitle("Orientacja");
+//        ((CreateProfileActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        ((CreateProfileActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_arrow_back);
     }
 
 

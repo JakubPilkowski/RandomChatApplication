@@ -130,6 +130,6 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-        getNavigator().attach(SpinnerFragment.newInstance(itemList),SpinnerFragment.TAG);
+        getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList),SpinnerFragment.TAG);
     }
 }

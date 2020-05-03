@@ -61,6 +61,23 @@ public class Navigator {
         }
     }
 
+    public void showSpinnerView(BaseFragment fragment, String tag){
+        deleteUselessFragments(tag);
+        if (!isAvailable(tag)) {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .add(fragmentContainer, fragment, tag)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+                    .commit();
+        } else {
+//            activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
+//                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+//                    .commit();
+        }
+    }
+
     public void showLoginScreen(){
 //        deleteUselessFragments(LoginFragment.TAG);
     }
