@@ -1,43 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout android:layout_width="match_parent"
+<LinearLayout android:layout_width="match_parent"
     android:layout_height="450dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginStart="24dp"
     android:layout_marginEnd="24dp"
+    android:id="@+id/drag_parent"
+    android:orientation="vertical"
+    android:gravity="center_horizontal"
     android:layout_marginBottom="24dp"
     android:background="@drawable/radius_background"
     xmlns:android="http://schemas.android.com/apk/res/android">
-    <View
-        android:id="@+id/belka"
-        android:layout_width="150dp"
-        android:layout_height="6dp"
-        android:layout_centerHorizontal="true"
-        android:background="@drawable/belka"
-        android:layout_marginTop="18dp"
-        android:layout_marginBottom="12dp"
-        >
 
-    </View>
     <!--            <View-->
     <!--                android:layout_width="match_parent"-->
     <!--                android:layout_height="12dp"-->
     <!--                android:layout_alignParentTop="true"-->
     <!--                android:background="@drawable/gradient_fade_bottom"-->
     <!--                />-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:overScrollMode="never"
-        android:layout_below="@+id/belka"
-        android:id="@+id/create_profile_recycler_view"
-        app:layoutManager="@{viewModel.layoutManager}"
-        app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        />
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:overScrollMode="never"-->
+<!--        android:layout_below="@+id/belka"-->
+<!--        android:id="@+id/create_profile_recycler_view"-->
+<!--        app:layoutManager="@{viewModel.layoutManager}"-->
+<!--        app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"-->
+<!--        app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
+<!--        />-->
     <!--            <View-->
     <!--                android:layout_width="match_parent"-->
     <!--                android:layout_height="12dp"-->
     <!--                android:layout_alignParentBottom="true"-->
     <!--                android:background="@drawable/gradient_fade_bottom"-->
     <!--                />-->
-</RelativeLayout>
+</LinearLayout>

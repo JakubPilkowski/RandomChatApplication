@@ -26,5 +26,6 @@ public class SpinnerViewModel extends BaseViewModel {
         spinnerAdapter.set(adapter);
         layoutManager.set("LinearLayoutManager");
         adapter.setItems(values);
+//        ((SpinnerFragmentBinding)getBinding()).dragView.maximize();
     }
 }

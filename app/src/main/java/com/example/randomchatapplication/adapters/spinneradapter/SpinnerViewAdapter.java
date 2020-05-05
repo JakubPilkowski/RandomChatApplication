@@ -23,7 +23,7 @@ import java.util.List;
 
 public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, BaseViewHolder> {
     private List<SpinnerAdapterViewModel> viewModels = new ArrayList<>();
-    private int lastPosition = -1;
+
 
 
     @Override
@@ -52,13 +52,11 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
             ((SpinnerItemBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
-//        if (position+1 == getItemCount()) {
-//            Log.d("recyclerview", "halo halo");
-//            setBottomMargin(holder.itemView, (int) (24 * Resources.getSystem().getDisplayMetrics().density));
-//        }
+        if (position+1 == getItemCount()) {
+            Log.d("recyclerview", "halo halo");
+            setBottomMargin(holder.itemView, (int) (24 * Resources.getSystem().getDisplayMetrics().density));
+        }
     }
-
-
 
     private static void setBottomMargin(View view, int bottomMargin) {
         if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
@@ -67,27 +65,22 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
             view.requestLayout();
         }
     }
-    private void setAnimation(View viewToAnimate)
-    {
-            Animation animation = AnimationUtils.loadAnimation(viewToAnimate.getContext(), android.R.anim.fade_in);
-            viewToAnimate.startAnimation(animation);
-    }
 
-    @Override
-    public void onViewDetachedFromWindow(@NonNull BaseViewHolder holder) {
-        Log.d("recyclerview", "detached");
-        holder.itemView.clearAnimation();
-        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.fade_out);
-        holder.itemView.startAnimation(animation);
-    }
-
-    @Override
-    public void onViewAttachedToWindow(@NonNull BaseViewHolder holder) {
-        Log.d("recyclerview", "atached");
-        holder.itemView.clearAnimation();
-        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.fade_in);
-        holder.itemView.startAnimation(animation);
-    }
+//    @Override
+//    public void onViewDetachedFromWindow(@NonNull BaseViewHolder holder) {
+//        Log.d("recyclerview", "detached");
+//        holder.itemView.clearAnimation();
+//        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.fade_out);
+//        holder.itemView.startAnimation(animation);
+//    }
+//
+//    @Override
+//    public void onViewAttachedToWindow(@NonNull BaseViewHolder holder) {
+//        Log.d("recyclerview", "atached");
+//        holder.itemView.clearAnimation();
+//        Animation animation = AnimationUtils.loadAnimation(holder.itemView.getContext(), android.R.anim.fade_in);
+//        holder.itemView.startAnimation(animation);
+//    }
 
 
 }

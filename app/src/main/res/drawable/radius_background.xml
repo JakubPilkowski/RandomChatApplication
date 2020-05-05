@@ -1,15 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-
 <shape android:shape="rectangle"
     xmlns:android="http://schemas.android.com/apk/res/android">
-            <gradient android:type="radial"
-                android:gradientRadius="1000dp"
-                android:startColor="@color/colorAccent"
-                android:endColor="@color/colorGrayDot"
-                />
+            <solid android:color="@color/colorAccent"/>
             <corners android:radius="12dp"
-
                 />
             <stroke android:color="@color/colorPrimary"
                 android:width="2dp"
