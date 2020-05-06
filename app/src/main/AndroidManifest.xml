@@ -15,10 +15,13 @@
             android:name=".activites.profile_creation.CreateProfileActivity"
             android:windowSoftInputMode="adjustNothing"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/CreateProfileTheme"
+            ></activity>
         <activity
             android:name=".activites.authentication.AuthActivity"
-            android:screenOrientation="portrait" />
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            />
         <activity
             android:name=".activites.main.MainActivity"
             android:screenOrientation="portrait"

@@ -4,27 +4,28 @@ import android.content.res.Resources;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
-
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.databinding.SpinnerItemBinding;
+import com.example.randomchatapplication.interfaces.DragViewListener;
+import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.SpinnerItem;
+import com.example.randomchatapplication.ui.spinner.SpinnerViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, BaseViewHolder> {
     private List<SpinnerAdapterViewModel> viewModels = new ArrayList<>();
 
+    private SpinnerViewListener spinnerViewListener;
+    private DragViewListener dragViewListener;
 
+    public void setSpinnerViewListener(SpinnerViewListener spinnerViewListener) {
+        this.spinnerViewListener = spinnerViewListener;
+    }
 
     @Override
     public int getItemLayoutRes() {
@@ -42,6 +43,8 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
         SpinnerAdapterViewModel viewModel;
         if(viewModels.size()<=position){
             viewModel = new SpinnerAdapterViewModel();
+            viewModel.setSpinnerViewListener(spinnerViewListener);
+            viewModel.setDragViewListener(dragViewListener);
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((SpinnerItemBinding)holder.getBinding()).setViewModel(viewModel);
@@ -64,6 +67,10 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
             params.setMargins(params.leftMargin, params.topMargin, params.rightMargin, bottomMargin);
             view.requestLayout();
         }
+    }
+
+    public void setDragViewListener(DragViewListener dragViewListener) {
+        this.dragViewListener = dragViewListener;
     }
 
 //    @Override

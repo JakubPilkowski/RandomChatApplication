@@ -4,6 +4,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextWatcher;
+import android.view.View;
 import android.view.ViewTreeObserver;
 import android.webkit.WebView;
 import android.widget.EditText;
@@ -146,6 +147,11 @@ public class BindingAdapter {
                 recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
                 break;
         }
+    }
+
+    @androidx.databinding.BindingAdapter("enabled")
+    public static void setEnabled(View view, boolean enabled){
+        view.setEnabled(enabled);
     }
 
 }

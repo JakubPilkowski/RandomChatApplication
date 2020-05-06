@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.custom_views;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -16,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.interfaces.DragViewListener;
 
 import java.security.MessageDigest;
 
@@ -31,41 +33,23 @@ public class DragView extends ViewGroup {
     private int mDragRange;
     private int mTop;
     private float mDragOffset;
-    private View recyclerView;
     private View container;
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         belka = findViewById(R.id.bell);
-        recyclerView = findViewById(R.id.drag_recycler_view);
         container = findViewById(R.id.drag_container);
     }
 
     public DragView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         mDragHelper = ViewDragHelper.create(this, 1.0f, new DragHelperCallback());
-//        initControl(context);
-
     }
-
-    private void initControl(Context context)
-    {
-//        LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        inflater.inflate(getLayoutRes(), this);
-//        assignUiElements();
+    private DragViewListener dragViewListener;
+    public void setDragViewListener(DragViewListener dragViewListener){
+        this.dragViewListener = dragViewListener;
     }
-
-   // public int getLayoutRes(){
-     //   return R.layout.spinner_fragment;
-    //}
-
-//    public void assignUiElements(){
-//        belka = findViewById(R.id.belka);
-//        fakeRecyclerView = findViewById(R.id.recycler_fake_view);
-//        dragParent = findViewById(R.id.drag_parent);
-//    }
-
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -100,15 +84,12 @@ public class DragView extends ViewGroup {
             case MotionEvent.ACTION_UP: {
                 final float dy = y - mInitialMotionY;
                 final int slop = mDragHelper.getTouchSlop();
-                Log.d("youtubeLayout", "dy" + dy);
-                Log.d("youtubeLayout", "slop" + slop);
-                if (dy > (slop * 5)) {
-                    Log.d("youtubeLayout", "w dół");
+
+                if (dy > (slop * 10)) {
                         smoothSlideTo(1f);
                 }
                 else{
                     smoothSlideTo(0f);
-                    Log.d("youtubeLayout", "w góre");
                 }
                 break;
             }
@@ -129,6 +110,9 @@ public class DragView extends ViewGroup {
         }
         return false;
     }
+
+
+
     private class DragHelperCallback extends ViewDragHelper.Callback{
 
         @Override
@@ -142,12 +126,11 @@ public class DragView extends ViewGroup {
 
             mDragOffset = (float) top / mDragRange;
 //
-//            mHeaderView.setPivotX(mHeaderView.getWidth());
-//            mHeaderView.setPivotY(mHeaderView.getHeight());
-//            mHeaderView.setScaleX(1 - mDragOffset / 2);
-//            mHeaderView.setScaleY(1 - mDragOffset / 2);
+            container.setPivotX(container.getWidth()/2);
+            container.setPivotY(container.getHeight()/2);
+            container.setScaleX(1 - mDragOffset / 10);
+
 //
-//            mDescView.setAlpha(1 - mDragOffset);
 
             requestLayout();
 
@@ -163,6 +146,15 @@ public class DragView extends ViewGroup {
             final int topBound = getPaddingTop();
             final int bottomBound = getHeight();
             return Math.min(Math.max(top, topBound), bottomBound);
+        }
+
+        @Override
+        public void onViewDragStateChanged(int state) {
+
+            if(state==0 && mTop > 0){
+                dragViewListener.onClose();
+            }
+            super.onViewDragStateChanged(state);
         }
 
         @Override
@@ -204,18 +196,6 @@ public class DragView extends ViewGroup {
                 mTop + container.getMeasuredHeight()
         );
 
-//        belka.layout(
-//                0,
-//                mTop,
-//                r,
-//                mTop + belka.getMeasuredHeight()
-//        );
-//        recyclerView.layout(
-//                0,
-//                mTop + belka.getMeasuredHeight(),
-//                r,
-//                mTop + b
-//        );
 
 
 

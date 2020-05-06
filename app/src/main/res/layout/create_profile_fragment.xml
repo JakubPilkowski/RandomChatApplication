@@ -8,17 +8,22 @@
             name="viewModel"
             type="com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragmentViewModel" />
     </data>
+    <ScrollView
+        android:id="@+id/create_profile_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        android:background="@color/colorAccent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:id="@+id/info_container"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="24dp"
             android:orientation="vertical">
-
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/spinner_container"
-                />
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -55,6 +60,7 @@
                     android:layout_marginTop="2dp"
                     android:background="@drawable/border"
                     android:hint="Imię"
+                    app:enabled="@{viewModel.touchEnabled}"
                     android:imeOptions="actionNext"
                     android:inputType="text"
                     android:maxLength="@{viewModel.maxLength}"
@@ -95,6 +101,7 @@
                     app:bar_highlight_color="@color/colorPrimary"
                     app:data_type="_integer"
                     app:gap="2"
+                    app:enabled="@{viewModel.touchEnabled}"
                     app:max_value="60"
                     app:min_value="18"
                     app:seekbarListener="@{viewModel.seekBarListener}"
@@ -179,14 +186,17 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
+                        android:layout_marginStart="24dp"
+                        android:layout_marginEnd="24dp"
                         android:background="@drawable/rounded_border"
                         android:orientation="horizontal"
-                        android:weightSum="4">
+                        android:weightSum="3">
 
                         <NumberPicker
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="1"
+                            app:enabled="@{viewModel.touchEnabled}"
                             android:descendantFocusability="blocksDescendants"
                             android:tag="YearPicker"
                             android:theme="@style/AppTheme.Picker"
@@ -203,10 +213,11 @@
 
                         <NumberPicker
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:descendantFocusability="blocksDescendants"
                             android:tag="MonthPicker"
+                            app:enabled="@{viewModel.touchEnabled}"
                             android:theme="@style/AppTheme.Picker"
                             app:maxNumberPickerValue="@{viewModel.maxMonthValue}"
                             app:minNumberPickerValue="@{viewModel.minMonthValue}"
@@ -221,10 +232,11 @@
 
                         <NumberPicker
                             android:layout_width="0dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:descendantFocusability="blocksDescendants"
                             android:tag="DayPicker"
+                            app:enabled="@{viewModel.touchEnabled}"
                             android:theme="@style/AppTheme.Picker"
                             app:maxNumberPickerValue="@{viewModel.maxDayValue}"
                             app:minNumberPickerValue="@{viewModel.minDayValue}"
@@ -254,8 +266,9 @@
                     android:layout_marginTop="2dp"
                     android:background="@drawable/spinner_item_drawable"
                     android:padding="8dp"
+                    app:enabled="@{viewModel.touchEnabled}"
                     android:stateListAnimator="@null"
-                    android:text="Homoseksualny"
+                    android:text="@{viewModel.spinnerValue}"
                     android:onClick="@{()-> viewModel.onSelectClick()}"
                     android:textAllCaps="false"
                     android:textAlignment="center"
@@ -279,10 +292,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+                    app:enabled="@{viewModel.touchEnabled}"
+
                     android:background="@drawable/spinner_item_drawable"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="Homoseksualny"
+                    android:text="@{viewModel.spinnerValue}"
                     android:onClick="@{()-> viewModel.onSelectClick()}"
                     android:textAllCaps="false"
                     android:textAlignment="center"
@@ -306,11 +321,13 @@
                 <Button
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    app:enabled="@{viewModel.touchEnabled}"
+
                     android:layout_marginTop="2dp"
                     android:background="@drawable/spinner_item_drawable"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="Homoseksualny"
+                    android:text="@{viewModel.spinnerValue}"
                     android:onClick="@{()-> viewModel.onSelectClick()}"
                     android:textAllCaps="false"
                     android:textAlignment="center"
@@ -334,10 +351,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
+
+                    app:enabled="@{viewModel.touchEnabled}"
                     android:background="@drawable/spinner_item_drawable"
                     android:padding="8dp"
                     android:stateListAnimator="@null"
-                    android:text="Homoseksualny"
+                    android:text="@{viewModel.spinnerValue}"
                     android:onClick="@{()-> viewModel.onSelectClick()}"
                     android:textAllCaps="false"
                     android:textAlignment="center"
@@ -365,7 +384,8 @@
                     android:stateListAnimator="@null"
                     android:background="@drawable/spinner_item_drawable"
                     android:padding="8dp"
-                    android:text="Homoseksualny"
+                    app:enabled="@{viewModel.touchEnabled}"
+                    android:text="@{viewModel.spinnerValue}"
                     android:onClick="@{()-> viewModel.onSelectClick()}"
                     android:textAllCaps="false"
                     android:textAlignment="center"
@@ -373,4 +393,5 @@
                     android:textSize="18sp" />
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 </layout>

@@ -11,7 +11,7 @@ import com.example.randomchatapplication.navigation.Navigator;
 
 public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBinding, CreateProfileFragmentViewModel> implements Providers {
 
-
+    public static final String TAG = "CreateProfileFragment";
 
 
     public static CreateProfileFragment newInstance() {
@@ -34,6 +34,7 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init();
+
     }
 
     @Override

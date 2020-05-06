@@ -12,16 +12,20 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
+import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
+import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
+import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.SpinnerItem;
 import com.example.randomchatapplication.ui.spinner.SpinnerFragment;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProfileFragmentViewModel extends BaseViewModel {
+public class CreateProfileFragmentViewModel extends BaseViewModel implements SpinnerViewListener {
     // TODO: Implement the ViewModel
+    public ObservableBoolean touchEnabled = new ObservableBoolean(true);
     public ObservableField<String> textAmount = new ObservableField<>();
     public ObservableInt maxLength = new ObservableInt(30);
     public ObservableField<TextWatcher> textChangeListener = new ObservableField<>();
@@ -39,9 +43,11 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
     public ObservableInt yearValue = new ObservableInt(2002);
     public ObservableBoolean wrapSelector = new ObservableBoolean(true);
     public ObservableField<NumberPicker.OnValueChangeListener> numberPickerListener = new ObservableField<>();
+    public ObservableField<String> spinnerValue = new ObservableField<>();
 
     public void init(){
         textAmount.set("0/30");
+        spinnerValue.set("heteroseksualny");
         textChangeListener.set(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -117,6 +123,7 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
     }
     public void onSelectClick(){
         List<SpinnerItem> itemList = new ArrayList<>();
+
         itemList.add(new SpinnerItem("hetero", "heteroseksualny","https://image.flaticon.com/icons/svg/2012/2012064.svg"));
         itemList.add(new SpinnerItem("homo", "homoseksualny","https://image.flaticon.com/icons/svg/458/458860.svg"));
         itemList.add(new SpinnerItem("bi", "biseksualny","https://image.flaticon.com/icons/svg/1864/1864625.svg"));
@@ -130,6 +137,15 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
         itemList.add(new SpinnerItem("cos innego","cos innego", "https://image.flaticon.com/icons/svg/724/724979.svg"));
-        getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList),SpinnerFragment.TAG);
+        getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList,this),SpinnerFragment.TAG);
+//        touchEnabled.set(false);
+
+
+    }
+
+    @Override
+    public void onItemClick(SpinnerItem spinnerItem) {
+        Log.d("onItemClick", "click");
+        spinnerValue.set(spinnerItem.getValue());
     }
 }
