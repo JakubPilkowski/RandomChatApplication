@@ -44,7 +44,7 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
 
     @Override
     public int getBackPressType() {
-        return 0;
+        return 2;
     }
 
     @Override
