@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+    >
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.spinner.SpinnerViewModel" />
+    </data>
+
+    <LinearLayout xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlackOpacity"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical"
+        android:gravity="bottom|center_horizontal"
+        tools:context=".ui.spinner.SpinnerFragment"
+
+
+        >
+
+        <com.example.randomchatapplication.custom_views.DragView
+            android:layout_width="match_parent"
+            android:layout_height="450dp"
+            android:id="@+id/drag_view"
+            android:layout_marginBottom="12dp"
+            >
+            <RelativeLayout
+                android:id="@+id/drag_container"
+                android:layout_width="match_parent"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@drawable/radius_background"
+                >
+                <View
+                    android:id="@+id/bell"
+                    android:layout_width="150dp"
+                    android:layout_height="8dp"
+                    android:padding="24dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@drawable/belka"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="12dp"
+                    />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/bell"
+                    android:overScrollMode="never"
+                    android:layout_marginBottom="12dp"
+                    android:id="@+id/drag_recycler_view"
+                    app:layoutManager="@{viewModel.layoutManager}"
+                    app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"
+                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:id="@+id/fade_anim_top"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_below="@+id/bell"
+                    android:background="@drawable/gradient_fade_top"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:id="@+id/fade_anim_bottom"
+                    android:layout_height="20dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginBottom="12dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@drawable/gradient_fade_bottom"
+                    />
+            </RelativeLayout>
+
+        </com.example.randomchatapplication.custom_views.DragView>
+
+
+
+    </LinearLayout>
+</layout>

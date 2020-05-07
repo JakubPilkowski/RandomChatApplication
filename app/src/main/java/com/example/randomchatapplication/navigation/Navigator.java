@@ -2,10 +2,12 @@ package com.example.randomchatapplication.navigation;
 
 import android.util.Log;
 
+import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseFragment;
 
 public class Navigator {
@@ -61,13 +63,81 @@ public class Navigator {
         }
     }
 
+    public void showSpinnerView(BaseFragment fragment, String tag){
+//        fragment.show(activity.getSupportFragmentManager(),tag);
+//        fragment.setCancelable(false);
+
+        deleteUselessFragments(tag);
+        if (!isAvailable(tag)) {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .replace(R.id.spinner_container, fragment, tag)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+                    .commit();
+        } else {
+            activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(R.id.spinner_container, fragment, tag)
+                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+                    .commit();
+        }
+    }
+
     public void showLoginScreen(){
 //        deleteUselessFragments(LoginFragment.TAG);
     }
 
+    public void addCreateProfileViewToBackStack(BaseFragment fragment, String tag){
+        deleteUselessFragments(tag);
+        if(tag.equals("CreateProfileFragment1")){
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .add(fragmentContainer, fragment, tag)
+                    .show(fragment)
+                    .commit();
+        }
+        else{
+            if (!isAvailable(tag)) {
+                activity.getSupportFragmentManager()
+                        .beginTransaction()
+                        .addToBackStack(tag)
+                        .add(fragmentContainer, fragment, tag)
+                        .hide(fragment)
+                        .commit();
+            } else {
+                activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+                activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
+                        .setTransition(FragmentTransaction.TRANSIT_NONE)
+                        .commit();
+            }
+        }
+    }
+
+    public void showCreateProfile(String tag){
+        BaseFragment fragment = (BaseFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
+        if(isAvailable(tag) && fragment != null){
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .show(fragment)
+                    .commit();
+        }
+
+    }
+
+    public void hideCreateProfile(String tag){
+        BaseFragment fragment = (BaseFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
+        if(isAvailable(tag) && fragment != null){
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .hide(fragment)
+                    .commit();
+        }
+    }
+
+
     public void setFragmentContainer(int fragmentContainer) {
         this.fragmentContainer = fragmentContainer;
-
     }
 //    public void showNoticeBoard() {
 //        deleteUselessFragments(NoticeBoardFragment.TAG);

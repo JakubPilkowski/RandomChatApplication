@@ -46,6 +46,9 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
                     case 1:
                         navigator.clearBackStack();
                         break;
+                    case 2:
+                        finish();
+                        break;
                 }
 
         }

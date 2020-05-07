@@ -83,10 +83,7 @@
                     android:maxLines="1"
                     android:nextFocusForward="@id/login_password_field"
                     android:imeOptions="actionNext"
-                    android:paddingStart="6dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="6dp"
-                    android:paddingBottom="6dp"
+                    android:padding="6dp"
                     android:textColor="@color/colorPrimaryDark" />
                 <requestFocus />
             </RelativeLayout>
@@ -124,10 +121,7 @@
                     android:inputType="textPassword"
                     android:maxLength="30"
                     android:maxLines="1"
-                    android:paddingStart="6dp"
-                    android:paddingTop="6dp"
-                    android:paddingEnd="6dp"
-                    android:paddingBottom="6dp"
+                    android:padding="6dp"
                     android:textColor="@color/colorPrimaryDark" />
             </RelativeLayout>
 
