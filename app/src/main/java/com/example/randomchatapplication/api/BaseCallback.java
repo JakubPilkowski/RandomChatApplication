@@ -1,6 +1,8 @@
 package com.example.randomchatapplication.api;
 
 
+import android.util.Log;
+
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -19,6 +21,7 @@ public abstract class BaseCallback<T> implements Callback<T> {
 //        if(code == 400){
 //            onError("Bad request");
 //        }
+
         if(code == 401){
             onError("Unauthorized");
         }
@@ -41,7 +44,7 @@ public abstract class BaseCallback<T> implements Callback<T> {
 
     @Override
     public void onFailure(Call<T> call, Throwable t) {
-            if(t.getCause() != null){
+            if(t.getMessage() != null){
                 onError(t.getMessage());
             }
     }

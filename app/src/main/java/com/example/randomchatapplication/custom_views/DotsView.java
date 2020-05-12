@@ -46,7 +46,9 @@ public class DotsView extends RelativeLayout {
 
     public void setDotsCount(int dotsCount) {
         this.dotsCount = dotsCount;
-        setUpAdapter();
+        if(dotsCount>0){
+            setUpAdapter();
+        }
     }
     public void setUpAdapter() {
 

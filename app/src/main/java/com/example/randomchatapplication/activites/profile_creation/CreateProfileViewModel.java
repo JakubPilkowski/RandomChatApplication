@@ -13,8 +13,13 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
+import com.example.randomchatapplication.api.BaseCallback;
+import com.example.randomchatapplication.api.MockyConnection;
+import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
+import com.example.randomchatapplication.helpers.FieldsHelper;
+import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragment;
 
 public class CreateProfileViewModel extends BaseViewModel {
@@ -23,6 +28,7 @@ public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt dotsCount = new ObservableInt();
     public ObservableInt step = new ObservableInt();
     public ObservableInt currentItem = new ObservableInt();
+    public ObservableField<String> stepNumber = new ObservableField<>();
     public ObservableField<String> stepTitle = new ObservableField<>();
     public ObservableBoolean swipeEnabled = new ObservableBoolean(false);
     public ImageView dot;
@@ -36,17 +42,36 @@ public class CreateProfileViewModel extends BaseViewModel {
 //        pageListAdapter.addFragment(CreateProfileFragment.newInstance());
 //        this.pageListAdapter.set(pageListAdapter);
 
-        getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+"1");
-        getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+"2");
-        getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+"3");
-        getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+"4");
 
-        dotsCount.set(4);
-        step.set(1);
-//        getNavigator().showCreateProfile(CreateProfileFragment.TAG+"1");
-        stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
+
+
+        MockyConnection.get().getFields(callback);
+
+
     }
 
+    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
+        @Override
+        public void onSuccess(FieldsResponse response) {
+            Log.d("response", response.getKroki().toString());
+            FieldsHelper.init(response.getPola(), response.getKroki());
+            int size = response.getKroki().size();
+            for(int i =0; i<size;i++){
+                getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+(size+1));
+            }
+
+            dotsCount.set(size);
+            step.set(1);
+//        getNavigator().showCreateProfile(CreateProfileFragment.TAG+"1");
+            stepTitle.set(FieldsHelper.get().getSteps().get(step.get()-1).getName());
+            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
+        }
+
+        @Override
+        public void onError(String message) {
+            Log.d("response", "error "+message);
+        }
+    };
 
     public void onBackClick() {
         if (step.get() > 1) {
@@ -56,7 +81,8 @@ public class CreateProfileViewModel extends BaseViewModel {
             getNavigator().showCreateProfile(CreateProfileFragment.TAG+step.get());
             getNavigator().hideCreateProfile(CreateProfileFragment.TAG+(step.get()+1));
             //            currentItem.set(step.get() - 1);
-            stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
+            stepTitle.set(FieldsHelper.get().getSteps().get(step.get()-1).getName());
+            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
 
         } else {
             getActivity().finish();
@@ -74,7 +100,6 @@ public class CreateProfileViewModel extends BaseViewModel {
     }
 
     private void translateAnimation(float fromXDelta, float xToDelta) {
-        Log.d("dane", fromXDelta + " " +xToDelta);
         dot = ((ActivityCreateProfileBinding)getBinding()).dotsView.getMainDot();
         Animation move = new TranslateAnimation(fromXDelta, xToDelta, 0, 0);
         move.setDuration(250);
@@ -100,7 +125,8 @@ public class CreateProfileViewModel extends BaseViewModel {
             getNavigator().showCreateProfile(CreateProfileFragment.TAG+step.get());
             getNavigator().hideCreateProfile(CreateProfileFragment.TAG+(step.get()-1));
 //            currentItem.set(step.get() - 1);
-            stepTitle.set("Krok " + step.get() + "/" + dotsCount.get());
+            stepTitle.set(FieldsHelper.get().getSteps().get(step.get()-1).getName());
+            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
 
         } else {
             //rozpocznij pobranie danych i przejscie do ekranu głównego

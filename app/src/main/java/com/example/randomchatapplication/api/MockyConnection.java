@@ -1,5 +1,7 @@
 package com.example.randomchatapplication.api;
 
+import android.util.Log;
+
 import com.example.randomchatapplication.api.responses.FieldsResponse;
 
 import retrofit2.Call;
@@ -24,8 +26,8 @@ public class MockyConnection {
 
 
     public void getFields(BaseCallback<FieldsResponse> callback){
-       Call<FieldsResponse> call = mockyClient.getService().getFields();
-       call.enqueue(callback);
+        Call<FieldsResponse> call = mockyClient.getService().getFields();
+        call.enqueue(callback);
     }
 
 }

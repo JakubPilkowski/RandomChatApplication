@@ -35,7 +35,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         setTheme(R.style.AppTheme);
         UserPreferences.initInstance(getApplicationContext());
         MockyConnection.init();
-        LoginConnection.init();
+//        LoginConnection.init();
         super.onCreate(savedInstanceState);
     }
 
