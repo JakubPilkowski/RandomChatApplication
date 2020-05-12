@@ -10,6 +10,8 @@ import android.os.Handler;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
+import com.example.randomchatapplication.api.LoginConnection;
+import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityMainBinding;
@@ -32,6 +34,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         UserPreferences.initInstance(getApplicationContext());
+        MockyConnection.init();
+        LoginConnection.init();
         super.onCreate(savedInstanceState);
     }
 
