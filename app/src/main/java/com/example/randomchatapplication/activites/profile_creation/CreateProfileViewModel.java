@@ -19,6 +19,7 @@ import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.FieldsHelper;
+import com.example.randomchatapplication.helpers.ProgressDialogManager;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragment;
 
@@ -47,7 +48,7 @@ public class CreateProfileViewModel extends BaseViewModel {
 
         MockyConnection.get().getFields(callback);
 
-
+        ProgressDialogManager.get().show();
     }
 
     private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {

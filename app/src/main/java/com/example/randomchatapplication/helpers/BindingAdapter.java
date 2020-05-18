@@ -1,11 +1,14 @@
 package com.example.randomchatapplication.helpers;
 
+import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextWatcher;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -22,6 +25,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
 
@@ -153,5 +157,7 @@ public class BindingAdapter {
     public static void setEnabled(View view, boolean enabled){
         view.setEnabled(enabled);
     }
+
+
 
 }

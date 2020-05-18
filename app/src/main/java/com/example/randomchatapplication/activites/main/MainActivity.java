@@ -15,6 +15,7 @@ import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityMainBinding;
+import com.example.randomchatapplication.helpers.ProgressDialogManager;
 import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
@@ -35,6 +36,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         setTheme(R.style.AppTheme);
         UserPreferences.initInstance(getApplicationContext());
         MockyConnection.init();
+        //ProgressDialogManager.init(getApplicationContext());
 //        LoginConnection.init();
         super.onCreate(savedInstanceState);
     }
