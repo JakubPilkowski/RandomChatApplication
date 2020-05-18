@@ -2,6 +2,11 @@ package com.example.randomchatapplication.helpers;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
+import android.widget.RelativeLayout;
 
 import com.example.randomchatapplication.R;
 
@@ -24,8 +29,28 @@ public class ProgressDialogManager {
 
     public void show(){
         dismiss();
+        RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.progress_dialog, null, false);
+        View imageView = layout.getChildAt(1);
+//        Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_2);
+//        animation.setAnimationListener(new Animation.AnimationListener() {
+//            @Override
+//            public void onAnimationStart(Animation animation) {
+//
+//            }
+//
+//            @Override
+//            public void onAnimationEnd(Animation animation) {
+//                animation.start();
+//            }
+//
+//            @Override
+//            public void onAnimationRepeat(Animation animation) {
+//                animation.start();
+//            }
+//        });
+//        imageView.setAnimation(animation);
         dialog = new AlertDialog.Builder(context, R.style.ProgressDialogTheme)
-                .setView(R.layout.progress_dialog)
+                .setView(layout)
                 .setCancelable(false)
                 .show();
     }

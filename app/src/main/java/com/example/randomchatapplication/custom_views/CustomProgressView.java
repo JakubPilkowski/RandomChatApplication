@@ -9,8 +9,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.graphics.Shader;
+import android.graphics.SweepGradient;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -31,15 +34,10 @@ public class CustomProgressView extends View {
 
     private Paint mPaint;
     private RectF mRect;
-
-    //private float mThickness;
-    private int mAnimDuration= 3000;
-    private int mSteps = 3;
-    private float mThickness = 15f;
+    private float mThickness = 17f;
 
 
     private float mIndeterminateSweep;
-    private float mIndeterminateRotateOffset;
     private float mReturnSweep;
     private float mStartAngle;
 
@@ -52,8 +50,9 @@ public class CustomProgressView extends View {
     private void init() {
      mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
      mRect = new RectF();
-     mPaint.setColor(Color.RED);
+     mPaint.setColor(getResources().getColor(R.color.colorPrimary));
      mPaint.setStyle(Paint.Style.STROKE);
+
      mPaint.setStrokeWidth(mThickness);
      mPaint.setStrokeCap(Paint.Cap.ROUND);
 
@@ -64,28 +63,17 @@ public class CustomProgressView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        Log.d("startAngle", String.valueOf(mStartAngle));
-        Log.d("endAngle", String.valueOf(mIndeterminateSweep-mReturnSweep));
-
-        canvas.drawArc(mRect, mStartAngle,
+        canvas.drawArc(mRect, mStartAngle+mReturnSweep,
                 mIndeterminateSweep-mReturnSweep, false, mPaint);
-
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int xPad = getPaddingStart() + getPaddingEnd();
         int yPad = getPaddingTop() + getPaddingBottom();
-        Log.d("progressViewWidthMeas", String.valueOf(widthMeasureSpec));
-        Log.d("progressViewHeightMeas", String.valueOf(heightMeasureSpec));
-
         int width = MeasureSpec.getSize(widthMeasureSpec) - xPad;
         int height = MeasureSpec.getSize(heightMeasureSpec) - yPad;
-        Log.d("progressViewOnWidth", String.valueOf(width));
-        Log.d("progressViewOnHeight", String.valueOf(height));
-
         mSize = width < height ? width : height;
-        Log.d("progressViewOnMeasure", String.valueOf(mSize));
         setMeasuredDimension(mSize + xPad,mSize + yPad);
         updateRectAngleBounds();
     }
@@ -95,19 +83,6 @@ public class CustomProgressView extends View {
         mRect.set(paddingLeft + mThickness, paddingTop + mThickness,
                 mSize - paddingLeft - mThickness, mSize - paddingTop - mThickness);
     }
-//    @Override
-//    protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-//        super.onLayout(changed, left, top, right, bottom);
-//    }
-//
-//    @Override
-//    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-//        super.onSizeChanged(w, h, oldw, oldh);
-//        mSize = (w<h) ? w : h;
-//        updateRectAngleBounds();
-//        Log.d("progressViewSizeChanged", String.valueOf(mSize));
-//
-//    }
 
     @Override
     protected void onAttachedToWindow() {
@@ -123,13 +98,11 @@ public class CustomProgressView extends View {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 mStartAngle = (float) animation.getAnimatedValue();
+                if(mIndeterminateSweep > 360){
 
-//                Log.d("sweep", String.valueOf(mIndeterminateSweep));
-                if(mIndeterminateSweep > 375){
-                    mReturnSweep += 5;
-//                    mIndeterminateSweep+=2;
+                    mReturnSweep += 2.5;
 
-                    if(mIndeterminateSweep - 15 < mReturnSweep)
+                    if(mIndeterminateSweep - 1 <= mReturnSweep)
                     {
                         mIndeterminateSweep = 15;
                         mReturnSweep = 0;
