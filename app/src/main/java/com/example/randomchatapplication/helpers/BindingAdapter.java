@@ -159,5 +159,10 @@ public class BindingAdapter {
     }
 
 
+    @androidx.databinding.BindingAdapter("visibility")
+    public static void setVisibility(View view, boolean visibility){
+        view.setVisibility(visibility ? View.VISIBLE : View.GONE);
+    }
+
 
 }

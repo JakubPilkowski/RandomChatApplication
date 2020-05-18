@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+        <data>
+            <variable
+                name="viewModel"
+                type="com.example.randomchatapplication.ui.create_profile.fields.SelectViewModel" />
+        </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="9dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/spinner_item_drawable"
+            android:onClick="@{()-> viewModel.onSelectClick()}"
+            android:padding="8dp"
+            android:stateListAnimator="@null"
+            android:text="@{viewModel.spinnerValue}"
+            android:textAlignment="center"
+            android:textAllCaps="false"
+            android:textColor="@color/colorBlack"
+            android:textSize="18sp"
+/>
+    </LinearLayout>
+</layout>

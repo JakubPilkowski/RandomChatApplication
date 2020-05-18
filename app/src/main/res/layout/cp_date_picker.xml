@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+        <data>
+            <variable
+                name="viewModel"
+                type="com.example.randomchatapplication.ui.create_profile.fields.DatePickerViewModel" />
+        </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="9dp"
+        android:layout_marginEnd="24dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{viewModel.title}"
+            android:textColor="@color/colorBlack"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Rok"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Miesiąc"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Dzień"
+                android:textAlignment="center"
+                android:textColor="@color/colorBlack"
+                android:textSize="16sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:layout_marginTop="2dp"
+
+            android:background="@drawable/rounded_border"
+            android:orientation="horizontal"
+            android:weightSum="3">
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
+                android:tag="YearPicker"
+                android:theme="@style/AppTheme.Picker"
+                app:maxNumberPickerValue="@{viewModel.maxYearValue}"
+                app:minNumberPickerValue="@{viewModel.minYearValue}"
+                app:numberPickerListener="@{viewModel.numberPickerListener}"
+                app:numberPickerValue="@{viewModel.yearValue}" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary" />
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
+                android:tag="MonthPicker"
+                android:theme="@style/AppTheme.Picker"
+                app:maxNumberPickerValue="@{viewModel.maxMonthValue}"
+                app:minNumberPickerValue="@{viewModel.minMonthValue}"
+                app:numberPickerListener="@{viewModel.numberPickerListener}"
+                app:numberPickerValue="@{viewModel.monthValue}" />
+
+            <View
+                android:layout_width="2dp"
+                android:layout_height="match_parent"
+                android:background="@color/colorPrimary" />
+
+            <NumberPicker
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:descendantFocusability="blocksDescendants"
+                android:tag="DayPicker"
+                android:theme="@style/AppTheme.Picker"
+                app:maxNumberPickerValue="@{viewModel.maxDayValue}"
+                app:minNumberPickerValue="@{viewModel.minDayValue}"
+                app:numberPickerListener="@{viewModel.numberPickerListener}"
+                app:numberPickerValue="@{viewModel.dayValue}" />
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
