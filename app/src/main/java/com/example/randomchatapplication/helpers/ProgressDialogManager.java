@@ -31,7 +31,7 @@ public class ProgressDialogManager {
         dismiss();
         RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.progress_dialog, null, false);
         View imageView = layout.getChildAt(1);
-//        Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_2);
+        Animation animation = AnimationUtils.loadAnimation(context, R.anim.scale_2);
 //        animation.setAnimationListener(new Animation.AnimationListener() {
 //            @Override
 //            public void onAnimationStart(Animation animation) {
@@ -48,7 +48,7 @@ public class ProgressDialogManager {
 //                animation.start();
 //            }
 //        });
-//        imageView.setAnimation(animation);
+        imageView.startAnimation(animation);
         dialog = new AlertDialog.Builder(context, R.style.ProgressDialogTheme)
                 .setView(layout)
                 .setCancelable(false)
