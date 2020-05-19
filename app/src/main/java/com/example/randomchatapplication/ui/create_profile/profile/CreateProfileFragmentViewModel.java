@@ -3,12 +3,14 @@ package com.example.randomchatapplication.ui.create_profile.profile;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
+import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.FieldsHelper;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.ViewInfo;
@@ -26,16 +28,20 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
 
     public void init(int step){
         CreateProfileActivity activity = (CreateProfileActivity) getActivity();
-        Log.d(CreateProfileFragment.TAG,"pobranie fieldow");
         fields.addAll(FieldsHelper.get().getFieldsForStep(step));
-        Log.d(CreateProfileFragment.TAG, String.valueOf(fields.size()));
         LinearLayout fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).fieldsContainer;
         fieldsViews.addAll(FieldsHelper.get().createViewsForStep(fields,fieldsContainer.getContext(),fieldsContainer));
-        Log.d(CreateProfileFragment.TAG, String.valueOf(fieldsViews.size()));
-
-//        for (ViewInfo viewInfo: fieldsViews){
-//            fieldsContainer.addView(viewInfo.getView());
-//        }
+        for (ViewInfo viewInfo: fieldsViews){
+            if(fieldsViews.indexOf(viewInfo) +1 == fieldsViews.size()){
+                Log.d("halo", "ostatni index");
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.setMargins(0,(int) DimensionsHelper.convertDpToPixel(24,getFragment().getContext())
+                        ,0, (int) DimensionsHelper.convertDpToPixel(40,getFragment().getContext()));
+                fieldsContainer.addView(viewInfo.getView(),layoutParams);
+            }else{
+                fieldsContainer.addView(viewInfo.getView());
+            }
+        }
 
     }
 

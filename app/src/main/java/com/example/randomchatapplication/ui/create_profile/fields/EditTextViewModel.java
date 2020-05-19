@@ -12,23 +12,22 @@ import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
 
 public class EditTextViewModel extends FieldViewModel {
-
-    public ObservableBoolean visibility = new ObservableBoolean(true);
     public ObservableField<String>title = new ObservableField<>();
+    public ObservableBoolean visibility = new ObservableBoolean(true);
     public ObservableField<String>note = new ObservableField<>();
     public ObservableField<String> textAmount = new ObservableField<>();
-    public ObservableInt maxLength = new ObservableInt(30);
+    public ObservableInt lines = new ObservableInt();
+    public ObservableInt maxLength = new ObservableInt();
     public ObservableField<TextWatcher> textChangeListener = new ObservableField<>();
 
 
     public void init(Field field){
-        Log.d("EdittextViewModel", "halo halo");
-        Log.d("EdittextViewModel", field.getTitle());
-        Log.d("EdittextViewModel", field.getNote());
         title.set(field.getTitle());
         visibility.set(field.getNote().length() > 0);
         note.set(field.getNote());
-        textAmount.set("0/"+field.getOptions().get("maxLength"));
+        lines.set((int)Math.round((Double)field.getOptions().get("lines")));
+        textAmount.set("0/"+Math.round((Double) field.getOptions().get("maxLength")));
+        maxLength.set((int) Math.round((Double)field.getOptions().get("maxLength")));
         textChangeListener.set(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

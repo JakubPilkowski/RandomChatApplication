@@ -3,6 +3,7 @@ package com.example.randomchatapplication.ui.create_profile.fields;
 import android.util.Log;
 import android.widget.NumberPicker;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
@@ -13,6 +14,8 @@ public class DatePickerViewModel extends FieldViewModel {
 
 
     public ObservableField<String>title = new ObservableField<>();
+    public ObservableBoolean visibility = new ObservableBoolean(true);
+    public ObservableField<String>note = new ObservableField<>();
     public ObservableInt minDayValue = new ObservableInt(1);
     public ObservableInt maxDayValue = new ObservableInt(31);
     public ObservableInt minMonthValue = new ObservableInt(1);
@@ -25,7 +28,9 @@ public class DatePickerViewModel extends FieldViewModel {
     public ObservableField<NumberPicker.OnValueChangeListener> numberPickerListener = new ObservableField<>();
 
     public void init(Field field){
-
+        title.set(field.getTitle());
+        visibility.set(field.getNote().length() > 0);
+        note.set(field.getNote());
         numberPickerListener.set(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {

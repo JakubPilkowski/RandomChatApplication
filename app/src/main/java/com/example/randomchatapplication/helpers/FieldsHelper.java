@@ -86,7 +86,7 @@ public class FieldsHelper {
                     ((EditTextViewModel) viewModel).init(field);
                     viewInfo = new ViewInfo(binding, viewModel, view);
                     viewInfos.add(viewInfo);
-                    rootView.addView(view);
+//                    rootView.addView(view);
                     break;
                 case "year picker":
                     FieldViewModel viewModel2;
@@ -100,9 +100,9 @@ public class FieldsHelper {
                     ((DatePickerViewModel) viewModel2).init(field);
                     viewInfo2 = new ViewInfo(binding2, viewModel2, view2);
                     viewInfos.add(viewInfo2);
-                    rootView.addView(view2);
+//                    rootView.addView(view2);
                     break;
-                case "slider":
+                case "range slider":
                     FieldViewModel viewModel3;
                     ViewDataBinding binding3;
                     View view3;
@@ -114,7 +114,7 @@ public class FieldsHelper {
                     ((RangeSeekbarViewModel) viewModel3).init(field);
                     viewInfo3 = new ViewInfo(binding3, viewModel3, view3);
                     viewInfos.add(viewInfo3);
-                    rootView.addView(view3);
+//                    rootView.addView(view3);
                     break;
                 case "select":
                     FieldViewModel viewModel4;
@@ -128,7 +128,7 @@ public class FieldsHelper {
                     ((SelectViewModel) viewModel4).init(field);
                     viewInfo4 = new ViewInfo(binding4, viewModel4, view4);
                     viewInfos.add(viewInfo4);
-                    rootView.addView(view4);
+//                    rootView.addView(view4);
                     break;
             }
 

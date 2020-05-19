@@ -4,13 +4,13 @@ import java.util.HashMap;
 
 public class Field {
 
-    public String title;
-    public String type;
-    public int step;
-    public boolean required;
-    public String note;
-    public HashMap<Object, Object> options;
-    public int priority;
+    private String title;
+    private String type;
+    private int step;
+    private boolean required;
+    private String note;
+    private HashMap<Object, Object> options;
+    private int priority;
 
 
     public String getTitle() {
