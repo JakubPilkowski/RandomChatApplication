@@ -2,6 +2,7 @@ package com.example.randomchatapplication.ui.create_profile.fields;
 
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -21,7 +22,13 @@ public class EditTextViewModel extends FieldViewModel {
 
 
     public void init(Field field){
-        textAmount.set("0/30");
+        Log.d("EdittextViewModel", "halo halo");
+        Log.d("EdittextViewModel", field.getTitle());
+        Log.d("EdittextViewModel", field.getNote());
+        title.set(field.getTitle());
+        visibility.set(field.getNote().length() > 0);
+        note.set(field.getNote());
+        textAmount.set("0/"+field.getOptions().get("maxLength"));
         textChangeListener.set(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

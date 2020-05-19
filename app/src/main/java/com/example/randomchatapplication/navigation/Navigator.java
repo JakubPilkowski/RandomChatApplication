@@ -122,7 +122,6 @@ public class Navigator {
                     .show(fragment)
                     .commit();
         }
-
     }
 
     public void hideCreateProfile(String tag){

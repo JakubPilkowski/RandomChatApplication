@@ -12,10 +12,17 @@ import com.example.randomchatapplication.navigation.Navigator;
 public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBinding, CreateProfileFragmentViewModel> implements Providers {
 
     public static final String TAG = "CreateProfileFragment";
+    private int step;
 
+    public static CreateProfileFragment newInstance(int step) {
 
-    public static CreateProfileFragment newInstance() {
-        return new CreateProfileFragment();
+        CreateProfileFragment createProfileFragment = new CreateProfileFragment();
+        createProfileFragment.setStep(step);
+        return createProfileFragment;
+    }
+
+    private void setStep(int step) {
+        this.step = step;
     }
 
 
@@ -33,7 +40,7 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
     public void bindData(CreateProfileFragmentBinding binding) {
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        viewModel.init();
+        viewModel.init(step);
 
     }
 

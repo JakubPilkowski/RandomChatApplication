@@ -54,22 +54,24 @@ public class CreateProfileViewModel extends BaseViewModel {
     private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
         @Override
         public void onSuccess(FieldsResponse response) {
+            ProgressDialogManager.get().dismiss();
             Log.d("response", response.getKroki().toString());
             FieldsHelper.init(response.getPola(), response.getKroki());
             int size = response.getKroki().size();
             for(int i =0; i<size;i++){
-                getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(), CreateProfileFragment.TAG+(size+1));
+                getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(i+1), CreateProfileFragment.TAG+(i+1));
             }
 
             dotsCount.set(size);
             step.set(1);
-//        getNavigator().showCreateProfile(CreateProfileFragment.TAG+"1");
+           getNavigator().showCreateProfile(CreateProfileFragment.TAG+"1");
             stepTitle.set(FieldsHelper.get().getSteps().get(step.get()-1).getName());
             stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
         }
 
         @Override
         public void onError(String message) {
+            ProgressDialogManager.get().dismiss();
             Log.d("response", "error "+message);
         }
     };

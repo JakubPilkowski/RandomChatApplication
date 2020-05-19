@@ -25,6 +25,7 @@ public class DatePickerViewModel extends FieldViewModel {
     public ObservableField<NumberPicker.OnValueChangeListener> numberPickerListener = new ObservableField<>();
 
     public void init(Field field){
+
         numberPickerListener.set(new NumberPicker.OnValueChangeListener() {
             @Override
             public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
