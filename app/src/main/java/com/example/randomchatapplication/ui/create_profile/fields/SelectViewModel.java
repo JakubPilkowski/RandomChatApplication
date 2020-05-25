@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
+import com.example.randomchatapplication.helpers.SelectViewDialogManager;
+import com.example.randomchatapplication.interfaces.SelectViewListener;
 import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.SpinnerItem;
@@ -21,24 +23,26 @@ public class SelectViewModel extends FieldViewModel implements SpinnerViewListen
     public ObservableField<String> spinnerValue = new ObservableField<>();
     public ObservableField<String> title = new ObservableField<>();
     public ObservableBoolean visibility = new ObservableBoolean(true);
-    public ObservableField<String>note = new ObservableField<>();
+    public ObservableField<String> note = new ObservableField<>();
     private List<SpinnerItem> itemList = new ArrayList<>();
 
-    public void init(Field field){
+    public void init(Field field) {
         title.set(field.getTitle());
         visibility.set(field.getNote().length() > 0);
         note.set(field.getNote());
-        for (Map.Entry<Object, Object> entry : field.getOptions().entrySet()){
-            itemList.add(new SpinnerItem((String)entry.getKey(),(String)entry.getValue()));
+        for (Map.Entry<Object, Object> entry : field.getOptions().entrySet()) {
+            itemList.add(new SpinnerItem((String) entry.getKey(), (String) entry.getValue()));
         }
         spinnerValue.set(itemList.get(0).getValue());
     }
-    public void onSelectClick(){
-        getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList,this),SpinnerFragment.TAG);
+
+    public void onSelectClick() {
+        SelectViewDialogManager.get().show(itemList,this);
+//                getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList, this), SpinnerFragment.TAG);
     }
+
     @Override
     public void onItemClick(SpinnerItem spinnerItem) {
-
         spinnerValue.set(spinnerItem.getValue());
     }
 }

@@ -28,6 +28,8 @@ import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
+import com.example.randomchatapplication.custom_views.DragView;
+import com.example.randomchatapplication.interfaces.DragViewListener;
 
 public class BindingAdapter {
 
@@ -164,5 +166,9 @@ public class BindingAdapter {
         view.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
+    @androidx.databinding.BindingAdapter("dragViewListener")
+    public static void setDragViewListener(DragView view, DragViewListener listener){
+        view.setDragViewListener(listener);
+    }
 
 }

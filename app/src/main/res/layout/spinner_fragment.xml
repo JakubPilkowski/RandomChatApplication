@@ -14,7 +14,6 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlackOpacity"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:gravity="bottom|center_horizontal"
@@ -27,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="450dp"
             android:id="@+id/drag_view"
-            android:layout_marginBottom="12dp"
+            app:dragViewListener="@{viewModel.dragViewListener}"
             >
             <RelativeLayout
                 android:id="@+id/drag_container"
@@ -42,7 +41,7 @@
                     android:id="@+id/bell"
                     android:layout_width="150dp"
                     android:layout_height="8dp"
-                    android:padding="24dp"
+                    android:padding="30dp"
                     android:layout_centerHorizontal="true"
                     android:background="@drawable/belka"
                     android:layout_marginTop="18dp"
@@ -75,7 +74,7 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_marginBottom="12dp"
+
                     android:layout_alignParentBottom="true"
                     android:background="@drawable/gradient_fade_bottom"
                     />

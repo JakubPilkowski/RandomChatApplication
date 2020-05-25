@@ -39,6 +39,14 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="SelectViewTheme" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorBlackOpacity</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="SelectableNavItemBackground">
         <item name="listPreferredItemPaddingLeft">16dp</item>
         <item name="listPreferredItemPaddingRight">0dp</item>

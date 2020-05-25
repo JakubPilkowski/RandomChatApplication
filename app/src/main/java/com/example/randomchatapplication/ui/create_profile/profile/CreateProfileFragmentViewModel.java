@@ -12,14 +12,17 @@ import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.FieldsHelper;
+import com.example.randomchatapplication.interfaces.SelectViewListener;
 import com.example.randomchatapplication.models.Field;
+import com.example.randomchatapplication.models.SpinnerItem;
 import com.example.randomchatapplication.models.ViewInfo;
+import com.example.randomchatapplication.ui.spinner.SpinnerFragment;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CreateProfileFragmentViewModel extends BaseViewModel {
+public class CreateProfileFragmentViewModel extends BaseViewModel implements SelectViewListener {
     // TODO: Implement the ViewModel
 
     private List<FieldViewModel> viewModels =new ArrayList<>();
@@ -46,5 +49,8 @@ public class CreateProfileFragmentViewModel extends BaseViewModel {
     }
 
 
-
+    @Override
+    public void onOpen(List<SpinnerItem> items) {
+//        getNavigator().showSpinnerView(SpinnerFragment.newInstance(items, this), SpinnerFragment.TAG);
+    }
 }

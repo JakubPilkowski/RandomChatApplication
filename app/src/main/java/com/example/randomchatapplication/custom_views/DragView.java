@@ -111,7 +111,10 @@ public class DragView extends ViewGroup {
         return false;
     }
 
-
+    @Override
+    protected int[] onCreateDrawableState(int extraSpace) {
+        return super.onCreateDrawableState(extraSpace);
+    }
 
     private class DragHelperCallback extends ViewDragHelper.Callback{
 

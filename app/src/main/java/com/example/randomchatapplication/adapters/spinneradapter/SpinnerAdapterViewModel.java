@@ -21,8 +21,8 @@ public class SpinnerAdapterViewModel extends BaseAdapterViewModel {
         value.set(item.getValue());
     }
 
-    public void setSpinnerViewListener(SpinnerViewListener dragViewListener) {
-        this.spinnerViewListener = dragViewListener;
+    public void setSpinnerViewListener(SpinnerViewListener spinnerViewListener) {
+        this.spinnerViewListener = spinnerViewListener;
     }
 
     public void onClick(){

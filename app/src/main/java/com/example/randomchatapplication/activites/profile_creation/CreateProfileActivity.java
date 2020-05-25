@@ -13,6 +13,7 @@ import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.helpers.SelectViewDialogManager;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 
@@ -28,6 +29,7 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         ProgressDialogManager.init(this);
+        SelectViewDialogManager.init(this);
         viewModel.init();
 //        navigator.attach(CreateProfileHomeFragment.newInstance(), CreateProfileHomeFragment.TAG);
     }
