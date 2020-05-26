@@ -24,6 +24,18 @@
             android:layout_marginTop="12dp"
             android:layout_marginEnd="24dp"
             android:orientation="vertical">
+
+            <SeekBar
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:progress="30"
+                android:max="100"
+                android:minHeight="36dp"
+                android:onProgressChanged="@{viewModel.onValueChanged}"
+                android:progressDrawable="@drawable/seekbar_progress_drawable"
+                android:thumb="@drawable/thumb_seekbar"
+                android:splitTrack="false"
+            />
         </LinearLayout>
     </ScrollView>
 </layout>
