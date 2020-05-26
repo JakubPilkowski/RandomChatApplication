@@ -5,6 +5,7 @@ import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -26,6 +28,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.custom_views.CustomRangeSeekbar;
 import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
 import com.example.randomchatapplication.custom_views.DragView;
@@ -170,5 +173,17 @@ public class BindingAdapter {
     public static void setDragViewListener(DragView view, DragViewListener listener){
         view.setDragViewListener(listener);
     }
+    @androidx.databinding.BindingAdapter("rangeSeekbarGap")
+    public static void setRangeSeekbarGap(CustomRangeSeekbar seekbar, float gap){
+        seekbar.setGap(gap*2);
+    }
+    @androidx.databinding.BindingAdapter("rangeSeekbarMin")
+    public static void setRangeSeekbarMinValue(CustomRangeSeekbar seekbar, float min){
+        seekbar.setMinValue(min);
+    }
 
+    @androidx.databinding.BindingAdapter("rangeSeekbarMax")
+    public static void setRangeSeekbarMaxValue(CustomRangeSeekbar seekbar, float max){
+        seekbar.setMaxValue(max);
+    }
 }

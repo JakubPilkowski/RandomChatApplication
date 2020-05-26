@@ -13,6 +13,7 @@ import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CpDatePickerBinding;
 import com.example.randomchatapplication.databinding.CpEditTextBinding;
 import com.example.randomchatapplication.databinding.CpRangeSeekbarBinding;
+import com.example.randomchatapplication.databinding.CpSeekbarBinding;
 import com.example.randomchatapplication.databinding.CpSelectBinding;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.Step;
@@ -20,6 +21,7 @@ import com.example.randomchatapplication.models.ViewInfo;
 import com.example.randomchatapplication.ui.create_profile.fields.DatePickerViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.EditTextViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.RangeSeekbarViewModel;
+import com.example.randomchatapplication.ui.create_profile.fields.SeekbarViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.SelectViewModel;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
 
@@ -70,15 +72,14 @@ public class FieldsHelper {
 
     public List<ViewInfo> createViewsForStep(List<Field> fieldsForStep, Context context, LinearLayout rootView) {
         List<ViewInfo> viewInfos = new ArrayList<>();
-
+        FieldViewModel viewModel;
+        ViewDataBinding binding;
+        View view;
+        ViewInfo viewInfo;
         for (Field field : fieldsForStep) {
 
             switch (field.getType()) {
                 case "edit text":
-                    FieldViewModel viewModel;
-                    ViewDataBinding binding;
-                    View view;
-                    ViewInfo viewInfo;
                     view = LayoutInflater.from(context).inflate(R.layout.cp_edit_text, rootView, false);
                     binding = CpEditTextBinding.bind(view);
                     viewModel = new EditTextViewModel();
@@ -86,49 +87,42 @@ public class FieldsHelper {
                     ((EditTextViewModel) viewModel).init(field);
                     viewInfo = new ViewInfo(binding, viewModel, view);
                     viewInfos.add(viewInfo);
-//                    rootView.addView(view);
                     break;
                 case "year picker":
-                    FieldViewModel viewModel2;
-                    ViewDataBinding binding2;
-                    View view2;
-                    ViewInfo viewInfo2;
-                    view2 = LayoutInflater.from(context).inflate(R.layout.cp_date_picker, rootView, false);
-                    binding2 = CpDatePickerBinding.bind(view2);
-                    viewModel2 = new DatePickerViewModel();
-                    ((CpDatePickerBinding) binding2).setViewModel((DatePickerViewModel) viewModel2);
-                    ((DatePickerViewModel) viewModel2).init(field);
-                    viewInfo2 = new ViewInfo(binding2, viewModel2, view2);
-                    viewInfos.add(viewInfo2);
-//                    rootView.addView(view2);
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_date_picker, rootView, false);
+                    binding = CpDatePickerBinding.bind(view);
+                    viewModel = new DatePickerViewModel();
+                    ((CpDatePickerBinding) binding).setViewModel((DatePickerViewModel) viewModel);
+                    ((DatePickerViewModel) viewModel).init(field);
+                    viewInfo = new ViewInfo(binding, viewModel, view);
+                    viewInfos.add(viewInfo);
+                    break;
+                case "slider":
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_seekbar, rootView, false);
+                    binding = CpSeekbarBinding.bind(view);
+                    viewModel = new SeekbarViewModel();
+                    ((CpSeekbarBinding) binding).setViewModel((SeekbarViewModel) viewModel);
+                    ((SeekbarViewModel) viewModel).init(field);
+                    viewInfo = new ViewInfo(binding, viewModel, view);
+                    viewInfos.add(viewInfo);
                     break;
                 case "range slider":
-                    FieldViewModel viewModel3;
-                    ViewDataBinding binding3;
-                    View view3;
-                    ViewInfo viewInfo3;
-                    view3 = LayoutInflater.from(context).inflate(R.layout.cp_range_seekbar, rootView, false);
-                    binding3 = CpRangeSeekbarBinding.bind(view3);
-                    viewModel3 = new RangeSeekbarViewModel();
-                    ((CpRangeSeekbarBinding) binding3).setViewModel((RangeSeekbarViewModel) viewModel3);
-                    ((RangeSeekbarViewModel) viewModel3).init(field);
-                    viewInfo3 = new ViewInfo(binding3, viewModel3, view3);
-                    viewInfos.add(viewInfo3);
-//                    rootView.addView(view3);
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_range_seekbar, rootView, false);
+                    binding = CpRangeSeekbarBinding.bind(view);
+                    viewModel = new RangeSeekbarViewModel();
+                    ((CpRangeSeekbarBinding) binding).setViewModel((RangeSeekbarViewModel) viewModel);
+                    ((RangeSeekbarViewModel) viewModel).init(field);
+                    viewInfo = new ViewInfo(binding, viewModel, view);
+                    viewInfos.add(viewInfo);
                     break;
                 case "select":
-                    FieldViewModel viewModel4;
-                    ViewDataBinding binding4;
-                    View view4;
-                    ViewInfo viewInfo4;
-                    view4 = LayoutInflater.from(context).inflate(R.layout.cp_select, rootView, false);
-                    binding4 = CpSelectBinding.bind(view4);
-                    viewModel4 = new SelectViewModel();
-                    ((CpSelectBinding) binding4).setViewModel((SelectViewModel) viewModel4);
-                    ((SelectViewModel) viewModel4).init(field);
-                    viewInfo4 = new ViewInfo(binding4, viewModel4, view4);
-                    viewInfos.add(viewInfo4);
-//                    rootView.addView(view4);
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_select, rootView, false);
+                    binding = CpSelectBinding.bind(view);
+                    viewModel = new SelectViewModel();
+                    ((CpSelectBinding) binding).setViewModel((SelectViewModel) viewModel);
+                    ((SelectViewModel) viewModel).init(field);
+                    viewInfo = new ViewInfo(binding, viewModel, view);
+                    viewInfos.add(viewInfo);
                     break;
             }
 

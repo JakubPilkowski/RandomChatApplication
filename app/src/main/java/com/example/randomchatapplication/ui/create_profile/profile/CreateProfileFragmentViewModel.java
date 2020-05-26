@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
+
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
@@ -48,9 +51,7 @@ public class CreateProfileFragmentViewModel extends BaseViewModel implements Sel
         }
 
     }
-    public void onValueChanged(SeekBar seekBar, final int progress, boolean fromUser) {
 
-    }
 
     @Override
     public void onOpen(List<SpinnerItem> items) {

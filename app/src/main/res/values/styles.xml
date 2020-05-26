@@ -51,6 +51,9 @@
         <item name="listPreferredItemPaddingLeft">16dp</item>
         <item name="listPreferredItemPaddingRight">0dp</item>
     </style>
+    <style name="seekBarStyle">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
+    </style>
     <style name="MenuText">
         <item name="android:textColor">@color/colorPrimaryDark</item>
         <item name="android:textSize">16sp</item>

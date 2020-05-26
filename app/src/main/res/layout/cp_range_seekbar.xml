@@ -22,14 +22,15 @@
         <com.example.randomchatapplication.custom_views.CustomRangeSeekbar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:bar_color="@color/colorAccent"
+            android:layout_marginTop="6dp"
+            android:layout_marginBottom="6dp"
+            app:bar_color="@color/colorGrayDot"
             app:bar_highlight_color="@color/colorPrimary"
             app:data_type="_integer"
-            app:gap="2"
-            app:max_value="60"
-            app:min_value="18"
+            app:rangeSeekbarMin="@{viewModel.minValue}"
+            app:rangeSeekbarMax="@{viewModel.maxValue}"
             app:seekbarListener="@{viewModel.seekBarListener}"
+            app:rangeSeekbarGap="@{viewModel.step}"
             app:steps="1" />
 
         <LinearLayout
