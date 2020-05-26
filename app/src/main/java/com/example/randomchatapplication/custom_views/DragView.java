@@ -1,30 +1,26 @@
 package com.example.randomchatapplication.custom_views;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.view.MotionEventCompat;
 import androidx.core.view.ViewCompat;
 import androidx.customview.widget.ViewDragHelper;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.interfaces.DragViewListener;
 
-import java.security.MessageDigest;
-
 public class DragView extends ViewGroup {
 
     private ViewDragHelper mDragHelper;
-    private View belka;
+    private View bellContainer;
+    private View bell;
+    private View bell_active;
     private View dragParent;
 
     private float mInitialMotionX;
@@ -38,7 +34,9 @@ public class DragView extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        belka = findViewById(R.id.bell);
+        bellContainer = findViewById(R.id.bell_container);
+        bell= findViewById(R.id.bell);
+        bell_active = findViewById(R.id.bell_active);
         container = findViewById(R.id.drag_container);
     }
 
@@ -62,7 +60,7 @@ public class DragView extends ViewGroup {
         else{
             final float y = ev.getY();
             mInitialMotionY = y;
-            return mDragHelper.isViewUnder(belka, (int) ev.getY(), (int) y);
+            return mDragHelper.isViewUnder(bellContainer, (int) ev.getY(), (int) y);
 
         }
     }
@@ -74,7 +72,7 @@ public class DragView extends ViewGroup {
         final int action = event.getAction();
         final float y = event.getY();
 
-//        boolean isHeaderViewUnder = mDragHelper.isViewUnder(belka, (int) event.getX(), (int) y);
+//        boolean isHeaderViewUnder = mDragHelper.isViewUnder(bellContainer, (int) event.getX(), (int) y);
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
                 mInitialMotionY = y;
@@ -125,6 +123,8 @@ public class DragView extends ViewGroup {
 
         @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
+            bell_active.setVisibility(VISIBLE);
+//            bell.setVisibility(INVISIBLE);
             mTop = top;
 
             mDragOffset = (float) top / mDragRange;
@@ -153,7 +153,9 @@ public class DragView extends ViewGroup {
 
         @Override
         public void onViewDragStateChanged(int state) {
-
+            Log.d("onViewDragStateChanged", String.valueOf(state));
+            if(state==0)
+                bell_active.setVisibility(INVISIBLE);
             if(state==0 && mTop > 0){
                 dragViewListener.onClose();
             }
