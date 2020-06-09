@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.SeekBar;
 
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -196,9 +197,9 @@ public class BindingAdapter {
         checkBox.setOnCheckedChangeListener(listener);
     }
 
-    @androidx.databinding.BindingAdapter("listViewAdapter")
-    public static void setOnListViewAdapter(ListView view, BaseAdapter adapter){
-        view.setAdapter(adapter);
+    @androidx.databinding.BindingAdapter("onQueryTextListener")
+    public static void setOnQueryTextListener(SearchView searchView, SearchView.OnQueryTextListener listener){
+        searchView.setOnQueryTextListener(listener);
     }
 
 

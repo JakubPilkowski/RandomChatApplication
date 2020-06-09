@@ -37,6 +37,7 @@
             android:id="@+id/search"
             android:clickable="true"
             android:focusable="true"
+            app:onQueryTextListener="@{viewModel.listener}"
             android:onClick="@{()->viewModel.onClick()}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -46,10 +47,11 @@
             android:layout_width="match_parent"
             android:layout_height="3dp"
             android:background="@color/colorPrimary"/>
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:listViewAdapter="@{viewModel.adapter}"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerViewAdapter="@{viewModel.adapter}"
             />
     </LinearLayout>
 </layout>

@@ -3,15 +3,22 @@ package com.example.randomchatapplication.activites.search_view;
 import android.widget.SearchView;
 
 import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.adapters.searchview_hobby.HobbySearchViewAdapter;
+import com.example.randomchatapplication.api.BaseCallback;
+import com.example.randomchatapplication.api.MockyConnection;
+import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
-import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
+import com.example.randomchatapplication.helpers.ProgressDialogManager;
 
 public class SearchViewActivityViewModel extends BaseViewModel {
 
     public ObservableField<SearchView.OnQueryTextListener> listener = new ObservableField<>();
+    public ObservableField<RecyclerView.Adapter> adapter = new ObservableField<>();
+    private HobbySearchViewAdapter hobbySearchViewAdapter = new HobbySearchViewAdapter();
 
     public void init(){
         SearchViewActivity activity = (SearchViewActivity) getActivity();
@@ -27,12 +34,27 @@ public class SearchViewActivityViewModel extends BaseViewModel {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-
+                hobbySearchViewAdapter.getFilter().filter(newText);
                 return false;
             }
         });
-    }
 
+        MockyConnection.get().getHobbies(callback);
+        ProgressDialogManager.get().show();
+    }
+    private BaseCallback<HobbiesResponse> callback = new BaseCallback<HobbiesResponse>() {
+        @Override
+        public void onSuccess(HobbiesResponse response) {
+            hobbySearchViewAdapter.setItems(response.getZainteresowania());
+            adapter.set(hobbySearchViewAdapter);
+            ProgressDialogManager.get().dismiss();
+        }
+
+        @Override
+        public void onError(String message) {
+            ProgressDialogManager.get().dismiss();
+        }
+    };
     public void onClick(){
         ((ActivitySearchViewBinding)getActivityOrFragmentBinding()).search.setIconified(false);
     }

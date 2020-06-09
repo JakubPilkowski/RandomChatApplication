@@ -70,7 +70,6 @@
                     android:id="@+id/drag_recycler_view"
                     app:layoutManager="@{viewModel.layoutManager}"
                     app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     />
                 <View
                     android:layout_width="match_parent"
