@@ -8,7 +8,10 @@ import retrofit2.http.GET;
 public interface MockyService {
 
 
-    @GET("5ecd4e0a3200008b002368ab")
+    @GET("a0e2b1c6-4dc9-43a9-b607-7b00cf9ad56a")
     Call<FieldsResponse> getFields();
+
+
+
 
 }

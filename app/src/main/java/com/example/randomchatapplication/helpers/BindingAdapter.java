@@ -11,6 +11,8 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -186,4 +188,10 @@ public class BindingAdapter {
     public static void setRangeSeekbarMaxValue(CustomRangeSeekbar seekbar, float max){
         seekbar.setMaxValue(max);
     }
+
+    @androidx.databinding.BindingAdapter("checkChangedListener")
+    public static void setOnCheckChangedListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener){
+        checkBox.setOnCheckedChangeListener(listener);
+    }
+
 }

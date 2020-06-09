@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseViewModel;
+import com.example.randomchatapplication.databinding.CpCheckedBinding;
 import com.example.randomchatapplication.databinding.CpDatePickerBinding;
 import com.example.randomchatapplication.databinding.CpEditTextBinding;
 import com.example.randomchatapplication.databinding.CpRangeSeekbarBinding;
@@ -18,6 +19,7 @@ import com.example.randomchatapplication.databinding.CpSelectBinding;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.Step;
 import com.example.randomchatapplication.models.ViewInfo;
+import com.example.randomchatapplication.ui.create_profile.fields.CheckBoxViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.DatePickerViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.EditTextViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.RangeSeekbarViewModel;
@@ -124,6 +126,14 @@ public class FieldsHelper {
                     viewInfo = new ViewInfo(binding, viewModel, view);
                     viewInfos.add(viewInfo);
                     break;
+                case "check":
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_checked, rootView, false);
+                    binding = CpCheckedBinding.bind(view);
+                    viewModel = new CheckBoxViewModel();
+                    ((CpCheckedBinding)binding).setViewModel((CheckBoxViewModel)viewModel);
+                    ((CheckBoxViewModel)viewModel).init(field);
+                    viewInfo = new ViewInfo(binding, viewModel, view);
+                    viewInfos.add(viewInfo);
             }
 
         }

@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 public class Client<T> {
 
       public static final String LOGIN_BASE_URL = "";
-      public static final String MOCKY_IO_URL = "http://www.mocky.io/v2/";
+      public static final String MOCKY_IO_URL = "https://run.mocky.io/v3/";
 
 
     protected Gson gson;

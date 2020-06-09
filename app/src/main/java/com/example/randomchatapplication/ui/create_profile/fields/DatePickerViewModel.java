@@ -14,7 +14,7 @@ public class DatePickerViewModel extends FieldViewModel {
 
 
     public ObservableField<String>title = new ObservableField<>();
-    public ObservableBoolean visibility = new ObservableBoolean(true);
+    public ObservableBoolean visibility = new ObservableBoolean();
     public ObservableField<String>note = new ObservableField<>();
     public ObservableInt minDayValue = new ObservableInt(1);
     public ObservableInt maxDayValue = new ObservableInt(31);

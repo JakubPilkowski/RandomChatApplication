@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseActivity;
