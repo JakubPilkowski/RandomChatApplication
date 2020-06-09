@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.activites.search_view.SearchViewActivityViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activites.search_view.SearchViewActivity">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/zainteresowania_toolbar"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                android:layout_height="?attr/actionBarSize"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:text="Zainteresowania"
+                android:textSize="22sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+        <SearchView
+            android:id="@+id/search"
+            android:clickable="true"
+            android:focusable="true"
+            android:onClick="@{()->viewModel.onClick()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Wyszukaj..."
+            />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorPrimary"/>
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:listViewAdapter="@{viewModel.adapter}"
+            />
+    </LinearLayout>
+</layout>

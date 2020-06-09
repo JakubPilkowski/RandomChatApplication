@@ -11,10 +11,12 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
+import android.widget.BaseAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -193,5 +195,11 @@ public class BindingAdapter {
     public static void setOnCheckChangedListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener){
         checkBox.setOnCheckedChangeListener(listener);
     }
+
+    @androidx.databinding.BindingAdapter("listViewAdapter")
+    public static void setOnListViewAdapter(ListView view, BaseAdapter adapter){
+        view.setAdapter(adapter);
+    }
+
 
 }

@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.ui.create_profile.profile;
 
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.databinding.ObservableInt;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
+import com.example.randomchatapplication.activites.search_view.SearchViewActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CreateProfileFragmentBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
@@ -52,7 +54,9 @@ public class CreateProfileFragmentViewModel extends BaseViewModel implements Sel
 
     }
 
-
+    public void onClick(){
+        getActivity().startActivity(new Intent(getActivity().getApplicationContext(), SearchViewActivity.class));
+    }
     @Override
     public void onOpen(List<SpinnerItem> items) {
 //        getNavigator().showSpinnerView(SpinnerFragment.newInstance(items, this), SpinnerFragment.TAG);
