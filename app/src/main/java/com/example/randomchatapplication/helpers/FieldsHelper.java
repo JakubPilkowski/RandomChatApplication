@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.helpers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.example.randomchatapplication.databinding.CpCheckedBinding;
 import com.example.randomchatapplication.databinding.CpDatePickerBinding;
 import com.example.randomchatapplication.databinding.CpEditTextBinding;
 import com.example.randomchatapplication.databinding.CpRangeSeekbarBinding;
+import com.example.randomchatapplication.databinding.CpSearchViewBinding;
 import com.example.randomchatapplication.databinding.CpSeekbarBinding;
 import com.example.randomchatapplication.databinding.CpSelectBinding;
 import com.example.randomchatapplication.models.Field;
@@ -23,6 +25,7 @@ import com.example.randomchatapplication.ui.create_profile.fields.CheckBoxViewMo
 import com.example.randomchatapplication.ui.create_profile.fields.DatePickerViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.EditTextViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.RangeSeekbarViewModel;
+import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.SeekbarViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.SelectViewModel;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
@@ -72,7 +75,7 @@ public class FieldsHelper {
         return result;
     }
 
-    public List<ViewInfo> createViewsForStep(List<Field> fieldsForStep, Context context, LinearLayout rootView) {
+    public List<ViewInfo> createViewsForStep(List<Field> fieldsForStep, Context context, LinearLayout rootView, Activity activity) {
         List<ViewInfo> viewInfos = new ArrayList<>();
         FieldViewModel viewModel;
         ViewDataBinding binding;
@@ -134,6 +137,16 @@ public class FieldsHelper {
                     ((CheckBoxViewModel)viewModel).init(field);
                     viewInfo = new ViewInfo(binding, viewModel, view);
                     viewInfos.add(viewInfo);
+                    break;
+                case "search tag":
+                    view = LayoutInflater.from(context).inflate(R.layout.cp_search_view, rootView, false);
+                    binding = CpSearchViewBinding.bind(view);
+                    viewModel = new SearchViewModel();
+                    ((CpSearchViewBinding)binding).setViewModel((SearchViewModel) viewModel);
+                    ((SearchViewModel)viewModel).init(field, activity);
+                    viewInfo = new ViewInfo(binding,viewModel, view);
+                    viewInfos.add(viewInfo);
+                    break;
             }
 
         }

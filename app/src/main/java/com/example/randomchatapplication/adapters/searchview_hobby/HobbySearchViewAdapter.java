@@ -10,6 +10,7 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.databinding.SearchHobbyItemBinding;
+import com.example.randomchatapplication.interfaces.HobbyInterface;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
@@ -19,6 +20,11 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
 
     private HobbiesFilter filter;
     private List<Hobby> itemsBase = new ArrayList<>();
+    private HobbyInterface listener;
+
+    public void setListener(HobbyInterface listener) {
+        this.listener = listener;
+    }
 
     @Override
     public void setItems(List<Hobby> items) {
@@ -54,7 +60,7 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((SearchHobbyItemBinding) holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), listener);
         } else {
             viewModel = viewModels.get(position);
             ((SearchHobbyItemBinding) holder.getBinding()).setViewModel(viewModel);
@@ -66,14 +72,12 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
-            Log.d("performFiltering", String.valueOf(itemsBase.size()));
             FilterResults results = new FilterResults();
             if (constraint.length() > 0) {
                 List<Hobby> hobbies = new ArrayList<>();
-                for (int i = 0; i < getItemCount(); i++) {
-                    if (itemsBase.get(i).getValue().toLowerCase().contains(constraint.toString().toLowerCase())) {
+                for (int i = 0; i < itemsBase.size(); i++) {
+                    if (itemsBase.get(i).getValue().toLowerCase().contains(constraint.toString().toLowerCase()))
                         hobbies.add(itemsBase.get(i));
-                    }
                 }
                 results.count = hobbies.size();
                 results.values = hobbies;

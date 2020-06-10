@@ -8,24 +8,28 @@ import androidx.databinding.ObservableField;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseAdapterViewModel;
+import com.example.randomchatapplication.interfaces.HobbyInterface;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.security.PublicKey;
 
 public class HobbySearchViewAdapterViewModel extends BaseAdapterViewModel {
     private Hobby hobby;
+    private HobbyInterface hobbyInterface;
     public ObservableField<String> value = new ObservableField<>();
-    public ObservableBoolean checked = new ObservableBoolean();
+//    public ObservableBoolean checked = new ObservableBoolean();
     @Override
     public void init(Object[] values) {
         hobby = (Hobby) values[0];
+        hobbyInterface = (HobbyInterface) values[1];
         value.set(hobby.getValue());
-        checked.set(hobby.isChecked());
+//        checked.set(hobby.isChecked());
     }
 
     public void onClick(){
         hobby.setChecked(!hobby.isChecked());
-        checked.set(hobby.isChecked());
+//        checked.set(hobby.isChecked());
+        hobbyInterface.onAdd(hobby);
     }
 
 }

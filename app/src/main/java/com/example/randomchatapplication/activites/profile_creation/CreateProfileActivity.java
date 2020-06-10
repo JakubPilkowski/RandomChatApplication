@@ -1,9 +1,12 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.ViewDataBinding;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -23,8 +26,7 @@ import com.example.randomchatapplication.navigation.Navigator;
 public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBinding,CreateProfileViewModel> implements Providers {
 
 
-
-
+    public final int hobbyRequest = 1001;
 
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
@@ -35,6 +37,19 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         viewModel.init();
 //        navigator.attach(CreateProfileHomeFragment.newInstance(), CreateProfileHomeFragment.TAG);
     }
+
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        if(requestCode == hobbyRequest){
+//            if(resultCode==RESULT_OK){
+//                if(data!=null) {
+//                    String hobby = data.getStringExtra("hobby");
+//                    getCurrentFragment().viewModel.onHobbyAdded(hobby);
+//                }
+//            }
+//        }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
     @Override
     protected Class<CreateProfileViewModel> getViewModel() {
@@ -59,12 +74,6 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     @Override
     public void onBackPressed() {
-//        if(getFragment() instanceof SpinnerFragment){
-//            getSupportFragmentManager().findFragmentByTag()
-//        }
-//        else{
-//            super.onBackPressed();
-//        }
         super.onBackPressed();
     }
 

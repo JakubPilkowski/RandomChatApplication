@@ -50,6 +50,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
             app:layoutManager="LinearLayoutManager"
             app:recyclerViewAdapter="@{viewModel.adapter}"
             />

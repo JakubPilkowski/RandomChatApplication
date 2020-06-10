@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.activites.search_view;
 
+import android.util.Log;
 import android.widget.SearchView;
 
 import androidx.databinding.ObservableField;
@@ -13,14 +14,16 @@ import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.interfaces.HobbyInterface;
 
 public class SearchViewActivityViewModel extends BaseViewModel {
 
     public ObservableField<SearchView.OnQueryTextListener> listener = new ObservableField<>();
     public ObservableField<RecyclerView.Adapter> adapter = new ObservableField<>();
     private HobbySearchViewAdapter hobbySearchViewAdapter = new HobbySearchViewAdapter();
-
-    public void init(){
+    private HobbyInterface hobbyListener;
+    public void init(HobbyInterface hobbyListener){
+        this.hobbyListener = hobbyListener;
         SearchViewActivity activity = (SearchViewActivity) getActivity();
         activity.setSupportActionBar(((ActivitySearchViewBinding) getActivityOrFragmentBinding()).zainteresowaniaToolbar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
@@ -45,6 +48,7 @@ public class SearchViewActivityViewModel extends BaseViewModel {
     private BaseCallback<HobbiesResponse> callback = new BaseCallback<HobbiesResponse>() {
         @Override
         public void onSuccess(HobbiesResponse response) {
+            hobbySearchViewAdapter.setListener(hobbyListener);
             hobbySearchViewAdapter.setItems(response.getZainteresowania());
             adapter.set(hobbySearchViewAdapter);
             ProgressDialogManager.get().dismiss();
