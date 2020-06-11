@@ -16,6 +16,7 @@
             android:name=".activites.search_view.SearchViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CreateProfileTheme"
+            android:windowSoftInputMode="adjustNothing"
             />
 
         <activity

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
         <variable
             name="viewModel"
-            type="com.example.randomchatapplication.adapters.searchview_hobby.HobbySearchViewAdapterViewModel" />
+            type="com.example.randomchatapplication.adapters.hobbies.hobbiesSearchViewAdapter.HobbySearchViewAdapterViewModel" />
     </data>
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -22,7 +22,9 @@
             android:layout_height="wrap_content"
             android:padding="10dp"
             android:text="@{viewModel.value}"
+            app:drawableEndVisibility="@{viewModel.checked}"
             android:textColor="@color/colorBlack"
             android:textSize="18sp" />
+
     </LinearLayout>
 </layout>

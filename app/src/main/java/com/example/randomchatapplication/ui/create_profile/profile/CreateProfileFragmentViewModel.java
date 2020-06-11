@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.lifecycle.ViewModel;
+
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.activites.search_view.SearchViewActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
@@ -15,6 +17,7 @@ import com.example.randomchatapplication.interfaces.SelectViewListener;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.SpinnerItem;
 import com.example.randomchatapplication.models.ViewInfo;
+import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
 
 import java.util.ArrayList;
@@ -26,9 +29,9 @@ public class CreateProfileFragmentViewModel extends BaseViewModel{
     private List<FieldViewModel> viewModels =new ArrayList<>();
     private List<Field> fields = new ArrayList<>();
     private List<ViewInfo> fieldsViews = new ArrayList<>();
-
+    private int step;
     public void init(int step){
-        CreateProfileActivity activity = (CreateProfileActivity) getActivity();
+        this.step = step;
         fields.addAll(FieldsHelper.get().getFieldsForStep(step));
         LinearLayout fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).fieldsContainer;
         fieldsViews.addAll(FieldsHelper.get().createViewsForStep(fields,fieldsContainer.getContext(),fieldsContainer, getActivity()));
@@ -43,6 +46,22 @@ public class CreateProfileFragmentViewModel extends BaseViewModel{
                 fieldsContainer.addView(viewInfo.getView());
             }
         }
+    }
 
+    public List<ViewInfo> getFieldsViews() {
+        return fieldsViews;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public ViewModel getSearchViewModel(){
+        ViewModel viewModel = null;
+        for (ViewInfo info :fieldsViews) {
+            if(info.getViewModel() instanceof SearchViewModel)
+                viewModel = info.getViewModel();
+        }
+        return viewModel;
     }
 }

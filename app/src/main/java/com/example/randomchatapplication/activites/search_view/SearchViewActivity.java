@@ -15,30 +15,15 @@ import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
 import com.example.randomchatapplication.interfaces.HobbyInterface;
 import com.example.randomchatapplication.interfaces.Providers;
-import com.example.randomchatapplication.models.ListenerContainer;
 import com.example.randomchatapplication.navigation.Navigator;
 
 public class SearchViewActivity extends BaseActivity<ActivitySearchViewBinding,SearchViewActivityViewModel> implements Providers {
-    private HobbyInterface hobbyInterface;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Intent intent =getIntent();
-        ListenerContainer container = intent.getParcelableExtra("listener");
-        Log.d("onCreate", container.getHobbyInterface().toString());
-        setHobbyInterface(container.getHobbyInterface());
-        super.onCreate(savedInstanceState);
-    }
-
-    public void setHobbyInterface(HobbyInterface hobbyInterface) {
-        this.hobbyInterface = hobbyInterface;
-    }
 
     @Override
     protected void initActivity(ActivitySearchViewBinding binding) {
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        viewModel.init(hobbyInterface);
+        viewModel.init();
     }
 
     @Override
@@ -53,6 +38,7 @@ public class SearchViewActivity extends BaseActivity<ActivitySearchViewBinding,S
 
     @Override
     public void onBackPressed() {
+        setResult(Activity.RESULT_CANCELED);
         finish();
         super.onBackPressed();
     }

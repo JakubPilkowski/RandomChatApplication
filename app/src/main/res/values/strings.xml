@@ -23,4 +23,6 @@
     <string name="register">Rejestracja</string>
     <string name="register_placeholder">Już tylko kilka minut dzieli cię \n od nowej znajomości</string>
     <string name="search_qeury_name">Wyszukaj</string>
+    <string name="hobbies">Zainteresowania</string>
+    <string name="agree">Potwierdź</string>
 </resources>

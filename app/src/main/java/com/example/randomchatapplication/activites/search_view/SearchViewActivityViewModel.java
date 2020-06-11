@@ -1,30 +1,36 @@
 package com.example.randomchatapplication.activites.search_view;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.widget.SearchView;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.randomchatapplication.R;
-import com.example.randomchatapplication.adapters.searchview_hobby.HobbySearchViewAdapter;
+import com.example.randomchatapplication.adapters.hobbies.hobbiesSearchViewAdapter.HobbySearchViewAdapter;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
-import com.example.randomchatapplication.interfaces.HobbyInterface;
+import com.example.randomchatapplication.models.Hobby;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class SearchViewActivityViewModel extends BaseViewModel {
 
     public ObservableField<SearchView.OnQueryTextListener> listener = new ObservableField<>();
     public ObservableField<RecyclerView.Adapter> adapter = new ObservableField<>();
+    public ObservableBoolean scrollingEnabled = new ObservableBoolean(true);
     private HobbySearchViewAdapter hobbySearchViewAdapter = new HobbySearchViewAdapter();
-    private HobbyInterface hobbyListener;
-    public void init(HobbyInterface hobbyListener){
-        this.hobbyListener = hobbyListener;
-        SearchViewActivity activity = (SearchViewActivity) getActivity();
+    private SearchViewActivity activity;
+    public void init(){
+        activity = (SearchViewActivity) getActivity();
         activity.setSupportActionBar(((ActivitySearchViewBinding) getActivityOrFragmentBinding()).zainteresowaniaToolbar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -48,7 +54,6 @@ public class SearchViewActivityViewModel extends BaseViewModel {
     private BaseCallback<HobbiesResponse> callback = new BaseCallback<HobbiesResponse>() {
         @Override
         public void onSuccess(HobbiesResponse response) {
-            hobbySearchViewAdapter.setListener(hobbyListener);
             hobbySearchViewAdapter.setItems(response.getZainteresowania());
             adapter.set(hobbySearchViewAdapter);
             ProgressDialogManager.get().dismiss();
@@ -60,6 +65,21 @@ public class SearchViewActivityViewModel extends BaseViewModel {
         }
     };
     public void onClick(){
-        ((ActivitySearchViewBinding)getActivityOrFragmentBinding()).search.setIconified(false);
+        ((ActivitySearchViewBinding)getActivityOrFragmentBinding()).hobbiesSearch.setIconified(false);
+    }
+
+    public void onConfirmClick(){
+        Intent resultIntent = new Intent();
+        ArrayList<Hobby> items = hobbySearchViewAdapter.getItems();
+        ArrayList<Hobby> checkedItems = new ArrayList<>();
+        for (Hobby hobby:items) {
+            if(hobby.isChecked()){
+                Log.d("onConfirmClick", hobby.getValue());
+                checkedItems.add(hobby);
+            }
+        }
+        resultIntent.putParcelableArrayListExtra("hobbies",checkedItems);
+        activity.setResult(Activity.RESULT_OK, resultIntent);
+        activity.finish();
     }
 }

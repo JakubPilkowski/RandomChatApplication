@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout>
 
+    <data>
 
-<LinearLayout
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:gravity="center_vertical"
-    android:orientation="horizontal"
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.adapters.hobbies.hobbiesAdapter.HobbiesAdapterViewModel" />
+    </data>
 
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+
+        android:orientation="horizontal">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="12dp"
-            android:text="asdadsa"
+            android:text="@{viewModel.value}"
             android:textColor="@color/colorPrimary"
             android:textSize="18sp" />
 
@@ -21,8 +27,10 @@
             android:layout_width="36dp"
             android:layout_height="36dp"
             android:layout_margin="12dp"
+            android:onClick="@{()->viewModel.onClick()}"
             android:background="@drawable/close_background"
             android:backgroundTint="@color/colorPrimary"
             android:backgroundTintMode="screen"
             android:stateListAnimator="@null" />
     </LinearLayout>
+</layout>

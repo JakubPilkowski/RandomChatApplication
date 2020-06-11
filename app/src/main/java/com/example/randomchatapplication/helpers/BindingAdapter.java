@@ -12,6 +12,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -21,7 +22,10 @@ import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,11 +37,14 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.activites.search_view.SearchViewActivity;
 import com.example.randomchatapplication.custom_views.CustomRangeSeekbar;
 import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
 import com.example.randomchatapplication.custom_views.DragView;
+import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
 import com.example.randomchatapplication.interfaces.DragViewListener;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class BindingAdapter {
 
@@ -155,7 +162,12 @@ public class BindingAdapter {
     public static void setLayoutManager(RecyclerView recyclerView, String type) {
         switch (type){
             case "LinearLayoutManager":
-                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
+                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()) {
+                    @Override
+                    public boolean canScrollVertically() {
+                        return false;
+                    }
+                });
                 break;
             case "GridLayoutManager":
                 recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
@@ -202,5 +214,61 @@ public class BindingAdapter {
         searchView.setOnQueryTextListener(listener);
     }
 
+    private static boolean isAnimated = false;
+    @androidx.databinding.BindingAdapter("searchButtonAnimation")
+    public static void setSearchButtonAnimation(RecyclerView recyclerView, ViewDataBinding binding){
+        final Button button = ((ActivitySearchViewBinding) binding).hobbiesSearchButton;
+        final Animation[] animation = new Animation[1];
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                if (dy < -12 && !button.isShown() && !isAnimated) {
+                    animation[0] = AnimationUtils.loadAnimation(recyclerView.getContext(), R.anim.translate_up);
+                    animation[0].setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            button.setVisibility(View.VISIBLE);
+                            isAnimated = true;
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            isAnimated = false;
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                            onAnimationEnd(animation);
+                        }
+                    });
+                    button.startAnimation(animation[0]);
+                } else if (dy > 12 && button.isShown() && !isAnimated) {
+                    animation[0] = AnimationUtils.loadAnimation(recyclerView.getContext(), R.anim.translate_down);
+                    animation[0].setAnimationListener(new Animation.AnimationListener() {
+                        @Override
+                        public void onAnimationStart(Animation animation) {
+                            isAnimated = true;
+                        }
+
+                        @Override
+                        public void onAnimationEnd(Animation animation) {
+                            button.setVisibility(View.GONE);
+                            isAnimated = false;
+                        }
+
+                        @Override
+                        public void onAnimationRepeat(Animation animation) {
+                            onAnimationEnd(animation);
+                        }
+                    });
+                    button.startAnimation(animation[0]);
+                }
+            }
+        });
+    }
+    @androidx.databinding.BindingAdapter("drawableEndVisibility")
+    public static void setDrawableEndVisibility(TextView textView, boolean visibility){
+        textView.setCompoundDrawablesWithIntrinsicBounds(0,0,visibility ? R.drawable.ic_checked : 0,0);
+    }
 
 }

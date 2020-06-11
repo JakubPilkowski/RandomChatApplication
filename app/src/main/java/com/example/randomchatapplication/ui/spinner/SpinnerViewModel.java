@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.ui.spinner;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.example.randomchatapplication.adapters.spinneradapter.SpinnerViewAdapter;
@@ -15,6 +16,7 @@ import java.util.List;
 public class SpinnerViewModel extends BaseViewModel implements DragViewListener {
 
     public ObservableField<SpinnerViewAdapter> spinnerAdapter = new ObservableField<>();
+    public ObservableBoolean scrollingEnabled = new ObservableBoolean(true);
     public ObservableField<String> layoutManager = new ObservableField<>();
     public ObservableField<DragViewListener> dragViewListener = new ObservableField<DragViewListener>(this);
     SpinnerViewAdapter adapter = new SpinnerViewAdapter();
