@@ -10,6 +10,10 @@ import androidx.databinding.ViewDataBinding;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.randomchatapplication.api.LoginConnection;
+import com.example.randomchatapplication.api.MockyConnection;
+import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.navigation.Navigator;
 
 
@@ -22,12 +26,17 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UserPreferences.initInstance(this);
+        MockyConnection.init();
+        LoginConnection.init();
+        ProgressDialogManager.init(this);
         navigator.setActivity(this);
         navigator.setFragmentContainer(getIdFragmentContainer());
         binding = DataBindingUtil.setContentView(this, getLayoutRes());
         viewModel = ViewModelProviders.of(this).get(getViewModel());
         initActivity(binding);
     }
+
 
     public BaseFragment getCurrentFragment() {
         return (BaseFragment) getSupportFragmentManager().findFragmentById(getIdFragmentContainer());

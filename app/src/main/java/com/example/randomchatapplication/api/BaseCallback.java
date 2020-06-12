@@ -18,9 +18,9 @@ public abstract class BaseCallback<T> implements Callback<T> {
         T body = response.body();
         int code = response.code();
 
-//        if(code == 400){
-//            onError("Bad request");
-//        }
+        if(code == 400){
+            onError("Bad request");
+        }
 
         if(code == 401){
             onError("Unauthorized");
@@ -39,7 +39,6 @@ public abstract class BaseCallback<T> implements Callback<T> {
         }else{
             onError(response.message());
         }
-
     }
 
     @Override

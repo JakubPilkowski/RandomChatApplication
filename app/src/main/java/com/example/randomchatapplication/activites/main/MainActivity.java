@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
@@ -34,10 +35,6 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
-        UserPreferences.initInstance(getApplicationContext());
-        MockyConnection.init();
-        //ProgressDialogManager.init(getApplicationContext());
-//        LoginConnection.init();
         super.onCreate(savedInstanceState);
     }
 
@@ -47,6 +44,9 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         {
             finish();
             startActivity(new Intent(getApplicationContext(), AuthActivity.class));
+        }
+        else{
+            UserPreferences.getINSTANCE().clear();
         }
         super.onResume();
     }

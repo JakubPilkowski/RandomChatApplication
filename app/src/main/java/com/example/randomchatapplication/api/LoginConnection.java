@@ -1,5 +1,10 @@
 package com.example.randomchatapplication.api;
 
+import com.example.randomchatapplication.api.requests.AuthRequest;
+import com.example.randomchatapplication.api.responses.AuthResponse;
+
+import retrofit2.Call;
+
 public class LoginConnection {
 
 
@@ -23,11 +28,14 @@ public class LoginConnection {
     public void validate(){
 
     }
-    public void login(){
+    public void login(BaseCallback<AuthResponse> callback, AuthRequest authRequest){
+        Call<AuthResponse> call = loginClient.getService().login(authRequest);
+        call.enqueue(callback);
 
     }
-    public void register(){
-
+    public void register(BaseCallback<AuthResponse> callback, AuthRequest authRequest){
+        Call<AuthResponse> call = loginClient.getService().login(authRequest);
+        call.enqueue(callback);
     }
 
 
