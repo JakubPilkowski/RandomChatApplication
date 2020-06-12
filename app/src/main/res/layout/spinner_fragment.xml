@@ -14,7 +14,6 @@
     <LinearLayout xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBlackOpacity"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:gravity="bottom|center_horizontal"
@@ -27,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="450dp"
             android:id="@+id/drag_view"
-            android:layout_marginBottom="12dp"
+            app:dragViewListener="@{viewModel.dragViewListener}"
             >
             <RelativeLayout
                 android:id="@+id/drag_container"
@@ -38,27 +37,39 @@
                 android:orientation="vertical"
                 android:background="@drawable/radius_background"
                 >
+                <RelativeLayout
+                    android:id="@+id/bell_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                 <View
                     android:id="@+id/bell"
                     android:layout_width="150dp"
-                    android:layout_height="8dp"
-                    android:padding="24dp"
-                    android:layout_centerHorizontal="true"
+                    android:layout_height="10dp"
+                    android:layout_centerInParent="true"
                     android:background="@drawable/belka"
                     android:layout_marginTop="18dp"
                     android:layout_marginBottom="12dp"
                     />
-
+                <View
+                    android:id="@+id/bell_active"
+                    android:layout_width="165dp"
+                    android:layout_height="25dp"
+                    android:visibility="invisible"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/belka_active"
+                    android:layout_marginTop="18dp"
+                    android:layout_marginBottom="12dp"
+                    />
+                </RelativeLayout>
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/bell"
+                    android:layout_below="@+id/bell_container"
                     android:overScrollMode="never"
                     android:layout_marginBottom="12dp"
                     android:id="@+id/drag_recycler_view"
                     app:layoutManager="@{viewModel.layoutManager}"
                     app:recyclerViewAdapter="@{viewModel.spinnerAdapter}"
-                    app:layout_behavior="@string/appbar_scrolling_view_behavior"
                     />
                 <View
                     android:layout_width="match_parent"
@@ -66,7 +77,7 @@
                     android:layout_height="20dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginEnd="4dp"
-                    android:layout_below="@+id/bell"
+                    android:layout_below="@+id/bell_container"
                     android:background="@drawable/gradient_fade_top"
                     />
                 <View

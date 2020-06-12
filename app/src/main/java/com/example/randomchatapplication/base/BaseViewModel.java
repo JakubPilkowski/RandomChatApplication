@@ -26,7 +26,7 @@ public abstract class BaseViewModel extends ViewModel {
         return providers.getBinding();
     }
     public BaseFragment getFragment(){return providers.getFragment();}
-    public ViewDataBinding getFragmentBinding(){
+    public ViewDataBinding getActivityOrFragmentBinding(){
         return providers.getActivityOrFragmentBinding();
     }
 }

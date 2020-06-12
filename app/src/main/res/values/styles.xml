@@ -19,7 +19,6 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="colorControlActivated">@color/colorPrimaryDark</item>
         <item name="android:navigationBarColor">@color/colorPrimaryDark</item>
-        <item name="android:navigationMode">tabMode</item>
     </style>
 
     <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -39,9 +38,20 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+    <style name="SelectViewTheme" parent="Widget.AppCompat.ProgressBar">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/colorBlackOpacity</item>
+        <item name="android:layout_gravity">bottom</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <style name="SelectableNavItemBackground">
         <item name="listPreferredItemPaddingLeft">16dp</item>
         <item name="listPreferredItemPaddingRight">0dp</item>
+    </style>
+    <style name="seekBarStyle">
+        <item name="android:colorControlHighlight">@android:color/transparent</item>
     </style>
     <style name="MenuText">
         <item name="android:textColor">@color/colorPrimaryDark</item>

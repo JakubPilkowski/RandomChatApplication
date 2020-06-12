@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.activites.search_view.SearchViewActivityViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".activites.search_view.SearchViewActivity">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/zainteresowania_toolbar"
+                android:layout_width="match_parent"
+                android:background="@color/colorPrimary"
+                android:layout_height="?attr/actionBarSize"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:gravity="center"
+                android:text="@string/hobbies"
+                android:textSize="22sp"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <SearchView
+            android:id="@+id/hobbies_search"
+            android:clickable="true"
+            android:focusable="true"
+            app:onQueryTextListener="@{viewModel.listener}"
+            android:onClick="@{()->viewModel.onClick()}"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:queryHint="Wyszukaj..."
+            />
+        <View
+            android:layout_below="@id/hobbies_search"
+            android:id="@+id/hobbies_bell"
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@color/colorPrimary"/>
+        <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/hobbies_search_view_results"
+            android:layout_below="@id/hobbies_bell"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1dp"
+            app:layoutManager="LinearLayoutManager"
+            app:recyclerViewAdapter="@{viewModel.adapter}"
+            app:searchButtonAnimation="@{viewModel.activityOrFragmentBinding}"
+            />
+            <Button
+                android:id="@+id/hobbies_search_button"
+                android:layout_width="200dp"
+                android:layout_height="48dp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:background="@drawable/login_button_drawable"
+                android:onClick="@{() -> viewModel.onConfirmClick()}"
+                android:text="@string/agree"
+                android:stateListAnimator="@null"
+                android:textAllCaps="false"
+                android:textColor="@color/colorAccent"
+                android:textSize="18sp"
+                android:layout_marginBottom="18dp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </LinearLayout>
+</layout>

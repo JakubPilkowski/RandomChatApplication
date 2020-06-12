@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.VectorDrawable;
 import android.util.AttributeSet;
 
@@ -29,39 +30,39 @@ public class CustomRangeSeekbar extends CrystalRangeSeekbar {
 
     @Override
     protected Drawable getRightDrawable(TypedArray typedArray) {
-        return ContextCompat.getDrawable(getContext(), R.drawable.ic_thumb);
+        return ContextCompat.getDrawable(getContext(), R.drawable.thumb_non_active);
     }
 
     @Override
     protected Drawable getLeftDrawable(TypedArray typedArray) {
-        return ContextCompat.getDrawable(getContext(), R.drawable.ic_thumb);
+        return ContextCompat.getDrawable(getContext(), R.drawable.thumb_non_active);
     }
 
     @Override
     protected Drawable getLeftDrawablePressed(TypedArray typedArray) {
-        return ContextCompat.getDrawable(getContext(), R.drawable.ic_thumb_active);
+        return ContextCompat.getDrawable(getContext(), R.drawable.thumb_active);
     }
 
     @Override
     protected Drawable getRightDrawablePressed(TypedArray typedArray) {
-        return ContextCompat.getDrawable(getContext(), R.drawable.ic_thumb_active);
+        return ContextCompat.getDrawable(getContext(), R.drawable.thumb_active);
     }
 
     @Override
     protected Bitmap getBitmap(Drawable drawable) {
-        if (drawable instanceof VectorDrawable){
-            return vectorToBitmap((VectorDrawable) drawable);
+        if (drawable instanceof VectorDrawable || drawable instanceof LayerDrawable){
+            return DrawableToBitmap(drawable);
         }
         else{
             return super.getBitmap(drawable);
         }
     }
-    private static Bitmap vectorToBitmap(VectorDrawable vectorDrawable) {
-        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(),
-                vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+    private static Bitmap DrawableToBitmap(Drawable drawable) {
+        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
+                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(bitmap);
-        vectorDrawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        vectorDrawable.draw(canvas);
+        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
+        drawable.draw(canvas);
         return bitmap;
     }
 }

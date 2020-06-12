@@ -13,9 +13,11 @@ import com.example.randomchatapplication.base.BaseFragment;
 public class Navigator {
     private FragmentActivity activity;
     private int fragmentContainer;
+
     public void setActivity(FragmentActivity activity) {
         this.activity = activity;
     }
+
     public void clearBackStack() {
         for (int i = 1; i < activity.getSupportFragmentManager().getBackStackEntryCount(); i++) {
             FragmentManager.BackStackEntry entry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
@@ -29,7 +31,7 @@ public class Navigator {
         for (int i = 0; i < activity.getSupportFragmentManager().getBackStackEntryCount(); i++) {
             FragmentManager.BackStackEntry backStackEntry = activity.getSupportFragmentManager().getBackStackEntryAt(i);
             String tmpTag = backStackEntry.getName();
-            Log.d("fragmenty",tmpTag);
+            Log.d("fragmenty", tmpTag);
 //            if (!tmpTag.contains(tag) && !tmpTag.equals(HomeFragment.TAG)) {
 //                activity.getSupportFragmentManager().popBackStack(tmpTag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
 //            }
@@ -46,7 +48,8 @@ public class Navigator {
         }
         return false;
     }
-    public void attach(BaseFragment fragment, String tag){
+
+    public void attach(BaseFragment fragment, String tag) {
         deleteUselessFragments(tag);
         if (!isAvailable(tag)) {
             activity.getSupportFragmentManager()
@@ -56,14 +59,14 @@ public class Navigator {
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         } else {
-            activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            activity.getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         }
     }
 
-    public void showSpinnerView(BaseFragment fragment, String tag){
+    public void showSpinnerView(BaseFragment fragment, String tag) {
 //        fragment.show(activity.getSupportFragmentManager(),tag);
 //        fragment.setCancelable(false);
 
@@ -76,58 +79,50 @@ public class Navigator {
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         } else {
-            activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
+            activity.getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
             activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(R.id.spinner_container, fragment, tag)
                     .setTransition(FragmentTransaction.TRANSIT_NONE)
                     .commit();
         }
     }
 
-    public void showLoginScreen(){
+    public void showLoginScreen() {
 //        deleteUselessFragments(LoginFragment.TAG);
     }
 
-    public void addCreateProfileViewToBackStack(BaseFragment fragment, String tag){
+    public void addCreateProfileViewToBackStack(BaseFragment fragment, String tag) {
         deleteUselessFragments(tag);
-        if(tag.equals("CreateProfileFragment1")){
+        Log.d("addCreateProfile", tag);
+        if (tag.equals("CreateProfileFragment1")) {
             activity.getSupportFragmentManager()
                     .beginTransaction()
                     .addToBackStack(tag)
                     .add(fragmentContainer, fragment, tag)
                     .show(fragment)
                     .commit();
-        }
-        else{
-            if (!isAvailable(tag)) {
-                activity.getSupportFragmentManager()
-                        .beginTransaction()
-                        .addToBackStack(tag)
-                        .add(fragmentContainer, fragment, tag)
-                        .hide(fragment)
-                        .commit();
-            } else {
-                activity.getSupportFragmentManager().popBackStack(tag,FragmentManager.POP_BACK_STACK_INCLUSIVE);
-                activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(fragmentContainer, fragment, tag)
-                        .setTransition(FragmentTransaction.TRANSIT_NONE)
-                        .commit();
-            }
+        } else {
+            activity.getSupportFragmentManager()
+                    .beginTransaction()
+                    .addToBackStack(tag)
+                    .add(fragmentContainer, fragment, tag)
+                    .hide(fragment)
+                    .commit();
         }
     }
 
-    public void showCreateProfile(String tag){
+    public void showCreateProfile(String tag) {
         BaseFragment fragment = (BaseFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
-        if(isAvailable(tag) && fragment != null){
+        if (isAvailable(tag) && fragment != null) {
             activity.getSupportFragmentManager()
                     .beginTransaction()
                     .show(fragment)
                     .commit();
         }
-
     }
 
-    public void hideCreateProfile(String tag){
+    public void hideCreateProfile(String tag) {
         BaseFragment fragment = (BaseFragment) activity.getSupportFragmentManager().findFragmentByTag(tag);
-        if(isAvailable(tag) && fragment != null){
+        if (isAvailable(tag) && fragment != null) {
             activity.getSupportFragmentManager()
                     .beginTransaction()
                     .hide(fragment)

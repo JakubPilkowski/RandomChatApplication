@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class FieldsResponse {
-    ArrayList<Field> pola;
-    ArrayList<Step> kroki;
+    private ArrayList<Field> pola;
+    private ArrayList<Step> kroki;
 
     public ArrayList<Field> getPola() {
         return pola;

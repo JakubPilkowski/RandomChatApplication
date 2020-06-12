@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/spinner_item_drawable"
-            android:drawableStart="@drawable/ic_thumb"
+            android:drawableStart="@drawable/thumb"
             android:onClick="@{()->viewModel.onClick()}"
             android:paddingStart="20dp"
             android:paddingTop="10dp"

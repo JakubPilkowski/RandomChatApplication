@@ -21,6 +21,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_above="@id/buttonsContainer"
                 android:background="@color/colorAccent"
                 android:orientation="vertical">
 
@@ -66,11 +67,6 @@
                         android:layout_height="match_parent"
                         tools:context=".activites.profile_creation.CreateProfileActivity" />
 
-<!--                    <com.example.randomchatapplication.custom_views.CustomProgressView-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="match_parent"-->
-
-<!--                        />-->
                     <View
                         android:layout_width="match_parent"
                         android:id="@+id/fade_anim_top"

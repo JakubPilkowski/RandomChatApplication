@@ -3,6 +3,7 @@ package com.example.randomchatapplication.api;
 import android.util.Log;
 
 import com.example.randomchatapplication.api.responses.FieldsResponse;
+import com.example.randomchatapplication.api.responses.HobbiesResponse;
 
 import retrofit2.Call;
 
@@ -29,5 +30,11 @@ public class MockyConnection {
         Call<FieldsResponse> call = mockyClient.getService().getFields();
         call.enqueue(callback);
     }
+
+    public void getHobbies(BaseCallback<HobbiesResponse> callback){
+        Call<HobbiesResponse> call = mockyClient.getService().getHobbies();
+        call.enqueue(callback);
+    }
+
 
 }
