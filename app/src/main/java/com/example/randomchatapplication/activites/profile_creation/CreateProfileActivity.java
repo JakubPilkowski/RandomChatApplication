@@ -38,10 +38,9 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
+        SelectViewDialogManager.init(this);
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        ProgressDialogManager.init(this);
-        SelectViewDialogManager.init(this);
         viewModel.init();
     }
 

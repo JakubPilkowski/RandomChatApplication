@@ -3,7 +3,7 @@ package com.example.randomchatapplication.helpers;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.example.randomchatapplication.api.responses.LoginResponse;
+import com.example.randomchatapplication.api.responses.AuthResponse;
 import com.google.gson.reflect.TypeToken;
 
 public class UserPreferences {
@@ -26,7 +26,7 @@ public class UserPreferences {
         INSTANCE = new UserPreferences(context);
     }
 
-    public void save(LoginResponse response){
+    public void save(AuthResponse response){
         String json = JsonTranslator.getJsonFromObject(response);
         preferences.edit().putString(AUTH_RESPONSE, json).apply();
     }
@@ -35,7 +35,7 @@ public class UserPreferences {
         String json = preferences.getString(AUTH_RESPONSE, null);
         if (json == null)
             return null;
-        return JsonTranslator.getObjectFromJson(json, new TypeToken<LoginResponse>(){}).getToken();
+        return JsonTranslator.getObjectFromJson(json, new TypeToken<AuthResponse>(){}).getToken();
     }
     public void clear(){
         preferences.edit().putString(AUTH_RESPONSE, null).apply();
