@@ -30,6 +30,7 @@ public class UserPreferences {
         String json = JsonTranslator.getJsonFromObject(response);
         preferences.edit().putString(AUTH_RESPONSE, json).apply();
     }
+
     public String getAuthToken(){
         String json = preferences.getString(AUTH_RESPONSE, null);
         if (json == null)

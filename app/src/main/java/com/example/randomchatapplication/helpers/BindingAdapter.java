@@ -270,7 +270,6 @@ public class BindingAdapter {
     @androidx.databinding.BindingAdapter({"updateHobbies", "searchViewModel"})
     public static void setUpdateHobbies(LinearLayout linearLayout, List<Hobby> hobbies, SearchViewModel searchViewModel) {
         if (hobbies.size() > 0) {
-            Log.d("setUpdateHobbies", String.valueOf(hobbies.size()));
             linearLayout.removeAllViews();
             for (Hobby hobby : hobbies) {
                 View hobbyView = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.hobby_item, linearLayout, false);
@@ -280,7 +279,7 @@ public class BindingAdapter {
                 viewModel.init(hobby, hobbies, searchViewModel);
                 linearLayout.addView(hobbyView);
             }
-        }else{
+        } else {
             linearLayout.removeAllViews();
         }
     }

@@ -1,6 +1,6 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
-import android.util.Log;
+import android.content.Intent;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
+import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
@@ -22,7 +23,7 @@ public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt step = new ObservableInt();
     public ObservableField<String> stepNumber = new ObservableField<>();
     public ObservableField<String> stepTitle = new ObservableField<>();
-    public ImageView dot;
+    private ImageView dot;
 
     public void init() {
         MockyConnection.get().getFields(callback);
@@ -48,18 +49,15 @@ public class CreateProfileViewModel extends BaseViewModel {
         @Override
         public void onError(String message) {
             ProgressDialogManager.get().dismiss();
-            Log.d("response", "error " + message);
         }
     };
 
     public void onBackClick() {
         if (step.get() > 1) {
             moveLeft();
-
             step.set(step.get() - 1);
             getNavigator().showCreateProfile(CreateProfileFragment.TAG + step.get());
             getNavigator().hideCreateProfile(CreateProfileFragment.TAG + (step.get() + 1));
-            //            currentItem.set(step.get() - 1);
             stepTitle.set(FieldsHelper.get().getSteps().get(step.get() - 1).getName());
             stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
 
@@ -96,18 +94,17 @@ public class CreateProfileViewModel extends BaseViewModel {
     }
 
     public void onNextClick() {
-//        ScrollView scrollView =((CreateProfileHomeFragmentBinding)getBinding()).createProfileScrollView;
         if (step.get() < dotsCount.get()) {
-//            scrollView.fullScroll(ScrollView.FOCUS_UP);
             moveRight();
             step.set(step.get() + 1);
             getNavigator().showCreateProfile(CreateProfileFragment.TAG + step.get());
             getNavigator().hideCreateProfile(CreateProfileFragment.TAG + (step.get() - 1));
-//            currentItem.set(step.get() - 1);
             stepTitle.set(FieldsHelper.get().getSteps().get(step.get() - 1).getName());
             stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
-
         } else {
+            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+            getActivity().startActivity(intent);
+            getActivity().finish();
             //rozpocznij pobranie danych i przejscie do ekranu głównego
         }
     }
