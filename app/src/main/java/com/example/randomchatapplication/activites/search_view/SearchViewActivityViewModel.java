@@ -17,24 +17,28 @@ import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.interfaces.SearchViewListener;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SearchViewActivityViewModel extends BaseViewModel {
+public class SearchViewActivityViewModel extends BaseViewModel implements SearchViewListener {
 
     public ObservableField<SearchView.OnQueryTextListener> listener = new ObservableField<>();
     public ObservableField<RecyclerView.Adapter> adapter = new ObservableField<>();
-    public ObservableBoolean scrollingEnabled = new ObservableBoolean(true);
     private HobbySearchViewAdapter hobbySearchViewAdapter = new HobbySearchViewAdapter();
     private SearchViewActivity activity;
-    public void init(){
+    private ArrayList<Hobby> hobbies = new ArrayList<>();
+
+    public void init(ArrayList<Hobby> hobbies) {
+        this.hobbies.addAll(hobbies);
         activity = (SearchViewActivity) getActivity();
         activity.setSupportActionBar(((ActivitySearchViewBinding) getActivityOrFragmentBinding()).zainteresowaniaToolbar);
         activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
         activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         activity.getSupportActionBar().setHomeAsUpIndicator(getActivity().getResources().getDrawable(R.drawable.ic_arrow_back));
+        hobbySearchViewAdapter.setSearchViewListener(this);
         listener.set(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -51,10 +55,24 @@ public class SearchViewActivityViewModel extends BaseViewModel {
         MockyConnection.get().getHobbies(callback);
         ProgressDialogManager.get().show();
     }
+
     private BaseCallback<HobbiesResponse> callback = new BaseCallback<HobbiesResponse>() {
         @Override
         public void onSuccess(HobbiesResponse response) {
-            hobbySearchViewAdapter.setItems(response.getZainteresowania());
+            Log.d("onSuccess:", String.valueOf(hobbies.size()));
+            if (hobbies.size() > 0) {
+                ArrayList<Hobby> responseHobbies = response.getZainteresowania();
+                for (Hobby hobby : responseHobbies) {
+                    for (Hobby checkedHobbies : hobbies) {
+                        if (hobby.getValue().equals(checkedHobbies.getValue())) {
+                            hobby.setChecked(true);
+                        }
+                    }
+                }
+                hobbySearchViewAdapter.setItems(responseHobbies);
+            } else {
+                hobbySearchViewAdapter.setItems(response.getZainteresowania());
+            }
             adapter.set(hobbySearchViewAdapter);
             ProgressDialogManager.get().dismiss();
         }
@@ -64,22 +82,29 @@ public class SearchViewActivityViewModel extends BaseViewModel {
             ProgressDialogManager.get().dismiss();
         }
     };
-    public void onClick(){
-        ((ActivitySearchViewBinding)getActivityOrFragmentBinding()).hobbiesSearch.setIconified(false);
+
+    public void onClick() {
+        ((ActivitySearchViewBinding) getActivityOrFragmentBinding()).hobbiesSearch.setIconified(false);
     }
 
-    public void onConfirmClick(){
+    public void onConfirmClick() {
         Intent resultIntent = new Intent();
         ArrayList<Hobby> items = hobbySearchViewAdapter.getItems();
         ArrayList<Hobby> checkedItems = new ArrayList<>();
-        for (Hobby hobby:items) {
-            if(hobby.isChecked()){
+        for (Hobby hobby : items) {
+            if (hobby.isChecked()) {
                 Log.d("onConfirmClick", hobby.getValue());
                 checkedItems.add(hobby);
             }
         }
-        resultIntent.putParcelableArrayListExtra("hobbies",checkedItems);
+        resultIntent.putParcelableArrayListExtra("hobbies", checkedItems);
         activity.setResult(Activity.RESULT_OK, resultIntent);
         activity.finish();
+    }
+
+    @Override
+    public void onChecked() {
+        ((ActivitySearchViewBinding) getActivityOrFragmentBinding()).hobbiesSearch.setQuery("",false);
+        ((ActivitySearchViewBinding) getActivityOrFragmentBinding()).hobbiesSearch.setIconified(true);
     }
 }

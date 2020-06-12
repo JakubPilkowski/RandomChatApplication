@@ -1,27 +1,25 @@
 package com.example.randomchatapplication.helpers;
 
-import android.animation.Animator;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.webkit.WebView;
-import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.ListView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.SearchView;
-import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,14 +35,18 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
-import com.example.randomchatapplication.activites.search_view.SearchViewActivity;
 import com.example.randomchatapplication.custom_views.CustomRangeSeekbar;
 import com.example.randomchatapplication.custom_views.CustomViewPager;
 import com.example.randomchatapplication.custom_views.DotsView;
 import com.example.randomchatapplication.custom_views.DragView;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
+import com.example.randomchatapplication.databinding.HobbyItemBinding;
 import com.example.randomchatapplication.interfaces.DragViewListener;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.example.randomchatapplication.models.Hobby;
+import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
+import com.example.randomchatapplication.viewmodels.HobbyViewModel;
+
+import java.util.List;
 
 public class BindingAdapter {
 
@@ -84,13 +86,13 @@ public class BindingAdapter {
             });
         }
     }
-    @androidx.databinding.BindingAdapter("progressWithAnim")
-    public static void setProgressWithAnim(ProgressBar progressBar, int progress){
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            progressBar.setProgress(progress,true);
 
-        }
-        else{
+    @androidx.databinding.BindingAdapter("progressWithAnim")
+    public static void setProgressWithAnim(ProgressBar progressBar, int progress) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            progressBar.setProgress(progress, true);
+
+        } else {
             ObjectAnimator.ofInt(progressBar, "progress", progress)
                     .setDuration(1500)
                     .start();
@@ -104,52 +106,53 @@ public class BindingAdapter {
 
 
     @androidx.databinding.BindingAdapter("dotsCount")
-    public static void setArrayViewItems(DotsView dotsView, int count)
-    {
+    public static void setArrayViewItems(DotsView dotsView, int count) {
         dotsView.setDotsCount(count);
     }
 
     @androidx.databinding.BindingAdapter("currentItem")
-    public static void setViewPagerCurrentItem(ViewPager viewPager, int currentItem){
+    public static void setViewPagerCurrentItem(ViewPager viewPager, int currentItem) {
         viewPager.setCurrentItem(currentItem);
 
     }
+
     @androidx.databinding.BindingAdapter("setOffScreenPageLimit")
-    public static void setOffScreenPageLimit(ViewPager viewPager, int pageLimit){
+    public static void setOffScreenPageLimit(ViewPager viewPager, int pageLimit) {
         viewPager.setOffscreenPageLimit(pageLimit);
     }
 
     @androidx.databinding.BindingAdapter("swipeEnabled")
-    public static void setSwipeEnabled(CustomViewPager viewPager, boolean swipeEnabled)
-    {
+    public static void setSwipeEnabled(CustomViewPager viewPager, boolean swipeEnabled) {
         viewPager.setSwipeEnabled(swipeEnabled);
     }
+
     @androidx.databinding.BindingAdapter("onTextChangedListener")
     public static void onTextChangedListener(final EditText editText, TextWatcher textWatcher) {
         editText.addTextChangedListener(textWatcher);
     }
 
     @androidx.databinding.BindingAdapter("seekbarListener")
-    public static void setSeekBarListener(CrystalRangeSeekbar seekbar, OnRangeSeekbarChangeListener listener)
-    {
+    public static void setSeekBarListener(CrystalRangeSeekbar seekbar, OnRangeSeekbarChangeListener listener) {
         seekbar.setOnRangeSeekbarChangeListener(listener);
     }
+
     @androidx.databinding.BindingAdapter("minNumberPickerValue")
-    public static void setNumberPickerMinValue(NumberPicker numberPicker, int minValue)
-    {
+    public static void setNumberPickerMinValue(NumberPicker numberPicker, int minValue) {
         numberPicker.setMinValue(minValue);
     }
+
     @androidx.databinding.BindingAdapter("maxNumberPickerValue")
-    public static void setNumberPickerMaxValue(NumberPicker numberPicker, int maxValue)
-    {
+    public static void setNumberPickerMaxValue(NumberPicker numberPicker, int maxValue) {
         numberPicker.setMaxValue(maxValue);
     }
+
     @androidx.databinding.BindingAdapter("numberPickerValue")
-    public static void setNumberPickerValue(NumberPicker numberPicker, int value){
+    public static void setNumberPickerValue(NumberPicker numberPicker, int value) {
         numberPicker.setValue(value);
     }
+
     @androidx.databinding.BindingAdapter("numberPickerListener")
-    public static void setNumberPickerListener(NumberPicker numberPicker, NumberPicker.OnValueChangeListener listener){
+    public static void setNumberPickerListener(NumberPicker numberPicker, NumberPicker.OnValueChangeListener listener) {
         numberPicker.setOnValueChangedListener(listener);
     }
 
@@ -160,14 +163,9 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("layoutManager")
     public static void setLayoutManager(RecyclerView recyclerView, String type) {
-        switch (type){
+        switch (type) {
             case "LinearLayoutManager":
-                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()) {
-                    @Override
-                    public boolean canScrollVertically() {
-                        return false;
-                    }
-                });
+                recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
                 break;
             case "GridLayoutManager":
                 recyclerView.setLayoutManager(new GridLayoutManager(recyclerView.getContext(), 2));
@@ -175,48 +173,45 @@ public class BindingAdapter {
         }
     }
 
-    @androidx.databinding.BindingAdapter("enabled")
-    public static void setEnabled(View view, boolean enabled){
-        view.setEnabled(enabled);
-    }
-
-
     @androidx.databinding.BindingAdapter("visibility")
-    public static void setVisibility(View view, boolean visibility){
+    public static void setVisibility(View view, boolean visibility) {
         view.setVisibility(visibility ? View.VISIBLE : View.GONE);
     }
 
     @androidx.databinding.BindingAdapter("dragViewListener")
-    public static void setDragViewListener(DragView view, DragViewListener listener){
+    public static void setDragViewListener(DragView view, DragViewListener listener) {
         view.setDragViewListener(listener);
     }
+
     @androidx.databinding.BindingAdapter("rangeSeekbarGap")
-    public static void setRangeSeekbarGap(CustomRangeSeekbar seekbar, float gap){
-        seekbar.setGap(gap*2);
+    public static void setRangeSeekbarGap(CustomRangeSeekbar seekbar, float gap) {
+        seekbar.setGap(gap * 2);
     }
+
     @androidx.databinding.BindingAdapter("rangeSeekbarMin")
-    public static void setRangeSeekbarMinValue(CustomRangeSeekbar seekbar, float min){
+    public static void setRangeSeekbarMinValue(CustomRangeSeekbar seekbar, float min) {
         seekbar.setMinValue(min);
     }
 
     @androidx.databinding.BindingAdapter("rangeSeekbarMax")
-    public static void setRangeSeekbarMaxValue(CustomRangeSeekbar seekbar, float max){
+    public static void setRangeSeekbarMaxValue(CustomRangeSeekbar seekbar, float max) {
         seekbar.setMaxValue(max);
     }
 
     @androidx.databinding.BindingAdapter("checkChangedListener")
-    public static void setOnCheckChangedListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener){
+    public static void setOnCheckChangedListener(CheckBox checkBox, CompoundButton.OnCheckedChangeListener listener) {
         checkBox.setOnCheckedChangeListener(listener);
     }
 
     @androidx.databinding.BindingAdapter("onQueryTextListener")
-    public static void setOnQueryTextListener(SearchView searchView, SearchView.OnQueryTextListener listener){
+    public static void setOnQueryTextListener(SearchView searchView, SearchView.OnQueryTextListener listener) {
         searchView.setOnQueryTextListener(listener);
     }
 
     private static boolean isAnimated = false;
+
     @androidx.databinding.BindingAdapter("searchButtonAnimation")
-    public static void setSearchButtonAnimation(RecyclerView recyclerView, ViewDataBinding binding){
+    public static void setSearchButtonAnimation(RecyclerView recyclerView, ViewDataBinding binding) {
         final Button button = ((ActivitySearchViewBinding) binding).hobbiesSearchButton;
         final Animation[] animation = new Animation[1];
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
@@ -266,9 +261,27 @@ public class BindingAdapter {
             }
         });
     }
+
     @androidx.databinding.BindingAdapter("drawableEndVisibility")
-    public static void setDrawableEndVisibility(TextView textView, boolean visibility){
-        textView.setCompoundDrawablesWithIntrinsicBounds(0,0,visibility ? R.drawable.ic_checked : 0,0);
+    public static void setDrawableEndVisibility(TextView textView, boolean visibility) {
+        textView.setCompoundDrawablesWithIntrinsicBounds(0, 0, visibility ? R.drawable.ic_checked : 0, 0);
     }
 
+    @androidx.databinding.BindingAdapter({"updateHobbies", "searchViewModel"})
+    public static void setUpdateHobbies(LinearLayout linearLayout, List<Hobby> hobbies, SearchViewModel searchViewModel) {
+        if (hobbies.size() > 0) {
+            Log.d("setUpdateHobbies", String.valueOf(hobbies.size()));
+            linearLayout.removeAllViews();
+            for (Hobby hobby : hobbies) {
+                View hobbyView = LayoutInflater.from(linearLayout.getContext()).inflate(R.layout.hobby_item, linearLayout, false);
+                HobbyItemBinding binding = HobbyItemBinding.bind(hobbyView);
+                HobbyViewModel viewModel = new HobbyViewModel();
+                binding.setViewModel(viewModel);
+                viewModel.init(hobby, hobbies, searchViewModel);
+                linearLayout.addView(hobbyView);
+            }
+        }else{
+            linearLayout.removeAllViews();
+        }
+    }
 }

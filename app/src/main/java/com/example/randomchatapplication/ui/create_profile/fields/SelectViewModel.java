@@ -1,20 +1,15 @@
 package com.example.randomchatapplication.ui.create_profile.fields;
 
-import android.util.Log;
-
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.example.randomchatapplication.helpers.SelectViewDialogManager;
-import com.example.randomchatapplication.interfaces.SelectViewListener;
 import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.Field;
 import com.example.randomchatapplication.models.SpinnerItem;
-import com.example.randomchatapplication.ui.spinner.SpinnerFragment;
 import com.example.randomchatapplication.viewmodels.FieldViewModel;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 

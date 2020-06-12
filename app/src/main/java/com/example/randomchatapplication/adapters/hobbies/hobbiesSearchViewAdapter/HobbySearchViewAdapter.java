@@ -6,9 +6,12 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.api.BaseCallback;
+import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.databinding.SearchHobbyItemBinding;
+import com.example.randomchatapplication.interfaces.SearchViewListener;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
@@ -18,6 +21,7 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
 
     private HobbiesFilter filter;
     private List<Hobby> itemsBase = new ArrayList<>();
+    private SearchViewListener listener;
 
 
     @Override
@@ -54,12 +58,16 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((SearchHobbyItemBinding) holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), listener);
         } else {
             viewModel = viewModels.get(position);
             ((SearchHobbyItemBinding) holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
+    }
+
+    public void setSearchViewListener(SearchViewListener listener) {
+        this.listener = listener;
     }
 
     private class HobbiesFilter extends Filter {
