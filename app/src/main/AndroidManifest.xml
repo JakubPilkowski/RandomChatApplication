@@ -11,23 +11,23 @@
         android:networkSecurityConfig="@xml/network_security_config"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/MainTheme">
         <activity
             android:name=".activites.search_view.SearchViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CreateProfileTheme"
+            android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustNothing"
             />
 
         <activity
             android:name=".activites.profile_creation.CreateProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/CreateProfileTheme"
+            android:theme="@style/MainTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activites.authentication.AuthActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme" />
+            android:theme="@style/AuthTheme" />
         <activity
             android:name=".activites.main.MainActivity"
             android:screenOrientation="portrait"

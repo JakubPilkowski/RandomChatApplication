@@ -17,13 +17,8 @@ import com.example.randomchatapplication.databinding.ActivityMainBinding;
 
 
 public class MainActivityViewModel extends BaseViewModel {
-    //    public ObservableInt visibility = new ObservableInt();
-//    public ObservableField<String> title = new ObservableField<>();
-//    public ObservableField<Drawable> background = new ObservableField<>();
-//    public ObservableFloat textSize = new ObservableFloat();
-//    public ObservableInt textColor = new ObservableInt();
+    public ObservableField<String> title = new ObservableField<>();
 
-//    private BaseFragment fragment = ((MainActivity) getActivity()).getCurrentFragment();
     private MainActivity activity ;
     public void init() {
         activity = ((MainActivity) getActivity());
@@ -35,37 +30,33 @@ public class MainActivityViewModel extends BaseViewModel {
         heartPopper.startAnimation(scaleDown);
     }
 
+
+
+
     public void refreshToolbar() {
-//        switch (fragment.getToolbarType()) {
-//            case 0:
-//                activity.setSupportActionBar(null);
+        switch (getFragment().getToolbarType()) {
+            case 0:
+                activity.setSupportActionBar(null);
 //                visibility.set(View.GONE);
-//                break;
-//            case 1:
-//                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).mainToolbar);
-//                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-//                activity.getSupportActionBar().setHomeAsUpIndicator(fragment.getBlackBurger());
-//                title.set(fragment.getToolbarName());
-//                background.set(fragment.getContext().getDrawable(R.drawable.white_background));
-//                textSize.set(TextHelper.getPixels(TypedValue.COMPLEX_UNIT_SP, fragment.getToolbarFontSize()));
-//                textColor.set(ContextCompat.getColor(fragment.getContext(), R.color.colorBlack));
-//                visibility.set(View.VISIBLE);
-//                break;
-//            case 2:
-//                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).toolbar);
-//                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-//                activity.getSupportActionBar().setHomeAsUpIndicator(fragment.getWhiteBurger());
-//                title.set(fragment.getToolbarName());
-//                background.set(fragment.getContext().getDrawable(R.drawable.black_background));
-//                textSize.set(TextHelper.getPixels(TypedValue.COMPLEX_UNIT_SP,fragment.getToolbarFontSize()));
-//                textColor.set(ContextCompat.getColor(fragment.getContext(),R.color.colorWhite));
-//                visibility.set(View.VISIBLE);
-//                break;
-//            case 3:
-//                break;
-//        }
+                break;
+            case 1:
+                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).mainToolbar);
+                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+                activity.getSupportActionBar().setHomeAsUpIndicator(getFragment().getBurger());
+                title.set(getFragment().getToolbarName());
+
+                break;
+            case 2:
+                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).mainToolbar);
+                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
+                activity.getSupportActionBar().setHomeAsUpIndicator(getFragment().getBackPress());
+                title.set(getFragment().getToolbarName());
+                break;
+            case 3:
+                break;
+        }
 
     }
 }
