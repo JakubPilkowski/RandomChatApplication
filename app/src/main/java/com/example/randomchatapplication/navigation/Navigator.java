@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.navigation;
 
+import android.app.Activity;
 import android.util.Log;
 
 import androidx.fragment.app.DialogFragment;
@@ -8,13 +9,16 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.activites.main.MainActivity;
+import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
+import com.example.randomchatapplication.ui.profiles.ProfilesFragment;
 
 public class Navigator {
-    private FragmentActivity activity;
+    private BaseActivity activity;
     private int fragmentContainer;
 
-    public void setActivity(FragmentActivity activity) {
+    public void setActivity(BaseActivity activity) {
         this.activity = activity;
     }
 
@@ -48,6 +52,10 @@ public class Navigator {
         }
         return false;
     }
+
+
+
+
 
     public void attach(BaseFragment fragment, String tag) {
         deleteUselessFragments(tag);

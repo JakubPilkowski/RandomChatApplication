@@ -6,8 +6,8 @@
     <string name="settings">Ustawienia</string>
     <string name="earn_points">Zdobądź punkty</string>
     <string name="camera">Kamerka</string>
-    <string name="menu_chat_tag">1</string>
-    <string name="menu_search_tag">2</string>
+    <string name="menu_chat_tag">2</string>
+    <string name="menu_search_tag">1</string>
     <string name="menu_profile_tag">3</string>
     <string name="menu_earn_points_tag">4</string>
     <string name="menu_camera_tag">5</string>

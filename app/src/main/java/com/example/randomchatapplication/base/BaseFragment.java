@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.interfaces.Providers;
 
 
@@ -43,18 +44,20 @@ public abstract class BaseFragment<B extends ViewDataBinding, VM extends BaseVie
     public abstract void bindData(B binding);
 
     public abstract int getToolbarType();
-    // 0 - brak toolbara
-    // 1 - toolbar główny (białe tło, czarna zawartość)
-    // 2 - toolbar poboczny (czarne tło, biała zawartość)
-    // 3 - toolbar niestandardowy (możliwe że potrzebny do pogody)
+    // 0 - brak
+    // 1 - toolbar
+    // 2 - back press
 
     public abstract int getBackPressType();
     // 0 - cofnij o jeden
     // 1 - cofnij do menu głównego
 
-//    public int getWhiteBurger(){
-//        return R.drawable.ic_burger_bialy;
-//    }
+    public int getBurger(){
+        return R.drawable.ic_burger_24dp;
+    }
+    public int getBackPress(){
+        return R.drawable.ic_arrow_back;
+    }
 //    public int getBlackBurger(){
 //        return R.drawable.ic_burger_ciemny;
 //    }
