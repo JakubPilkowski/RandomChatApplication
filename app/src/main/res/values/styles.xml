@@ -13,6 +13,19 @@
         <item name="android:navigationBarColor">@color/colorGrayDot</item>
     </style>
 
+    <style name="CreatingProfileTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor">@color/colorPrimary</item>
+<!--        <item name="android:windowTranslucentStatus">false</item>-->
+<!--        <item name="android:windowTranslucentNavigation">true</item>-->
+    </style>
+    <style name="FullImageFloatingButton" parent="Widget.Design.FloatingActionButton">
+        <item name="fabSize">normal</item>
+        <item name="maxImageSize">64dp</item>
+    </style>
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>

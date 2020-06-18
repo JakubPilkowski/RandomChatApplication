@@ -7,6 +7,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,16 +20,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -115,6 +120,11 @@ public class BindingAdapter {
         viewPager.setCurrentItem(currentItem);
 
     }
+    @androidx.databinding.BindingAdapter("pageChangedListener")
+    public static void setPageChangedListener(ViewPager viewPager, ViewPager.OnPageChangeListener listener){
+        viewPager.addOnPageChangeListener(listener);
+    }
+
 
     @androidx.databinding.BindingAdapter("setOffScreenPageLimit")
     public static void setOffScreenPageLimit(ViewPager viewPager, int pageLimit) {
@@ -283,4 +293,23 @@ public class BindingAdapter {
             linearLayout.removeAllViews();
         }
     }
+
+    @androidx.databinding.BindingAdapter("layoutMarginBottom")
+    public static void setLayoutMarginBottom(View view, int value) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.bottomMargin = value;
+    }
+
+    @androidx.databinding.BindingAdapter("windowStatusBarPadding")
+    public static void setWindowStatusBarPadding(View view, int top){
+        view.setPadding(0,top,0,0);
+    }
+
+
+    @androidx.databinding.BindingAdapter("measuredHeight")
+    public static void setViewHeight(View view, int height){
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height=height;
+    }
+
 }

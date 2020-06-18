@@ -13,12 +13,17 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
 
     public static final String TAG = "CreateProfileFragment";
     private int step;
-
-    public static CreateProfileFragment newInstance(int step) {
+    private int statusBarHeight;
+    public static CreateProfileFragment newInstance(int step, int statusBarHeight) {
 
         CreateProfileFragment createProfileFragment = new CreateProfileFragment();
         createProfileFragment.setStep(step);
+        createProfileFragment.setStatusBarHeight(statusBarHeight);
         return createProfileFragment;
+    }
+
+    public void setStatusBarHeight(int statusBarHeight) {
+        this.statusBarHeight = statusBarHeight;
     }
 
     private void setStep(int step) {
@@ -40,7 +45,7 @@ public class CreateProfileFragment extends BaseFragment<CreateProfileFragmentBin
     public void bindData(CreateProfileFragmentBinding binding) {
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        viewModel.init(step);
+        viewModel.init(step, statusBarHeight);
 
     }
 

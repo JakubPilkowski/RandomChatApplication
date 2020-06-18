@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <gradient
+                android:type="radial"
+                android:gradientRadius="56dp"
+                android:startColor="#228B22"
+                android:endColor="@color/colorAccent"
+                />
+            <padding
+                android:bottom="12dp"
+                android:left="12dp"
+                android:top="12dp"
+                android:right="12dp"
+                />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/ic_accept_green"/>
+</layer-list>
+

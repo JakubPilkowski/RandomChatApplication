@@ -30,6 +30,11 @@ public class SearchViewActivity extends BaseActivity<ActivitySearchViewBinding,S
     }
 
     @Override
+    public boolean lightStatusBar() {
+        return true;
+    }
+
+    @Override
     protected void initActivity(ActivitySearchViewBinding binding) {
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);

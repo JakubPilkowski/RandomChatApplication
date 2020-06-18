@@ -1,18 +1,17 @@
 package com.example.randomchatapplication.navigation;
 
-import android.app.Activity;
 import android.util.Log;
 
-import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
-import com.example.randomchatapplication.R;
-import com.example.randomchatapplication.activites.main.MainActivity;
+import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
+import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
-import com.example.randomchatapplication.ui.profiles.ProfilesFragment;
+import com.example.randomchatapplication.helpers.FieldsHelper;
+import com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragment;
 
 public class Navigator {
     private BaseActivity activity;
@@ -74,25 +73,35 @@ public class Navigator {
         }
     }
 
-    public void showSpinnerView(BaseFragment fragment, String tag) {
-//        fragment.show(activity.getSupportFragmentManager(),tag);
-//        fragment.setCancelable(false);
-
-        deleteUselessFragments(tag);
-        if (!isAvailable(tag)) {
-            activity.getSupportFragmentManager()
-                    .beginTransaction()
-                    .addToBackStack(tag)
-                    .replace(R.id.spinner_container, fragment, tag)
-                    .setTransition(FragmentTransaction.TRANSIT_NONE)
-                    .commit();
-        } else {
-            activity.getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
-            activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(R.id.spinner_container, fragment, tag)
-                    .setTransition(FragmentTransaction.TRANSIT_NONE)
-                    .commit();
+    public ViewPagerListAdapter showCreateProfileFragments(FieldsResponse response, int statusBarHeight){
+        ViewPagerListAdapter viewPagerListAdapter = new ViewPagerListAdapter(activity.getSupportFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        FieldsHelper.init(response.getPola(), response.getKroki());
+        int size = response.getKroki().size();
+        for (int i = 0; i < size; i++) {
+            viewPagerListAdapter.addFragment(CreateProfileFragment.newInstance(i+1, statusBarHeight));
+//                getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(i + 1), CreateProfileFragment.TAG + (i + 1));
         }
+        return viewPagerListAdapter;
     }
+//    public void showSpinnerView(BaseFragment fragment, String tag) {
+////        fragment.show(activity.getSupportFragmentManager(),tag);
+////        fragment.setCancelable(false);
+//
+//        deleteUselessFragments(tag);
+//        if (!isAvailable(tag)) {
+//            activity.getSupportFragmentManager()
+//                    .beginTransaction()
+//                    .addToBackStack(tag)
+//                    .replace(R.id.spinner_container, fragment, tag)
+//                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+//                    .commit();
+//        } else {
+//            activity.getSupportFragmentManager().popBackStack(tag, FragmentManager.POP_BACK_STACK_INCLUSIVE);
+//            activity.getSupportFragmentManager().beginTransaction().addToBackStack(tag).replace(R.id.spinner_container, fragment, tag)
+//                    .setTransition(FragmentTransaction.TRANSIT_NONE)
+//                    .commit();
+//        }
+//    }
 
     public void showLoginScreen() {
 //        deleteUselessFragments(LoginFragment.TAG);

@@ -14,6 +14,7 @@ import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CpCheckedBinding;
 import com.example.randomchatapplication.databinding.CpDatePickerBinding;
 import com.example.randomchatapplication.databinding.CpEditTextBinding;
+import com.example.randomchatapplication.databinding.CpHeaderBinding;
 import com.example.randomchatapplication.databinding.CpRangeSeekbarBinding;
 import com.example.randomchatapplication.databinding.CpSearchViewBinding;
 import com.example.randomchatapplication.databinding.CpSeekbarBinding;
@@ -24,6 +25,7 @@ import com.example.randomchatapplication.models.ViewInfo;
 import com.example.randomchatapplication.ui.create_profile.fields.CheckBoxViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.DatePickerViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.EditTextViewModel;
+import com.example.randomchatapplication.ui.create_profile.fields.HeaderViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.RangeSeekbarViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
 import com.example.randomchatapplication.ui.create_profile.fields.SeekbarViewModel;
@@ -75,14 +77,20 @@ public class FieldsHelper {
         return result;
     }
 
-    public List<ViewInfo> createViewsForStep(List<Field> fieldsForStep, Context context, LinearLayout rootView, Activity activity) {
+    public List<ViewInfo> createViewsForStep(List<Field> fieldsForStep, Context context, LinearLayout rootView, Activity activity, int step) {
         List<ViewInfo> viewInfos = new ArrayList<>();
         FieldViewModel viewModel;
         ViewDataBinding binding;
         View view;
         ViewInfo viewInfo;
+        View headerView = LayoutInflater.from(context).inflate(R.layout.cp_header, rootView, false);
+        ViewDataBinding headerBinding = CpHeaderBinding.bind(headerView);
+        ViewModel headerViewModel = new HeaderViewModel();
+        ((CpHeaderBinding)headerBinding).setViewModel((HeaderViewModel) headerViewModel);
+        ((HeaderViewModel) headerViewModel).init(steps.get(step-1), step, steps.size());
+        ViewInfo headerViewInfo = new ViewInfo(headerBinding, headerViewModel, headerView);
+        viewInfos.add(headerViewInfo);
         for (Field field : fieldsForStep) {
-
             switch (field.getType()) {
                 case "edit text":
                     view = LayoutInflater.from(context).inflate(R.layout.cp_edit_text, rootView, false);

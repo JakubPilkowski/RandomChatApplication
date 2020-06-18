@@ -22,7 +22,7 @@
         <activity
             android:name=".activites.profile_creation.CreateProfileActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MainTheme"
+            android:theme="@style/CreatingProfileTheme"
             android:windowSoftInputMode="adjustNothing" />
         <activity
             android:name=".activites.authentication.AuthActivity"

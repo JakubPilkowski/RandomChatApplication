@@ -8,10 +8,22 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -36,12 +48,79 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     public static final int hobbyRequest = 1001;
 
+
+    public int getNavBarHeight(Context c) {
+        int result = 0;
+        boolean hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+        if(!hasMenuKey && !hasBackKey) {
+            //The device has a navigation bar
+            Resources resources = c.getResources();
+
+            int orientation = resources.getConfiguration().orientation;
+            int resourceId;
+            if (isTablet(c)){
+                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
+            }  else {
+                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_width", "dimen", "android");
+            }
+
+            if (resourceId > 0) {
+                return resources.getDimensionPixelSize(resourceId);
+            }
+        }
+        return result;
+    }
+
+
+    private boolean isTablet(Context c) {
+        return (c.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+
+    private int windowNavigationSize;
+    private int statusBarHeight;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        windowNavigationSize = getNavBarHeight(getApplicationContext());
+        statusBarHeight = getStatusBarHeight();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            Window w = getWindow(); // in Activity's onCreate() for instance
+            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        }
+
+        Log.d("color", String.valueOf(getWindow().getNavigationBarColor()));
+
+        Log.d("dimensions", windowNavigationSize + " "+ statusBarHeight);
+        super.onCreate(savedInstanceState);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
+        Log.d("color", String.valueOf(getWindow().getNavigationBarColor()));
+        getWindow().setNavigationBarColor(Color.RED);
+        return super.onCreateView(name, context, attrs);
+    }
+
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
         SelectViewDialogManager.init(this);
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        viewModel.init();
+        viewModel.init(windowNavigationSize, statusBarHeight);
     }
 
     @Override
@@ -50,7 +129,7 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
             if(resultCode== RESULT_OK){
                 if(data!=null) {
                     ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
-                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("CreateProfileFragment4");
+                    Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
                     SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
                     viewModel.updateItems(hobbies);
                 }
@@ -79,6 +158,11 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         return this;
     }
 
+
+    @Override
+    public boolean lightStatusBar() {
+        return false;
+    }
 
     @Override
     public void onBackPressed() {
