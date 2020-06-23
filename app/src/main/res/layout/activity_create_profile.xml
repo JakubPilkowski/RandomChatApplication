@@ -17,8 +17,6 @@
             android:id="@+id/create_profile_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:overScrollMode="never"
             app:layoutMarginBottom="@{viewModel.windowNavigationSize}"
             app:pageChangedListener="@{viewModel.listener}"
@@ -43,25 +41,9 @@
             android:src="@drawable/accept_create_profile_background"
             android:theme="@style/FullImageFloatingButton"
             app:layoutMarginBottom="@{viewModel.fabMarginBottom}"
-            app:maxImageSize="56dp" />
+            app:maxImageSize="56dp"
+            app:visibility="@{viewModel.visibility}"
+            />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/decline_fab"
-            android:layout_gravity="bottom|start"
-            android:layout_marginStart="16dp"
-            android:onClick="@{() -> viewModel.onBackClick()}"
-            android:src="@drawable/decline_create_profile_background"
-            android:theme="@style/FullImageFloatingButton"
-            app:layoutMarginBottom="@{viewModel.fabMarginBottom}"
-            app:maxImageSize="56dp" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_gravity="bottom"
-            android:background="@color/colorPrimary"
-            app:measuredHeight="@{viewModel.windowNavigationSize}" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

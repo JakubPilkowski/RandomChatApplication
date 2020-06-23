@@ -20,13 +20,7 @@ public class DragView extends ViewGroup {
 
     private ViewDragHelper mDragHelper;
     private View bellContainer;
-    private View bell;
     private View bell_active;
-    private View dragParent;
-    private Button closeButton;
-    private float mInitialMotionX;
-    private float mInitialMotionY;
-    private View currentChild;
     private int mDragRange;
     private int mTop;
     private float mDragOffset;
@@ -36,9 +30,7 @@ public class DragView extends ViewGroup {
     protected void onFinishInflate() {
         super.onFinishInflate();
         bellContainer = findViewById(R.id.bell_container);
-        bell= findViewById(R.id.bell);
         bell_active = findViewById(R.id.bell_active);
-        closeButton = findViewById(R.id.close_button);
         container = findViewById(R.id.drag_container);
     }
 
@@ -61,7 +53,6 @@ public class DragView extends ViewGroup {
         }
         else{
             final float y = ev.getY();
-            mInitialMotionY = y;
             return mDragHelper.isViewUnder(bellContainer, (int) ev.getY(), (int) y);
 
         }
@@ -73,17 +64,11 @@ public class DragView extends ViewGroup {
         final int action = event.getAction();
         final float y = event.getY();
 
-//        boolean isHeaderViewUnder = mDragHelper.isViewUnder(bellContainer, (int) event.getX(), (int) y);
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
                 break;
             }
             case MotionEvent.ACTION_UP: {
-                if(currentChild != null)
-                {
-                    smoothSlideTo(1f);
-                    break;
-                }
                 if (y > getHeight()/2) {
                         smoothSlideTo(1f);
                 }
@@ -119,11 +104,6 @@ public class DragView extends ViewGroup {
 
         @Override
         public boolean tryCaptureView(@NonNull View child, int pointerId) {
-            Log.d("tryCaptureView: ", String.valueOf(child.getId()));
-            if(child == closeButton)
-                currentChild = closeButton;
-            else
-                currentChild = null;
             return child == container;
         }
 

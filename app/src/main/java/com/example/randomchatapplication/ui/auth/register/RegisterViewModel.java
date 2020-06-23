@@ -24,8 +24,8 @@ import com.example.randomchatapplication.helpers.WebViewHelper;
 public class RegisterViewModel extends BaseViewModel {
     // TODO: Implement the ViewModel
     public ObservableField<String> htmlEffect = new ObservableField<>(WebViewHelper.MOVING_BORDER_TYPE);
-    private String email;
-    private String password;
+    private String email = "eve.holt@reqres.in";
+    private String password = "qweqwewqeqweqw";
 
     public ObservableField<TextWatcher> emailListener = new ObservableField<>();
     public ObservableField<TextWatcher> passwordListener = new ObservableField<>();

@@ -26,6 +26,7 @@
             android:id="@+id/drag_view"
             app:dragViewListener="@{viewModel.dragViewListener}"
             >
+
             <RelativeLayout
                 android:id="@+id/drag_container"
                 android:layout_width="match_parent"
@@ -58,16 +59,8 @@
                     android:layout_marginTop="18dp"
                     android:layout_marginBottom="12dp"
                     />
-                    <Button
-                        android:id="@+id/close_button"
-                        android:layout_width="36dp"
-                        android:layout_height="36dp"
-                        android:background="@drawable/ic_close_36dp"
-                        android:layout_margin="12dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        />
                 </RelativeLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

@@ -1,10 +1,12 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
 import android.content.Intent;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.viewpager.widget.ViewPager;
@@ -14,19 +16,16 @@ import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
-import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
-import com.example.randomchatapplication.ui.create_profile.fields.HeaderViewModel;
-import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
-import com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragment;
 
 public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt dotsCount = new ObservableInt(5);
     private int dotPosition = 0;
     private ViewPagerListAdapter viewPagerListAdapter;
+    public ObservableBoolean visibility = new ObservableBoolean(false);
     public ObservableField<ViewPagerListAdapter> viewPagerAdapter = new ObservableField<>();
     public ObservableInt windowNavigationSize = new ObservableInt();
     public ObservableInt fabMarginBottom = new ObservableInt();
@@ -58,6 +57,10 @@ public class CreateProfileViewModel extends BaseViewModel {
                 moveLeft();
             }
             dotPosition = position;
+            if(position+1==dotsCount.get())
+                if(!visibility.get())
+                    visibility.set(true);
+
         }
 
         @Override
@@ -83,11 +86,6 @@ public class CreateProfileViewModel extends BaseViewModel {
             ProgressDialogManager.get().dismiss();
         }
     };
-
-    public void onBackClick() {
-        getActivity().finish();
-        getActivity().onBackPressed();
-    }
 
     private void moveLeft() {
         float xFromDelta;

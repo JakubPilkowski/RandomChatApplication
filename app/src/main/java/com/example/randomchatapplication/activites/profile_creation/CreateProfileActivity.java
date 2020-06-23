@@ -55,7 +55,6 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
 
         if(!hasMenuKey && !hasBackKey) {
-            //The device has a navigation bar
             Resources resources = c.getResources();
 
             int orientation = resources.getConfiguration().orientation;
@@ -97,21 +96,15 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         windowNavigationSize = getNavBarHeight(getApplicationContext());
         statusBarHeight = getStatusBarHeight();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow(); // in Activity's onCreate() for instance
+            Window w = getWindow();
             w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
         }
-
-        Log.d("color", String.valueOf(getWindow().getNavigationBarColor()));
-
-        Log.d("dimensions", windowNavigationSize + " "+ statusBarHeight);
         super.onCreate(savedInstanceState);
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        Log.d("color", String.valueOf(getWindow().getNavigationBarColor()));
-        getWindow().setNavigationBarColor(Color.RED);
         return super.onCreateView(name, context, attrs);
     }
 
@@ -166,7 +159,10 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        if(SelectViewDialogManager.get().getDialog().isShowing())
+//            SelectViewDialogManager.get().dismiss();
+//        else
+            super.onBackPressed();
     }
 
     @Override
