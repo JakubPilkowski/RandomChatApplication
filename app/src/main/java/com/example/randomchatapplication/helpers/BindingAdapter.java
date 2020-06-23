@@ -312,4 +312,20 @@ public class BindingAdapter {
         layoutParams.height=height;
     }
 
+    @androidx.databinding.BindingAdapter("iconified")
+    public static void setIconified(SearchView view, boolean iconified){
+        Log.d("iconified", "halo halo");
+        view.setIconified(iconified);
+    }
+
+    @androidx.databinding.BindingAdapter("query")
+    public static void setQuery(SearchView view, String query){
+        view.setQuery(query, false);
+    }
+    @androidx.databinding.BindingAdapter("cancelListener")
+    public static void setCancelListenr(SearchView view, SearchView.OnCloseListener listener){
+        view.setOnCloseListener(listener);
+    }
+
+
 }

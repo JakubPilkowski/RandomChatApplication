@@ -124,7 +124,6 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
                     ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
                     Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
                     SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
-                    viewModel.updateItems(hobbies);
                 }
             }
         }

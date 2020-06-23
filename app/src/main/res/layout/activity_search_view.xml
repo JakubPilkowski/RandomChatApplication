@@ -53,7 +53,7 @@
             android:layout_height="3dp"
             android:background="@color/colorPrimary"/>
         <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/hobbies_search_view_results"
+            android:id="@+id/hobbies_search_view_results"
             android:layout_below="@id/hobbies_bell"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

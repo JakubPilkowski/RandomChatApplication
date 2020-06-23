@@ -59,7 +59,6 @@ public class SearchViewActivityViewModel extends BaseViewModel implements Search
     private BaseCallback<HobbiesResponse> callback = new BaseCallback<HobbiesResponse>() {
         @Override
         public void onSuccess(HobbiesResponse response) {
-            Log.d("onSuccess:", String.valueOf(hobbies.size()));
             if (hobbies.size() > 0) {
                 ArrayList<Hobby> responseHobbies = response.getZainteresowania();
                 for (Hobby hobby : responseHobbies) {
