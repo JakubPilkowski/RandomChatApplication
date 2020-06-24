@@ -1,8 +1,11 @@
 package com.example.randomchatapplication.base;
 
+import android.app.Activity;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -80,6 +83,28 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
                 }
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        hideKeyboard();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        hideKeyboard();
+        super.onPause();
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
     }
 
     protected abstract void initActivity(B binding);

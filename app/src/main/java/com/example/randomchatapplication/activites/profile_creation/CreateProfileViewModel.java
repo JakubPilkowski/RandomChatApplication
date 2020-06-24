@@ -15,11 +15,20 @@ import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
+import com.example.randomchatapplication.api.RxJavaCallback;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
+import com.example.randomchatapplication.api.responses.HobbiesAndFieldsResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
+import com.example.randomchatapplication.helpers.HobbiesHelper;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.models.Hobby;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.Nullable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt dotsCount = new ObservableInt(5);
@@ -38,7 +47,7 @@ public class CreateProfileViewModel extends BaseViewModel {
         this.windowNavigationSize.set(windowNavigationSize);
         this.statusBarHeight.set(statusBarHeight);
         this.fabMarginBottom.set((int) (windowNavigationSize + DimensionsHelper.convertDpToPixel(16, getActivity().getApplicationContext())));
-        MockyConnection.get().getFields(callback);
+        MockyConnection.get().getFieldsAndHobbies(callback);
         ProgressDialogManager.get().show();
     }
 
@@ -69,23 +78,48 @@ public class CreateProfileViewModel extends BaseViewModel {
         }
     };
 
-
-    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
+    private RxJavaCallback<HobbiesAndFieldsResponse> callback = new RxJavaCallback<HobbiesAndFieldsResponse>() {
         @Override
-        public void onSuccess(FieldsResponse response) {
+        protected void subscribeActual(@NonNull Observer<? super HobbiesAndFieldsResponse> observer) {
+
+        }
+
+        @Override
+        public void onSuccess(HobbiesAndFieldsResponse hobbiesAndFieldsResponse) {
+            Log.d("onSuccess:", "udało się");
+            HobbiesHelper.init(hobbiesAndFieldsResponse.getHobbiesResponse().getZainteresowania());
             ProgressDialogManager.get().dismiss();
-            viewPagerListAdapter = getNavigator().showCreateProfileFragments(response, statusBarHeight.get());
+            viewPagerListAdapter = getNavigator().showCreateProfileFragments(hobbiesAndFieldsResponse.getFieldsResponse(), statusBarHeight.get());
             viewPagerAdapter.set(viewPagerListAdapter);
-            int size = response.getKroki().size();
+            int size = hobbiesAndFieldsResponse.getFieldsResponse().getKroki().size();
             dotsCount.set(size);
             listener.set(viewPagerListener);
         }
 
         @Override
-        public void onError(String message) {
-            ProgressDialogManager.get().dismiss();
+        public void onSmthWrong(String message) {
+            Log.d("onSmthWrong: ", message);
         }
+
     };
+
+
+//    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
+//        @Override
+//        public void onSuccess(FieldsResponse response) {
+//            ProgressDialogManager.get().dismiss();
+//            viewPagerListAdapter = getNavigator().showCreateProfileFragments(response, statusBarHeight.get());
+//            viewPagerAdapter.set(viewPagerListAdapter);
+//            int size = response.getKroki().size();
+//            dotsCount.set(size);
+//            listener.set(viewPagerListener);
+//        }
+//
+//        @Override
+//        public void onError(String message) {
+//            ProgressDialogManager.get().dismiss();
+//        }
+//    };
 
     private void moveLeft() {
         float xFromDelta;

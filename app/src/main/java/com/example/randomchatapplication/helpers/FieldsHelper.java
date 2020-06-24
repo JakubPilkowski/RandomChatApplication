@@ -10,6 +10,7 @@ import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModel;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.CpCheckedBinding;
 import com.example.randomchatapplication.databinding.CpDatePickerBinding;

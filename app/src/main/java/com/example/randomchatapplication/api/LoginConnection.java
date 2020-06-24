@@ -30,10 +30,7 @@ public class LoginConnection {
         call.enqueue(callback);
 
     }
-    public void register(BaseCallback<AuthResponse> callback, AuthRequest authRequest){
-        Call<AuthResponse> call = loginClient.getService().login(authRequest);
-        call.enqueue(callback);
-    }
+
 
 
 }

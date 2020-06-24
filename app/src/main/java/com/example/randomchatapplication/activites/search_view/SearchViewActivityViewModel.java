@@ -52,7 +52,7 @@ public class SearchViewActivityViewModel extends BaseViewModel implements Search
             }
         });
 
-        MockyConnection.get().getHobbies(callback);
+//        MockyConnection.get().getHobbies(callback);
         ProgressDialogManager.get().show();
     }
 

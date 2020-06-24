@@ -56,8 +56,6 @@ public class CreateProfileFragmentViewModel extends BaseViewModel{
         return step;
     }
 
-
-
     public ViewModel getSearchViewModel(){
         ViewModel viewModel = null;
         for (ViewInfo info :fieldsViews) {
