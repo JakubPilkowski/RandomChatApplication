@@ -2,6 +2,8 @@ package com.example.randomchatapplication.activites.profile_creation;
 
 import android.content.Intent;
 import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -46,20 +48,26 @@ public class CreateProfileViewModel extends BaseViewModel {
     public void init(int windowNavigationSize, int statusBarHeight) {
         this.windowNavigationSize.set(windowNavigationSize);
         this.statusBarHeight.set(statusBarHeight);
-        this.fabMarginBottom.set((int) (windowNavigationSize + DimensionsHelper.convertDpToPixel(16, getActivity().getApplicationContext())));
+        this.fabMarginBottom.set((int) (windowNavigationSize + DimensionsHelper.convertDpToPixel(12, getActivity().getApplicationContext())));
         MockyConnection.get().getFieldsAndHobbies(callback);
         ProgressDialogManager.get().show();
+        ((ActivityCreateProfileBinding) getBinding()).createProfileContainer.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.getParent().requestDisallowInterceptTouchEvent(true);
+                return false;
+            }
+        });
     }
 
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+            ((ActivityCreateProfileBinding) getBinding()).createProfileContainer.getParent().requestDisallowInterceptTouchEvent(true);
         }
 
         @Override
         public void onPageSelected(int position) {
-
             if (dotPosition < position) {
                 moveRight();
             } else if (dotPosition > position) {

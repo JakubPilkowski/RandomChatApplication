@@ -16,14 +16,13 @@
             android:name=".activites.search_view.SearchViewActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MainTheme"
-            android:windowSoftInputMode="adjustNothing"
             />
-
         <activity
             android:name=".activites.profile_creation.CreateProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CreatingProfileTheme"
-            android:windowSoftInputMode="adjustNothing" />
+            android:windowSoftInputMode="adjustPan|stateVisible"
+            />
         <activity
             android:name=".activites.authentication.AuthActivity"
             android:screenOrientation="portrait"

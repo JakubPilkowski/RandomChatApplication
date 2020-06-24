@@ -4,13 +4,12 @@ import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.api.responses.HobbiesResponse;
 
 import io.reactivex.rxjava3.core.Observable;
-import retrofit2.Call;
 import retrofit2.http.GET;
 
 public interface MockyService {
 
 
-    @GET("83c25d67-defe-41da-98d5-2977f0820969")
+    @GET("5dc3b3cc-223d-4faf-a367-c7739bea8d7b")
     Observable<FieldsResponse> getFields();
 
 

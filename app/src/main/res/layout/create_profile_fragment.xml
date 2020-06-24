@@ -9,20 +9,18 @@
             type="com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragmentViewModel" />
     </data>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scrollbars="none"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        >
-        <LinearLayout
-            android:id="@+id/fields_container"
+        <ScrollView
             android:layout_width="match_parent"
-            app:windowStatusBarPadding="@{viewModel.statusBarHeight}"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-        </LinearLayout>
-    </ScrollView>
-
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp">
+            <LinearLayout
+                android:id="@+id/fields_container"
+                android:layout_width="match_parent"
+                app:windowStatusBarPadding="@{viewModel.statusBarHeight}"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            </LinearLayout>
+        </ScrollView>
 </layout>

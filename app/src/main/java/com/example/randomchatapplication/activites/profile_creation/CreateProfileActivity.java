@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.AttributeSet;
@@ -22,6 +23,7 @@ import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -95,18 +97,16 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         windowNavigationSize = getNavBarHeight(getApplicationContext());
         statusBarHeight = getStatusBarHeight();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            Window w = getWindow();
-            w.setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(Color.TRANSPARENT);
         }
         super.onCreate(savedInstanceState);
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull String name, @NonNull Context context, @NonNull AttributeSet attrs) {
-        return super.onCreateView(name, context, attrs);
-    }
+
 
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
@@ -121,9 +121,9 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         if(requestCode == hobbyRequest){
             if(resultCode== RESULT_OK){
                 if(data!=null) {
-                    ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
-                    Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
-                    SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
+//                    ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
+//                    Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
+//                    SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
                 }
             }
         }

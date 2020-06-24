@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/create_profile_container"
             android:layout_width="match_parent"
@@ -36,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:id="@+id/accept_fab"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="12dp"
             android:onClick="@{() -> viewModel.onNextClick()}"
             android:src="@drawable/accept_create_profile_background"
             android:theme="@style/FullImageFloatingButton"

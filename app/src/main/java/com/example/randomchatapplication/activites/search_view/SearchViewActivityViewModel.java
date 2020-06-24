@@ -96,7 +96,7 @@ public class SearchViewActivityViewModel extends BaseViewModel implements Search
                 checkedItems.add(hobby);
             }
         }
-        resultIntent.putParcelableArrayListExtra("hobbies", checkedItems);
+//        resultIntent.putParcelableArrayListExtra("hobbies", checkedItems);
         activity.setResult(Activity.RESULT_OK, resultIntent);
         activity.finish();
     }

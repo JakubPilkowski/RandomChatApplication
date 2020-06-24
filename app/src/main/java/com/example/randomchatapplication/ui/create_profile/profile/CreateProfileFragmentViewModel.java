@@ -35,6 +35,7 @@ public class CreateProfileFragmentViewModel extends BaseViewModel{
         this.statusBarHeight.set(statusBarHeight);
         fields.addAll(FieldsHelper.get().getFieldsForStep(step));
         LinearLayout fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).fieldsContainer;
+        Log.d("init: ", String.valueOf(FieldsHelper.get().getSteps().get(step-1).isScrollable()));
         fieldsViews.addAll(FieldsHelper.get().createViewsForStep(fields,fieldsContainer.getContext(),fieldsContainer, getActivity(),step));
         for (ViewInfo viewInfo: fieldsViews){
             if(fieldsViews.indexOf(viewInfo) +1 == fieldsViews.size()){
