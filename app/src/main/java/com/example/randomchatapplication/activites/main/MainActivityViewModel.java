@@ -22,41 +22,5 @@ public class MainActivityViewModel extends BaseViewModel {
     private MainActivity activity ;
     public void init() {
         activity = ((MainActivity) getActivity());
-        View v = activity.getLayoutInflater().inflate(R.layout.menu_layout,null);
-        View heartPopper = v.findViewById(R.id.heart_popper);
-        View heart = new View(activity.getApplicationContext());
-        activity.binding.navigationView.addView(v);
-        Animation scaleDown = AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.scale);
-        heartPopper.startAnimation(scaleDown);
-    }
-
-
-
-
-    public void refreshToolbar() {
-        switch (getFragment().getToolbarType()) {
-            case 0:
-                activity.setSupportActionBar(null);
-//                visibility.set(View.GONE);
-                break;
-            case 1:
-                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).mainToolbar);
-                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-                activity.getSupportActionBar().setHomeAsUpIndicator(getFragment().getBurger());
-                title.set(getFragment().getToolbarName());
-
-                break;
-            case 2:
-                activity.setSupportActionBar(((ActivityMainBinding) activity.getBinding()).mainToolbar);
-                activity.getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-                activity.getSupportActionBar().setDisplayShowTitleEnabled(false);
-                activity.getSupportActionBar().setHomeAsUpIndicator(getFragment().getBackPress());
-                title.set(getFragment().getToolbarName());
-                break;
-            case 3:
-                break;
-        }
-
     }
 }

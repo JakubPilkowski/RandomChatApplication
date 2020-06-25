@@ -10,4 +10,6 @@
     <color name="colorGrayDot">#C4C4C4</color>
     <color name="colorPrimaryOpacity">#66bc1e1b</color>
     <color name="colorBlackOpacity">#40323232</color>
+    <color name="iconGrayLight">#D3D3D3</color>
+    <color name="iconGrayDark">#A9A9A9</color>
 </resources>

@@ -89,7 +89,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="menuClick"
                 android:tag="@string/menu_search_tag">
 
                 <ImageView
@@ -112,7 +111,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="menuClick"
                 android:tag="@string/menu_chat_tag">
 
                 <ImageView
@@ -135,7 +133,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="menuClick"
                 android:tag="@string/menu_profile_tag">
 
                 <ImageView
@@ -158,7 +155,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="menuClick"
                 android:tag="@string/menu_earn_points_tag">
 
                 <ImageView
@@ -181,7 +177,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:onClick="menuClick"
                 android:tag="@string/menu_camera_tag">
 
                 <ImageView
