@@ -3,13 +3,16 @@ package com.example.randomchatapplication.helpers;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.os.Build;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -19,16 +22,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -115,6 +122,12 @@ public class BindingAdapter {
         viewPager.setCurrentItem(currentItem);
 
     }
+
+    @androidx.databinding.BindingAdapter("pageChangedListener")
+    public static void setPageChangedListener(ViewPager viewPager, ViewPager.OnPageChangeListener listener) {
+        viewPager.addOnPageChangeListener(listener);
+    }
+
 
     @androidx.databinding.BindingAdapter("setOffScreenPageLimit")
     public static void setOffScreenPageLimit(ViewPager viewPager, int pageLimit) {
@@ -283,4 +296,67 @@ public class BindingAdapter {
             linearLayout.removeAllViews();
         }
     }
+
+    @androidx.databinding.BindingAdapter("layoutMarginBottom")
+    public static void setLayoutMarginBottom(View view, int value) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.bottomMargin = value;
+    }
+
+    @androidx.databinding.BindingAdapter("windowStatusBarPadding")
+    public static void setWindowStatusBarPadding(View view, int top) {
+        view.setPadding(0, top, 0, 0);
+    }
+
+
+    @androidx.databinding.BindingAdapter("measuredHeight")
+    public static void setViewHeight(View view, int height) {
+        ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+        layoutParams.height = height;
+    }
+
+    @androidx.databinding.BindingAdapter("iconified")
+    public static void setIconified(SearchView view, boolean iconified) {
+        Log.d("iconified", "halo halo");
+        view.setIconified(iconified);
+    }
+
+    @androidx.databinding.BindingAdapter("query")
+    public static void setQuery(SearchView view, String query) {
+        view.setQuery(query, false);
+    }
+
+    @androidx.databinding.BindingAdapter("cancelListener")
+    public static void setCancelListenr(SearchView view, SearchView.OnCloseListener listener) {
+        view.setOnCloseListener(listener);
+    }
+
+    @androidx.databinding.BindingAdapter("imeOption")
+    public static void setImeOption(EditText editText, String option) {
+        switch (option) {
+            case "done":
+                editText.setImeOptions(EditorInfo.IME_ACTION_DONE);
+                break;
+            case "next":
+                editText.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+                break;
+            default:
+                break;
+        }
+    }
+
+    @androidx.databinding.BindingAdapter("keyboardType")
+    public static void setKeyboardType(EditText editText, String keyboardType) {
+        switch (keyboardType) {
+            case "multiline":
+                editText.setInputType(InputType.TYPE_TEXT_FLAG_IME_MULTI_LINE);
+                break;
+            case "text":
+                editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                break;
+            default:
+                break;
+        }
+    }
+
 }

@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,13 +20,7 @@ public class DragView extends ViewGroup {
 
     private ViewDragHelper mDragHelper;
     private View bellContainer;
-    private View bell;
     private View bell_active;
-    private View dragParent;
-
-    private float mInitialMotionX;
-    private float mInitialMotionY;
-
     private int mDragRange;
     private int mTop;
     private float mDragOffset;
@@ -35,7 +30,6 @@ public class DragView extends ViewGroup {
     protected void onFinishInflate() {
         super.onFinishInflate();
         bellContainer = findViewById(R.id.bell_container);
-        bell= findViewById(R.id.bell);
         bell_active = findViewById(R.id.bell_active);
         container = findViewById(R.id.drag_container);
     }
@@ -59,7 +53,6 @@ public class DragView extends ViewGroup {
         }
         else{
             final float y = ev.getY();
-            mInitialMotionY = y;
             return mDragHelper.isViewUnder(bellContainer, (int) ev.getY(), (int) y);
 
         }
@@ -68,22 +61,15 @@ public class DragView extends ViewGroup {
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         mDragHelper.processTouchEvent(event);
-
         final int action = event.getAction();
         final float y = event.getY();
 
-//        boolean isHeaderViewUnder = mDragHelper.isViewUnder(bellContainer, (int) event.getX(), (int) y);
         switch (action & MotionEvent.ACTION_MASK) {
             case MotionEvent.ACTION_DOWN: {
-                mInitialMotionY = y;
                 break;
             }
-
             case MotionEvent.ACTION_UP: {
-                final float dy = y - mInitialMotionY;
-                final int slop = mDragHelper.getTouchSlop();
-
-                if (dy > (slop * 10)) {
+                if (y > getHeight()/2) {
                         smoothSlideTo(1f);
                 }
                 else{
@@ -124,17 +110,8 @@ public class DragView extends ViewGroup {
         @Override
         public void onViewPositionChanged(@NonNull View changedView, int left, int top, int dx, int dy) {
             bell_active.setVisibility(VISIBLE);
-//            bell.setVisibility(INVISIBLE);
             mTop = top;
-
             mDragOffset = (float) top / mDragRange;
-//
-            container.setPivotX(container.getWidth()/2);
-            container.setPivotY(container.getHeight()/2);
-            container.setScaleX(1 - mDragOffset / 10);
-
-//
-
             requestLayout();
 
         }
@@ -153,7 +130,6 @@ public class DragView extends ViewGroup {
 
         @Override
         public void onViewDragStateChanged(int state) {
-            Log.d("onViewDragStateChanged", String.valueOf(state));
             if(state==0)
                 bell_active.setVisibility(INVISIBLE);
             if(state==0 && mTop > 0){
@@ -200,10 +176,6 @@ public class DragView extends ViewGroup {
                 r,
                 mTop + container.getMeasuredHeight()
         );
-
-
-
-
     }
 
 }

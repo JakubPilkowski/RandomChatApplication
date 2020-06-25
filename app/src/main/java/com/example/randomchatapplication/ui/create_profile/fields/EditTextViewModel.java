@@ -3,6 +3,9 @@ package com.example.randomchatapplication.ui.create_profile.fields;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
@@ -18,6 +21,9 @@ public class EditTextViewModel extends FieldViewModel {
     public ObservableField<String> textAmount = new ObservableField<>();
     public ObservableInt lines = new ObservableInt();
     public ObservableInt maxLength = new ObservableInt();
+    public ObservableInt maxLines = new ObservableInt();
+    public ObservableField<String> imeOption = new ObservableField<>();
+    public ObservableField<String> inputType = new ObservableField<>();
     public ObservableField<TextWatcher> textChangeListener = new ObservableField<>();
 
 
@@ -25,6 +31,9 @@ public class EditTextViewModel extends FieldViewModel {
         title.set(field.getTitle());
         visibility.set(field.getNote().length() > 0);
         note.set(field.getNote());
+        imeOption.set((String) field.getOptions().get("imeOption"));
+        inputType.set((String) field.getOptions().get("inputType"));
+        maxLines.set((int)Math.round((Double)field.getOptions().get("maxLines")));
         lines.set((int)Math.round((Double)field.getOptions().get("lines")));
         textAmount.set("0/"+Math.round((Double) field.getOptions().get("maxLength")));
         maxLength.set((int) Math.round((Double)field.getOptions().get("maxLength")));

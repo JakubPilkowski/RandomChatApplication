@@ -3,8 +3,17 @@ package com.example.randomchatapplication.api;
 import android.util.Log;
 
 import com.example.randomchatapplication.api.responses.FieldsResponse;
+import com.example.randomchatapplication.api.responses.HobbiesAndFieldsResponse;
 import com.example.randomchatapplication.api.responses.HobbiesResponse;
 
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.Nullable;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.BiFunction;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+import io.reactivex.rxjava3.subjects.Subject;
 import retrofit2.Call;
 
 public class MockyConnection {
@@ -26,15 +35,17 @@ public class MockyConnection {
     }
 
 
-    public void getFields(BaseCallback<FieldsResponse> callback){
-        Call<FieldsResponse> call = mockyClient.getService().getFields();
-        call.enqueue(callback);
+    public void getFieldsAndHobbies(RxJavaCallback<HobbiesAndFieldsResponse> callback){
+        Observable<FieldsResponse> fieldsObservable = mockyClient.getService().getFields().subscribeOn(Schedulers.newThread()).observeOn(Schedulers.computation());
+        Observable<HobbiesResponse> hobbiesObservable = mockyClient.getService().getHobbies().subscribeOn(Schedulers.newThread()).observeOn(Schedulers.computation());
+        Observable<HobbiesAndFieldsResponse> combined = Observable.zip(hobbiesObservable,fieldsObservable , HobbiesAndFieldsResponse::new);
+        combined.subscribe(callback);
     }
 
-    public void getHobbies(BaseCallback<HobbiesResponse> callback){
-        Call<HobbiesResponse> call = mockyClient.getService().getHobbies();
-        call.enqueue(callback);
-    }
+//    public void getHobbies(BaseCallback<HobbiesResponse> callback){
+//        Call<HobbiesResponse> call = mockyClient.getService().getHobbies();
+//        call.enqueue(callback);
+//    }
 
 
 }

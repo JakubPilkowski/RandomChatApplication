@@ -1,5 +1,7 @@
 package com.example.randomchatapplication.ui.spinner;
 
+import android.util.Log;
+
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 

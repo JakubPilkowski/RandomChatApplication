@@ -2,7 +2,10 @@ package com.example.randomchatapplication.helpers;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
+import android.view.View;
+import android.view.Window;
 import android.widget.LinearLayout;
 
 import androidx.databinding.ViewDataBinding;
@@ -42,12 +45,21 @@ public class SelectViewDialogManager {
         viewModel.setSpinnerViewListener(listener);
         viewModel.init(itemList);
         ((SpinnerFragmentBinding) binding).setViewModel(viewModel);
-
         dialog = new AlertDialog.Builder(context, R.style.SelectViewTheme)
                 .setView(spinnerLayout)
-                .setCancelable(false)
                 .show();
+        View decor = dialog.getWindow().getDecorView();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+        }
+        else{
+            decor.setSystemUiVisibility(0);
+        }
 
+    }
+
+    public AlertDialog getDialog() {
+        return dialog;
     }
 
     public void dismiss(){

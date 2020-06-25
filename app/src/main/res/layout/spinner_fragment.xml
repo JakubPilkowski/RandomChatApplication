@@ -18,8 +18,6 @@
         android:orientation="vertical"
         android:gravity="bottom|center_horizontal"
         tools:context=".ui.spinner.SpinnerFragment"
-
-
         >
 
         <com.example.randomchatapplication.custom_views.DragView
@@ -28,6 +26,7 @@
             android:id="@+id/drag_view"
             app:dragViewListener="@{viewModel.dragViewListener}"
             >
+
             <RelativeLayout
                 android:id="@+id/drag_container"
                 android:layout_width="match_parent"
@@ -43,8 +42,8 @@
                     android:layout_height="wrap_content">
                 <View
                     android:id="@+id/bell"
-                    android:layout_width="150dp"
-                    android:layout_height="10dp"
+                    android:layout_width="85dp"
+                    android:layout_height="5dp"
                     android:layout_centerInParent="true"
                     android:background="@drawable/belka"
                     android:layout_marginTop="18dp"
@@ -52,8 +51,8 @@
                     />
                 <View
                     android:id="@+id/bell_active"
-                    android:layout_width="165dp"
-                    android:layout_height="25dp"
+                    android:layout_width="100dp"
+                    android:layout_height="20dp"
                     android:visibility="invisible"
                     android:layout_centerInParent="true"
                     android:background="@drawable/belka_active"
@@ -61,6 +60,7 @@
                     android:layout_marginBottom="12dp"
                     />
                 </RelativeLayout>
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

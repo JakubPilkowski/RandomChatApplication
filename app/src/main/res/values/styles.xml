@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AuthTheme" parent="Theme.AppCompat.Light.NoActionBar">
@@ -13,6 +13,21 @@
         <item name="android:navigationBarColor">@color/colorGrayDot</item>
     </style>
 
+
+    <style name="CreatingProfileTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@color/colorPrimaryDark</item>
+        <item name="android:statusBarColor" tools:targetApi="lollipop">@android:color/transparent</item>
+        <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:windowTranslucentStatus" tools:targetApi="kitkat">true</item>
+        <item name="android:windowTranslucentNavigation" tools:targetApi="kitkat">true</item>
+    </style>
+    <style name="FullImageFloatingButton" parent="Widget.Design.FloatingActionButton">
+        <item name="fabSize">normal</item>
+        <item name="maxImageSize">56dp</item>
+    </style>
     <style name="MainTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -44,6 +59,10 @@
         <item name="android:layout_gravity">bottom</item>
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
+
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:windowTranslucentNavigation">false</item>
     </style>
 
     <style name="SelectableNavItemBackground">

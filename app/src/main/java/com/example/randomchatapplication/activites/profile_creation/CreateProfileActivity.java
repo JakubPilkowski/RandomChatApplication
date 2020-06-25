@@ -8,10 +8,24 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModel;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Color;
+import android.graphics.Rect;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.AttributeSet;
 import android.util.Log;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewConfiguration;
+import android.view.ViewTreeObserver;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 
@@ -36,12 +50,70 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     public static final int hobbyRequest = 1001;
 
+
+    public int getNavBarHeight(Context c) {
+        int result = 0;
+        boolean hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+        if(!hasMenuKey && !hasBackKey) {
+            Resources resources = c.getResources();
+
+            int orientation = resources.getConfiguration().orientation;
+            int resourceId;
+            if (isTablet(c)){
+                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
+            }  else {
+                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_width", "dimen", "android");
+            }
+
+            if (resourceId > 0) {
+                return resources.getDimensionPixelSize(resourceId);
+            }
+        }
+        return result;
+    }
+
+
+    private boolean isTablet(Context c) {
+        return (c.getResources().getConfiguration().screenLayout
+                & Configuration.SCREENLAYOUT_SIZE_MASK)
+                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
+    }
+
+    public int getStatusBarHeight() {
+        int result = 0;
+        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            result = getResources().getDimensionPixelSize(resourceId);
+        }
+        return result;
+    }
+
+
+    private int windowNavigationSize;
+    private int statusBarHeight;
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        windowNavigationSize = getNavBarHeight(getApplicationContext());
+        statusBarHeight = getStatusBarHeight();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(Color.TRANSPARENT);
+        }
+        super.onCreate(savedInstanceState);
+    }
+
+
+
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
         SelectViewDialogManager.init(this);
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
-        viewModel.init();
+        viewModel.init(windowNavigationSize, statusBarHeight);
     }
 
     @Override
@@ -49,10 +121,9 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         if(requestCode == hobbyRequest){
             if(resultCode== RESULT_OK){
                 if(data!=null) {
-                    ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
-                    Fragment fragment = getSupportFragmentManager().findFragmentByTag("CreateProfileFragment4");
-                    SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
-                    viewModel.updateItems(hobbies);
+//                    ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
+//                    Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
+//                    SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
                 }
             }
         }
@@ -81,8 +152,16 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
 
     @Override
+    public boolean lightStatusBar() {
+        return false;
+    }
+
+    @Override
     public void onBackPressed() {
-        super.onBackPressed();
+//        if(SelectViewDialogManager.get().getDialog().isShowing())
+//            SelectViewDialogManager.get().dismiss();
+//        else
+            super.onBackPressed();
     }
 
     @Override

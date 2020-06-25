@@ -31,6 +31,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
 
     private DrawerLayout drawerLayout;
 
+
     @Override
     protected void initActivity(ActivityMainBinding binding) {
         drawerLayout = findViewById(R.id.drawer_layout);
@@ -44,6 +45,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         setTheme(R.style.MainTheme);
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean lightStatusBar() {
+        return true;
     }
 
     @Override

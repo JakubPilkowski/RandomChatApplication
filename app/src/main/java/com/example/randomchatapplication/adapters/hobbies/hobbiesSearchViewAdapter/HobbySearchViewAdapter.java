@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.adapters.hobbies.hobbiesSearchViewAdapter;
 
+import android.os.Build;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -15,6 +16,8 @@ import com.example.randomchatapplication.interfaces.SearchViewListener;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseViewHolder> implements Filterable {
@@ -26,8 +29,10 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
 
     @Override
     public void setItems(List<Hobby> items) {
+        Collections.sort(items);
         super.setItems(items);
         itemsBase.addAll(items);
+
     }
 
     private List<HobbySearchViewAdapterViewModel> viewModels = new ArrayList<>();
@@ -71,7 +76,6 @@ public class HobbySearchViewAdapter extends BaseRecyclerViewAdapter<Hobby, BaseV
     }
 
     private class HobbiesFilter extends Filter {
-
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();

@@ -11,42 +11,31 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@{viewModel.note}"
-            android:textColor="@color/colorBlack"
-            android:textSize="16sp"
-            android:textAlignment="center"
-            />
-        <Button
-            android:layout_width="200dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:background="@drawable/login_button_drawable"
-            android:onClick="@{() -> viewModel.onClick()}"
-            android:text="@string/search_qeury_name"
-            android:stateListAnimator="@null"
-            android:textAllCaps="false"
-            android:textColor="@color/colorAccent"
-            android:textSize="18sp"
-            android:layout_marginTop="6dp"
-            android:layout_marginBottom="12dp"
-            android:textStyle="bold" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="3dp"
-            android:background="@color/colorPrimaryDark"
-            android:layout_marginBottom="12dp"
-            />
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:updateHobbies="@{viewModel.hobbies}"
-            app:searchViewModel="@{viewModel.viewModel}"
-            >
-
+            <SearchView
+                android:id="@+id/hobbies_search"
+                android:clickable="true"
+                android:focusable="true"
+                app:onQueryTextListener="@{viewModel.queryListener}"
+                android:onClick="@{() -> viewModel.onClick()}"
+                app:cancelListener="@{viewModel.cancelListener}"
+                app:iconified="@{viewModel.iconified}"
+                app:query="@{viewModel.query}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:queryHint="Wyszukaj..."
+                />
+            <View
+                android:id="@+id/hobbies_bell"
+                android:layout_width="match_parent"
+                android:layout_height="3dp"
+                android:background="@color/colorPrimary"/>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/hobbies_search_view_results"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                app:layoutManager="LinearLayoutManager"
+                app:recyclerViewAdapter="@{viewModel.adapter}"
+                />
         </LinearLayout>
-    </LinearLayout>
 </layout>

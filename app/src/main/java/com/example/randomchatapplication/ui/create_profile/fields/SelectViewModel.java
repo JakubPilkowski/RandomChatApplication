@@ -33,7 +33,6 @@ public class SelectViewModel extends FieldViewModel implements SpinnerViewListen
 
     public void onSelectClick() {
         SelectViewDialogManager.get().show(itemList,this);
-//                getNavigator().showSpinnerView(SpinnerFragment.newInstance(itemList, this), SpinnerFragment.TAG);
     }
 
     @Override

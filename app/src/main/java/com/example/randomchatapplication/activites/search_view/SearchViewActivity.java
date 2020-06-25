@@ -24,9 +24,14 @@ public class SearchViewActivity extends BaseActivity<ActivitySearchViewBinding,S
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Intent intent = getIntent();
-        hobbies.addAll(intent.<Hobby>getParcelableArrayListExtra("hobbies"));
+//        Intent intent = getIntent();
+//        hobbies.addAll(intent.<Hobby>getParcelableArrayListExtra("hobbies"));
         super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public boolean lightStatusBar() {
+        return true;
     }
 
     @Override

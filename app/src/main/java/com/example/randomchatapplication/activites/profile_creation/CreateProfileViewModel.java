@@ -1,83 +1,138 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.util.Log;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
+import androidx.viewpager.widget.ViewPager;
 
 import com.example.randomchatapplication.activites.main.MainActivity;
+import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
+import com.example.randomchatapplication.api.RxJavaCallback;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
+import com.example.randomchatapplication.api.responses.HobbiesAndFieldsResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
-import com.example.randomchatapplication.helpers.FieldsHelper;
+import com.example.randomchatapplication.helpers.DimensionsHelper;
+import com.example.randomchatapplication.helpers.HobbiesHelper;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
-import com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragment;
+import com.example.randomchatapplication.models.Hobby;
+
+import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.annotations.Nullable;
+import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CreateProfileViewModel extends BaseViewModel {
-    public ObservableInt dotsCount = new ObservableInt();
-    public ObservableInt step = new ObservableInt();
-    public ObservableField<String> stepNumber = new ObservableField<>();
-    public ObservableField<String> stepTitle = new ObservableField<>();
-    private ImageView dot;
+    public ObservableInt dotsCount = new ObservableInt(5);
+    private int dotPosition = 0;
+    private ViewPagerListAdapter viewPagerListAdapter;
+    public ObservableBoolean visibility = new ObservableBoolean(false);
+    public ObservableField<ViewPagerListAdapter> viewPagerAdapter = new ObservableField<>();
+    public ObservableInt windowNavigationSize = new ObservableInt();
+    public ObservableInt fabMarginBottom = new ObservableInt();
+    private ObservableInt statusBarHeight = new ObservableInt();
 
-    public void init() {
-        MockyConnection.get().getFields(callback);
+    public ObservableField<ViewPager.OnPageChangeListener> listener = new ObservableField<>();
+
+
+    public void init(int windowNavigationSize, int statusBarHeight) {
+        this.windowNavigationSize.set(windowNavigationSize);
+        this.statusBarHeight.set(statusBarHeight);
+        this.fabMarginBottom.set((int) (windowNavigationSize + DimensionsHelper.convertDpToPixel(12, getActivity().getApplicationContext())));
+        MockyConnection.get().getFieldsAndHobbies(callback);
         ProgressDialogManager.get().show();
     }
 
-    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
+    private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {
         @Override
-        public void onSuccess(FieldsResponse response) {
-            ProgressDialogManager.get().dismiss();
-            FieldsHelper.init(response.getPola(), response.getKroki());
-            int size = response.getKroki().size();
-            for (int i = 0; i < size; i++) {
-                getNavigator().addCreateProfileViewToBackStack(CreateProfileFragment.newInstance(i + 1), CreateProfileFragment.TAG + (i + 1));
-            }
-            dotsCount.set(size);
-            step.set(1);
-            getNavigator().showCreateProfile(CreateProfileFragment.TAG + "1");
-            stepTitle.set(FieldsHelper.get().getSteps().get(step.get() - 1).getName());
-            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+            ((ActivityCreateProfileBinding) getBinding()).createProfileContainer.getParent().requestDisallowInterceptTouchEvent(true);
         }
 
         @Override
-        public void onError(String message) {
-            ProgressDialogManager.get().dismiss();
+        public void onPageSelected(int position) {
+            if (dotPosition < position) {
+                moveRight();
+            } else if (dotPosition > position) {
+                moveLeft();
+            }
+            dotPosition = position;
+            if(position+1==dotsCount.get())
+                if(!visibility.get())
+                    visibility.set(true);
+
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+
         }
     };
 
-    public void onBackClick() {
-        if (step.get() > 1) {
-            moveLeft();
-            step.set(step.get() - 1);
-            getNavigator().showCreateProfile(CreateProfileFragment.TAG + step.get());
-            getNavigator().hideCreateProfile(CreateProfileFragment.TAG + (step.get() + 1));
-            stepTitle.set(FieldsHelper.get().getSteps().get(step.get() - 1).getName());
-            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
+    private RxJavaCallback<HobbiesAndFieldsResponse> callback = new RxJavaCallback<HobbiesAndFieldsResponse>() {
+        @Override
+        protected void subscribeActual(@NonNull Observer<? super HobbiesAndFieldsResponse> observer) {
 
-        } else {
-            getActivity().finish();
-            getActivity().onBackPressed();
-            //wroc do ekranu rejestracji
         }
-    }
+
+        @Override
+        public void onSuccess(HobbiesAndFieldsResponse hobbiesAndFieldsResponse) {
+            Log.d("onSuccess:", "udało się");
+            HobbiesHelper.init(hobbiesAndFieldsResponse.getHobbiesResponse().getZainteresowania());
+            ProgressDialogManager.get().dismiss();
+            viewPagerListAdapter = getNavigator().showCreateProfileFragments(hobbiesAndFieldsResponse.getFieldsResponse(), statusBarHeight.get());
+            viewPagerAdapter.set(viewPagerListAdapter);
+            int size = hobbiesAndFieldsResponse.getFieldsResponse().getKroki().size();
+            dotsCount.set(size);
+            listener.set(viewPagerListener);
+        }
+
+        @Override
+        public void onSmthWrong(String message) {
+            Log.d("onSmthWrong: ", message);
+        }
+
+    };
+
+
+//    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
+//        @Override
+//        public void onSuccess(FieldsResponse response) {
+//            ProgressDialogManager.get().dismiss();
+//            viewPagerListAdapter = getNavigator().showCreateProfileFragments(response, statusBarHeight.get());
+//            viewPagerAdapter.set(viewPagerListAdapter);
+//            int size = response.getKroki().size();
+//            dotsCount.set(size);
+//            listener.set(viewPagerListener);
+//        }
+//
+//        @Override
+//        public void onError(String message) {
+//            ProgressDialogManager.get().dismiss();
+//        }
+//    };
 
     private void moveLeft() {
         float xFromDelta;
         float xToDelta;
-        xFromDelta = 24 * (step.get() - 1) * 2;
+        xFromDelta = 24 * (dotPosition) * 2;
         xToDelta = xFromDelta - 24 * 2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
     private void translateAnimation(float fromXDelta, float xToDelta) {
-        dot = ((ActivityCreateProfileBinding) getBinding()).dotsView.getMainDot();
+        ImageView dot = ((ActivityCreateProfileBinding) getBinding()).dotsView.getMainDot();
         Animation move = new TranslateAnimation(fromXDelta, xToDelta, 0, 0);
         move.setDuration(250);
         move.setFillEnabled(true);
@@ -88,25 +143,15 @@ public class CreateProfileViewModel extends BaseViewModel {
     private void moveRight() {
         float xFromDelta;
         float xToDelta;
-        xFromDelta = 24 * (step.get() - 1) * 2;
+        xFromDelta = 24 * (dotPosition) * 2;
         xToDelta = xFromDelta + 24 * 2;
         translateAnimation(xFromDelta, xToDelta);
     }
 
     public void onNextClick() {
-        if (step.get() < dotsCount.get()) {
-            moveRight();
-            step.set(step.get() + 1);
-            getNavigator().showCreateProfile(CreateProfileFragment.TAG + step.get());
-            getNavigator().hideCreateProfile(CreateProfileFragment.TAG + (step.get() - 1));
-            stepTitle.set(FieldsHelper.get().getSteps().get(step.get() - 1).getName());
-            stepNumber.set("Krok " + step.get() + "/" + dotsCount.get());
-        } else {
-            Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-            getActivity().startActivity(intent);
-            getActivity().finish();
-            //rozpocznij pobranie danych i przejscie do ekranu głównego
-        }
+        Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+        getActivity().startActivity(intent);
+        getActivity().finish();
     }
 
 

@@ -42,10 +42,13 @@
                     android:layout_marginTop="2dp"
                     android:background="@drawable/border"
                     android:hint="@{viewModel.title}"
-                    android:inputType="textMultiLine"
+                    app:imeOption="@{viewModel.imeOption}"
+                    android:minLines="@{viewModel.lines}"
                     android:maxLength="@{viewModel.maxLength}"
-                    android:maxLines="@{viewModel.lines}"
+                    android:maxLines="@{viewModel.maxLines}"
                     android:padding="8dp"
+                    android:scrollbars="none"
+                    android:gravity="top|start"
                     android:textColor="@color/colorBlack"
                     app:onTextChangedListener="@{viewModel.textChangeListener}" />
 

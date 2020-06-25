@@ -20,6 +20,11 @@ public class AuthActivity extends BaseActivity<ActivityAuthBinding, AuthActivity
 
 
     @Override
+    public boolean lightStatusBar() {
+        return true;
+    }
+
+    @Override
     protected void initActivity(ActivityAuthBinding binding) {
         binding.setViewModel(viewModel);
         viewModel.setProviders(this);

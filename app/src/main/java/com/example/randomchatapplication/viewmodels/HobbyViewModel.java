@@ -22,7 +22,6 @@ public class HobbyViewModel {
     }
     public void onClick(){
         hobbies.remove(hobby);
-        viewModel.updateItems(hobbies);
     }
 
 }

@@ -1,6 +1,11 @@
 package com.example.randomchatapplication.base;
 
+import android.app.Activity;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
@@ -30,11 +35,28 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
         MockyConnection.init();
         LoginConnection.init();
         ProgressDialogManager.init(this);
+        setStatusBarColor();
         navigator.setActivity(this);
         navigator.setFragmentContainer(getIdFragmentContainer());
         binding = DataBindingUtil.setContentView(this, getLayoutRes());
         viewModel = ViewModelProviders.of(this).get(getViewModel());
         initActivity(binding);
+    }
+
+    public abstract boolean lightStatusBar();
+
+    private void setStatusBarColor() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = getWindow().getDecorView();
+            if (!lightStatusBar()) {
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                // We want to change tint color to white again.
+                // You can also record the flags in advance so that you can turn UI back completely if
+                // you have set other flags before, such as translucent or full screen.
+                decor.setSystemUiVisibility(0);
+            }
+        }
     }
 
 
@@ -61,6 +83,28 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
                 }
 
         }
+    }
+
+    @Override
+    protected void onResume() {
+        hideKeyboard();
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        hideKeyboard();
+        super.onPause();
+    }
+
+    public void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager) getSystemService(Activity.INPUT_METHOD_SERVICE);
+        View view = getCurrentFocus();
+        if (view == null) {
+            view = new View(this);
+        }
+        imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+        view.clearFocus();
     }
 
     protected abstract void initActivity(B binding);
