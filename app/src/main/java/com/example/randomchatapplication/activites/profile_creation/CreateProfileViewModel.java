@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -51,13 +52,6 @@ public class CreateProfileViewModel extends BaseViewModel {
         this.fabMarginBottom.set((int) (windowNavigationSize + DimensionsHelper.convertDpToPixel(12, getActivity().getApplicationContext())));
         MockyConnection.get().getFieldsAndHobbies(callback);
         ProgressDialogManager.get().show();
-        ((ActivityCreateProfileBinding) getBinding()).createProfileContainer.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                v.getParent().requestDisallowInterceptTouchEvent(true);
-                return false;
-            }
-        });
     }
 
     private ViewPager.OnPageChangeListener viewPagerListener = new ViewPager.OnPageChangeListener() {

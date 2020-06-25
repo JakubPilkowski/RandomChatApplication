@@ -9,12 +9,32 @@
             type="com.example.randomchatapplication.ui.create_profile.profile.CreateProfileFragmentViewModel" />
     </data>
 
-        <ScrollView
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+    <LinearLayout
+        android:id="@+id/non_scrollable_fields_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        app:visibility="@{!viewModel.scrollableVisibility}"
+        app:windowStatusBarPadding="@{viewModel.statusBarHeight}"
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+    <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scrollbars="none"
+            app:visibility="@{viewModel.scrollableVisibility}"
             android:paddingStart="12dp"
-            android:paddingEnd="12dp">
+            android:paddingEnd="12dp"
+
+            >
             <LinearLayout
                 android:id="@+id/fields_container"
                 android:layout_width="match_parent"
@@ -23,4 +43,5 @@
                 android:orientation="vertical">
             </LinearLayout>
         </ScrollView>
+</LinearLayout>
 </layout>

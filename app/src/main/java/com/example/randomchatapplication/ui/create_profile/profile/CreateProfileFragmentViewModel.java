@@ -4,6 +4,7 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
@@ -22,20 +23,26 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CreateProfileFragmentViewModel extends BaseViewModel{
-    // TODO: Implement the ViewModel
 
     public ObservableInt statusBarHeight = new ObservableInt();
-
+    public ObservableBoolean scrollableVisibility = new ObservableBoolean();
     private List<FieldViewModel> viewModels =new ArrayList<>();
     private List<Field> fields = new ArrayList<>();
     private List<ViewInfo> fieldsViews = new ArrayList<>();
     private int step;
+
     public void init(int step, int statusBarHeight){
         this.step = step;
         this.statusBarHeight.set(statusBarHeight);
         fields.addAll(FieldsHelper.get().getFieldsForStep(step));
-        LinearLayout fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).fieldsContainer;
-        Log.d("init: ", String.valueOf(FieldsHelper.get().getSteps().get(step-1).isScrollable()));
+        LinearLayout fieldsContainer;
+        scrollableVisibility.set(FieldsHelper.get().getSteps().get(step-1).isScrollable());
+        if(scrollableVisibility.get())
+            fieldsContainer = ((CreateProfileFragmentBinding) getBinding()).fieldsContainer;
+        else
+            fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).nonScrollableFieldsContainer;
+
+//        LinearLayout fieldsContainer = ((CreateProfileFragmentBinding)getBinding()).fieldsContainer;
         fieldsViews.addAll(FieldsHelper.get().createViewsForStep(fields,fieldsContainer.getContext(),fieldsContainer, getActivity(),step));
         for (ViewInfo viewInfo: fieldsViews){
             if(fieldsViews.indexOf(viewInfo) +1 == fieldsViews.size()){

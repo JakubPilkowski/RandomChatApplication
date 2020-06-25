@@ -1,6 +1,8 @@
 package com.example.randomchatapplication.models;
 
-public class Hobby {
+import java.util.Comparator;
+
+public class Hobby implements Comparable<Hobby>{
 
     private String value;
     private boolean checked;
@@ -20,5 +22,11 @@ public class Hobby {
 
     public void setChecked(boolean checked) {
         this.checked = checked;
+    }
+
+
+    @Override
+    public int compareTo(Hobby o) {
+        return getValue().compareTo(o.getValue());
     }
 }
