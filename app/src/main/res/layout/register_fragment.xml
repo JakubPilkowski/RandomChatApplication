@@ -13,6 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
+        android:gravity="center_horizontal"
         tools:context=".ui.auth.register.RegisterFragment">
 
         <ImageView
@@ -129,38 +130,20 @@
                     android:textColor="@color/colorPrimaryDark" />
             </RelativeLayout>
         </LinearLayout>
-        <RelativeLayout
-            android:layout_marginTop="50dp"
-            android:layout_width="match_parent"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_height="wrap_content" >
-            <Button
-                android:layout_width="105dp"
-                android:layout_height="105dp"
-                android:drawablePadding="6dp"
-                android:paddingEnd="12dp"
-                android:paddingStart="12dp"
-                android:drawableEnd="@drawable/ic_heartbreak"
-                android:text="@string/back"
-                android:onClick="@{() -> viewModel.onBackClick()}"
-                android:background="@drawable/ic_back"
-                android:textColor="@color/colorAccent"
-                android:layout_alignParentStart="true"
-                />
-            <Button
-                android:layout_width="105dp"
-                android:layout_height="105dp"
-                android:paddingEnd="12dp"
-                android:paddingStart="12dp"
-                android:drawablePadding="6dp"
-                android:drawableStart="@drawable/ic_heart_white"
-                android:onClick="@{() -> viewModel.onNextClick()}"
-                android:text="@string/go_next"
-                android:background="@drawable/ic_next"
-                android:textColor="@color/colorAccent"
-                android:layout_alignParentEnd="true"
-                />
-        </RelativeLayout>
+
+        <Button
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="32dp"
+            android:background="@drawable/login_button_drawable"
+            android:onClick="@{() -> viewModel.onNextClick()}"
+            android:stateListAnimator="@null"
+            android:text="@string/go_next"
+            android:textAllCaps="false"
+            android:textColor="@color/colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            />
     </LinearLayout>
 </layout>

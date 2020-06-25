@@ -29,8 +29,8 @@ import org.w3c.dom.Text;
 public class LoginViewModel extends BaseViewModel {
     public ObservableField<String> htmlEffect = new ObservableField<>(WebViewHelper.MOVING_BORDER_TYPE);
 
-    private String email;
-    private String password;
+    private String email = "eve.holt@reqres.in";
+    private String password = "asdasdasdasdsa";
 
     public ObservableField<TextWatcher> emailListener = new ObservableField<>();
     public ObservableField<TextWatcher> passwordListener = new ObservableField<>();

@@ -98,7 +98,4 @@ public class RegisterViewModel extends BaseViewModel {
         }
     }
 
-    public void onBackClick() {
-        getActivity().onBackPressed();
-    }
 }
