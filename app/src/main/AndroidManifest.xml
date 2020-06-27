@@ -12,17 +12,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/MainTheme">
+        <activity android:name=".activites.camera.CameraActivity"></activity>
         <activity
             android:name=".activites.search_view.SearchViewActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/MainTheme"
-            />
+            android:theme="@style/MainTheme" />
         <activity
             android:name=".activites.profile_creation.CreateProfileActivity"
             android:screenOrientation="portrait"
             android:theme="@style/CreatingProfileTheme"
-            android:windowSoftInputMode="adjustPan|stateVisible"
-            />
+            android:windowSoftInputMode="adjustPan|stateVisible" />
         <activity
             android:name=".activites.authentication.AuthActivity"
             android:screenOrientation="portrait"
