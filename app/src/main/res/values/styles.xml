@@ -64,11 +64,6 @@
         <item name="android:windowTranslucentStatus">false</item>
         <item name="android:windowTranslucentNavigation">false</item>
     </style>
-
-    <style name="SelectableNavItemBackground">
-        <item name="listPreferredItemPaddingLeft">16dp</item>
-        <item name="listPreferredItemPaddingRight">0dp</item>
-    </style>
     <style name="seekBarStyle">
         <item name="android:colorControlHighlight">@android:color/transparent</item>
     </style>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,49 +9,62 @@
             type="com.example.randomchatapplication.activites.main.MainActivityViewModel" />
     </data>
 
-    <androidx.drawerlayout.widget.DrawerLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/drawer_layout"
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/main_coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context=".activites.main.MainActivity">
-        <RelativeLayout
+        android:layout_height="match_parent">
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/main_toolbar"
+            android:layout_height="match_parent"
+            android:background="@color/colorAccent"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:background="@color/colorPrimary"
-                android:layout_height="?attr/actionBarSize"/>
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:gravity="center"
-                android:text="@{viewModel.title}"
-                android:textSize="22sp"
-                android:textAllCaps="true"
-                android:textColor="@android:color/white"
-                />
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/main_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/colorPrimary" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:gravity="center"
+                    android:text="@string/title"
+                    android:textColor="@android:color/white"
+                    android:textSize="22sp" />
+            </RelativeLayout>
+
             <FrameLayout
                 android:id="@+id/main_activity_container"
-                android:layout_below="@id/main_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
-        </RelativeLayout>
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-        <com.google.android.material.navigation.NavigationView
-            android:id="@+id/navigation_view"
+            <com.example.randomchatapplication.custom_views.CurvedBottomNavigation
+                android:layout_width="match_parent"
+                android:layout_height="46dp"
+                android:id="@+id/bottom_navigation_view"
+                android:background="?android:attr/windowBackground"
+                app:itemBackground="@null"
+                app:labelVisibilityMode="unlabeled"
+                app:menu="@menu/bottom_nav_menu" />
+        </LinearLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_gravity="start"
-            android:fitsSystemWindows="true"
-            app:theme="@style/SelectableNavItemBackground"
-            app:itemIconTint="@color/colorAccent"
-            app:itemTextColor="@color/colorAccent"
-            app:itemBackground="@android:color/transparent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:id="@+id/accept_fab"
+            android:onClick="@{() -> viewModel.onClick()}"
+            android:src="@drawable/photo_main_button_background"
+            android:theme="@style/FullImageFloatingButton"
+            app:maxImageSize="56dp"
+            android:layout_marginBottom="18dp"
             />
-    </androidx.drawerlayout.widget.DrawerLayout>
-
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>
