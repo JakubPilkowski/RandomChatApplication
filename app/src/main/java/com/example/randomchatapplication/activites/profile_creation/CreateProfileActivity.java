@@ -34,6 +34,7 @@ import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
+import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.helpers.SelectViewDialogManager;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.models.Hobby;
@@ -45,58 +46,20 @@ import com.example.randomchatapplication.ui.create_profile.profile.CreateProfile
 import java.util.ArrayList;
 
 
+
 public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBinding,CreateProfileViewModel> implements Providers {
 
 
     public static final int hobbyRequest = 1001;
 
 
-    public int getNavBarHeight(Context c) {
-        int result = 0;
-        boolean hasMenuKey = ViewConfiguration.get(c).hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-
-        if(!hasMenuKey && !hasBackKey) {
-            Resources resources = c.getResources();
-
-            int orientation = resources.getConfiguration().orientation;
-            int resourceId;
-            if (isTablet(c)){
-                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_height_landscape", "dimen", "android");
-            }  else {
-                resourceId = resources.getIdentifier(orientation == Configuration.ORIENTATION_PORTRAIT ? "navigation_bar_height" : "navigation_bar_width", "dimen", "android");
-            }
-
-            if (resourceId > 0) {
-                return resources.getDimensionPixelSize(resourceId);
-            }
-        }
-        return result;
-    }
-
-
-    private boolean isTablet(Context c) {
-        return (c.getResources().getConfiguration().screenLayout
-                & Configuration.SCREENLAYOUT_SIZE_MASK)
-                >= Configuration.SCREENLAYOUT_SIZE_LARGE;
-    }
-
-    public int getStatusBarHeight() {
-        int result = 0;
-        int resourceId = getResources().getIdentifier("status_bar_height", "dimen", "android");
-        if (resourceId > 0) {
-            result = getResources().getDimensionPixelSize(resourceId);
-        }
-        return result;
-    }
-
 
     private int windowNavigationSize;
     private int statusBarHeight;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        windowNavigationSize = getNavBarHeight(getApplicationContext());
-        statusBarHeight = getStatusBarHeight();
+        windowNavigationSize = ScreenHelper.getNavBarHeight(getApplicationContext());
+        statusBarHeight = ScreenHelper.getStatusBarHeight(getApplicationContext());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
