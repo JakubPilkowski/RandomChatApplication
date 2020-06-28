@@ -106,23 +106,6 @@ public class CreateProfileViewModel extends BaseViewModel {
     };
 
 
-//    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
-//        @Override
-//        public void onSuccess(FieldsResponse response) {
-//            ProgressDialogManager.get().dismiss();
-//            viewPagerListAdapter = getNavigator().showCreateProfileFragments(response, statusBarHeight.get());
-//            viewPagerAdapter.set(viewPagerListAdapter);
-//            int size = response.getKroki().size();
-//            dotsCount.set(size);
-//            listener.set(viewPagerListener);
-//        }
-//
-//        @Override
-//        public void onError(String message) {
-//            ProgressDialogManager.get().dismiss();
-//        }
-//    };
-
     private void moveLeft() {
         float xFromDelta;
         float xToDelta;

@@ -16,18 +16,127 @@
         android:orientation="vertical"
         tools:context=".activites.camera.CameraActivity">
 
-    <TextureView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/view_finder"
-        />
+        <TextureView
+            android:id="@+id/view_finder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+        <Button
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            app:marginTop="@{viewModel.statusBarHeight}"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/camera_close_button"
+            android:onClick="@{()-> viewModel.onClose()}"
+            />
+
         <Button
             android:layout_width="70dp"
             android:layout_height="70dp"
-            android:layout_centerHorizontal="true"
             android:layout_alignParentBottom="true"
-            app:layoutMarginBottom="@{viewModel.navigationHeight}"
+            android:layout_centerHorizontal="true"
             android:background="@drawable/camera_photo_background"
+            app:marginBottom="@{viewModel.navigationHeight}" />
+
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/time_button_2"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:elevation="2dp"
+            app:visibility="@{viewModel.timeButtonsVisibility}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            android:background="@drawable/camera_buttons_main_background"
+            android:text="2"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
             />
+
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/time_button_5"
+            android:elevation="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            app:visibility="@{viewModel.timeButtonsVisibility}"
+            android:background="@drawable/camera_buttons_main_background"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            android:text="5"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            />
+
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/time_button_10"
+            android:elevation="2dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            app:visibility="@{viewModel.timeButtonsVisibility}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            android:background="@drawable/camera_buttons_main_background"
+            android:text="10"
+            android:textSize="22sp"
+            android:textColor="@color/colorPrimary"
+            />
+
+
+        <Button
+            android:id="@+id/swap_button"
+            android:layout_width="36dp"
+            android:elevation="4dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_swap_button_ripple"
+            android:stateListAnimator="@null"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}" />
+
+        <Button
+            android:id="@+id/flash_button"
+            android:layout_width="36dp"
+            android:elevation="4dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_flash_on_button_ripple"
+            android:stateListAnimator="@null"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}" />
+
+        <Button
+            android:id="@+id/time_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:elevation="4dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="@{() -> viewModel.onTimeClick()}"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_time_button_ripple"
+            android:stateListAnimator="@null"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:elevation="6dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/camera_settings_button_ripple"
+            android:onClick="@{() -> viewModel.onSettingsClick()}"
+            android:stateListAnimator="@null"
+            app:marginTop="@{viewModel.statusBarHeight}" />
+
+
+        <!--        </RelativeLayout>-->
+
     </RelativeLayout>
 </layout>

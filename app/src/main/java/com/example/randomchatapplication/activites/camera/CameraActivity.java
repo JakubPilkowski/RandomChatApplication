@@ -45,6 +45,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
 
     private final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private int windowNavigationSize;
+    private int statusBarHeight;
 
     @Override
     public boolean lightStatusBar() {
@@ -157,9 +158,10 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
     @Override
     protected void initActivity(ActivityCameraBinding binding) {
         windowNavigationSize = ScreenHelper.getNavBarHeight(getApplicationContext());
+        statusBarHeight = ScreenHelper.getStatusBarHeight(getApplicationContext());
         binding.setViewModel(viewModel);
         viewModel.setProviders(this);
-        viewModel.init(windowNavigationSize);
+        viewModel.init(windowNavigationSize, statusBarHeight);
     }
 
     @Override

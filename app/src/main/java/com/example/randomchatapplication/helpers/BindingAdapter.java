@@ -297,11 +297,19 @@ public class BindingAdapter {
         }
     }
 
-    @androidx.databinding.BindingAdapter("layoutMarginBottom")
+    @androidx.databinding.BindingAdapter("marginBottom")
     public static void setLayoutMarginBottom(View view, int value) {
         ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
         layoutParams.bottomMargin = value;
     }
+
+    @androidx.databinding.BindingAdapter("marginTop")
+    public static void setLayoutMarginTop(View view, int value) {
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+        layoutParams.topMargin = value;
+    }
+
+
 
     @androidx.databinding.BindingAdapter("windowStatusBarPadding")
     public static void setWindowStatusBarPadding(View view, int top) {
