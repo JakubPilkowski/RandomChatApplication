@@ -1,28 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
         <variable
             name="viewModel"
             type="com.example.randomchatapplication.activites.camera.CameraViewModel" />
+
     </data>
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".activites.camera.CameraActivity">
+        tools:context=".activites.camera.CameraActivity"
+        tools:targetApi="o"
+        >
 
-        <TextureView
+        <androidx.camera.view.PreviewView
             android:id="@+id/view_finder"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
         <Button
             android:layout_width="44dp"
             android:layout_height="44dp"
+            app:tooltipTextProvider="@{viewModel.closeTooltip}"
             app:marginTop="@{viewModel.statusBarHeight}"
             android:layout_marginStart="6dp"
             android:background="@drawable/camera_close_button"
@@ -34,8 +37,27 @@
             android:layout_height="70dp"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
+            android:onClick="@{() -> viewModel.onPhotoClick()}"
             android:background="@drawable/camera_photo_background"
             app:marginBottom="@{viewModel.navigationHeight}" />
+
+        <Button
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:id="@+id/time_button_reset"
+            android:background="@drawable/camera_buttons_main_background"
+            android:elevation="2dp"
+            android:layout_marginEnd="13dp"
+            app:visibility="@{viewModel.timeButtonsVisibility}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:onClick="@{() -> viewModel.onResetDelayClick()}"
+            android:text="@string/zero_number"
+            android:textSize="22sp"
+            app:textColor="@{viewModel.timeColorReset}"
+            />
+
 
         <Button
             android:layout_width="36dp"
@@ -48,9 +70,10 @@
             app:visibility="@{viewModel.timeButtonsVisibility}"
             app:marginTop="@{viewModel.timeButtonsMarginTop}"
             android:background="@drawable/camera_buttons_main_background"
-            android:text="2"
+            android:text="@string/two_number"
+            android:onClick="@{() -> viewModel.on2SecDelayClick()}"
             android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
+            app:textColor="@{viewModel.timeColor2}"
             />
 
         <Button
@@ -64,9 +87,10 @@
             app:visibility="@{viewModel.timeButtonsVisibility}"
             android:background="@drawable/camera_buttons_main_background"
             app:marginTop="@{viewModel.timeButtonsMarginTop}"
-            android:text="5"
+            android:text="@string/five_number"
+            android:onClick="@{() -> viewModel.on5SecDelayClick()}"
             android:textSize="22sp"
-            android:textColor="@color/colorPrimary"
+            app:textColor="@{viewModel.timeColor5}"
             />
 
         <Button
@@ -80,9 +104,11 @@
             app:visibility="@{viewModel.timeButtonsVisibility}"
             app:marginTop="@{viewModel.timeButtonsMarginTop}"
             android:background="@drawable/camera_buttons_main_background"
-            android:text="10"
+            android:text="@string/ten_number"
+            android:onClick="@{()->viewModel.on10SecDelayClick()}"
             android:textSize="22sp"
             android:textColor="@color/colorPrimary"
+            app:textColor="@{viewModel.timeColor10}"
             />
 
 
@@ -92,6 +118,7 @@
             android:elevation="4dp"
             android:layout_height="36dp"
             android:layout_alignParentTop="true"
+            android:onClick="@{() -> viewModel.onSwapClick()}"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="13dp"
             android:background="@drawable/camera_swap_button_ripple"
@@ -103,10 +130,12 @@
             android:layout_width="36dp"
             android:elevation="4dp"
             android:layout_height="36dp"
+            android:onClick="@{() -> viewModel.onFlashClick()}"
             android:layout_alignParentTop="true"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="13dp"
-            android:background="@drawable/camera_flash_on_button_ripple"
+            app:tooltipTextProvider="@{viewModel.flashTooltip}"
+            app:backgroundDrawable="@{viewModel.flashDrawable}"
             android:stateListAnimator="@null"
             app:marginTop="@{viewModel.settingsButtonMarginTop}" />
 
@@ -133,8 +162,18 @@
             android:background="@drawable/camera_settings_button_ripple"
             android:onClick="@{() -> viewModel.onSettingsClick()}"
             android:stateListAnimator="@null"
+            app:tooltipTextProvider="@{viewModel.optionsTooltip}"
             app:marginTop="@{viewModel.statusBarHeight}" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.delayText}"
+                app:visibility="@{viewModel.delayTextVisibility}"
+                android:textSize="100sp"
+                android:layout_centerInParent="true"
+                android:textColor="@color/colorAccent"
+                />
 
         <!--        </RelativeLayout>-->
 

@@ -26,4 +26,11 @@
     <string name="hobbies">Zainteresowania</string>
     <string name="agree">Potwierdź</string>
     <string name="title"><b><i>Tinder Dla Ubogich</i></b></string>
+    <string name="ten_number">10</string>
+    <string name="five_number">5</string>
+    <string name="two_number">2</string>
+    <string name="zero_number">0</string>
+    <string name="close">Zamknij</string>
+    <string name="options">Opcje</string>
+    <string name="flash">Lampa Błyskowa</string>
 </resources>

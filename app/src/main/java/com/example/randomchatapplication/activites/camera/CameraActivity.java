@@ -4,30 +4,27 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.pm.PackageManager;
-import android.graphics.Matrix;
-import android.os.Build;
+import android.media.Image;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
-import android.util.Rational;
 import android.util.Size;
-import android.view.Surface;
-import android.view.TextureView;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.camera.core.CameraX;
+import androidx.camera.core.Camera;
+import androidx.camera.core.CameraSelector;
 import androidx.camera.core.ImageCapture;
-import androidx.camera.core.ImageCaptureConfig;
+import androidx.camera.core.ImageCaptureException;
+import androidx.camera.core.ImageProxy;
 import androidx.camera.core.Preview;
-import androidx.camera.core.PreviewConfig;
+import androidx.camera.lifecycle.ProcessCameraProvider;
+import androidx.camera.view.PreviewView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseActivity;
@@ -36,16 +33,29 @@ import com.example.randomchatapplication.databinding.ActivityCameraBinding;
 import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
+import com.google.common.util.concurrent.ListenableFuture;
+
+import java.io.File;
+import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
 
 public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraViewModel> implements Providers {
 
     private int REQUEST_CODE_PERMISSIONS = 1002;
-
-    private TextureView textureView;
-
+    private int lensFacing = CameraSelector.LENS_FACING_BACK;
+    private int flashMode = ImageCapture.FLASH_MODE_OFF;
+    private PreviewView previewView;
+    private ImageCapture imgCap;
+    private Preview preview;
+    private CameraSelector cameraSelector;
     private final String[] REQUIRED_PERMISSIONS = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
     private int windowNavigationSize;
     private int statusBarHeight;
+    private Timer timer;
+
 
     @Override
     public boolean lightStatusBar() {
@@ -61,7 +71,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (allPermissionsGranted()) {
-            startCamera();
+            bindCamera();
         } else {
             ActivityCompat.requestPermissions(this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS);
         }
@@ -80,7 +90,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CODE_PERMISSIONS) {
             if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                startCamera();
+                bindCamera();
             } else {
                 Toast.makeText(this, "Permissions not granted", Toast.LENGTH_SHORT).show();
                 finish();
@@ -89,62 +99,107 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    private void startCamera() {
-        textureView = binding.viewFinder;
-        CameraX.unbindAll();
-        Rational aspectRatio = new Rational(textureView.getWidth(), textureView.getHeight());
-        Size screen = new Size(textureView.getWidth(), textureView.getHeight());
-        PreviewConfig previewConfig = new PreviewConfig.Builder().setTargetAspectRatio(aspectRatio).setTargetResolution(screen).build();
-        Preview preview = new Preview(previewConfig);
+    @SuppressLint("RestrictedApi")
+    private void bindCamera() {
+        ListenableFuture cameraProviderFuture = ProcessCameraProvider.getInstance(this);
+        cameraProviderFuture.addListener(() -> {
+            try {
+                previewView = binding.viewFinder;
+                ProcessCameraProvider cameraProvider = (ProcessCameraProvider) cameraProviderFuture.get();
+                cameraProvider.unbindAll();
+                Size screen = new Size(previewView.getWidth(), previewView.getHeight());
+                preview = new Preview.Builder().build();
+                cameraSelector = new CameraSelector.Builder()
+                        .requireLensFacing(lensFacing)
+                        .build();
+                imgCap = new ImageCapture.Builder()
+                        .setFlashMode(flashMode)
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                        .setTargetResolution(screen)
+                        .setTargetRotation(getWindowManager().getDefaultDisplay().getRotation())
+                        .build();
 
-        preview.setOnPreviewOutputUpdateListener(output -> {
-            ViewGroup parent = (ViewGroup) textureView.getParent();
-            parent.removeView(textureView);
-            parent.addView(textureView, 0);
-            textureView.setSurfaceTexture(output.getSurfaceTexture());
-//            updateTransform();
-        });
+                cameraProvider.bindToLifecycle(this, cameraSelector, preview, imgCap);
+                preview.setSurfaceProvider(previewView.createSurfaceProvider());
+            } catch (InterruptedException | ExecutionException e) {
+                Log.d("bindCamera: ", Objects.requireNonNull(e.getMessage()));
+            }
+        }, ContextCompat.getMainExecutor(this));
 
-        ImageCaptureConfig imageCaptureConfig = new ImageCaptureConfig.Builder().setCaptureMode(ImageCapture.CaptureMode.MIN_LATENCY)
-                .setTargetRotation(getWindowManager().getDefaultDisplay().getRotation()).build();
-        final ImageCapture imgCap = new ImageCapture(imageCaptureConfig);
-
-
-        CameraX.bindToLifecycle(this, preview, imgCap);
     }
 
+    @SuppressLint("RestrictedApi")
+    public void swapCamera() {
+        lensFacing = lensFacing == CameraSelector.LENS_FACING_FRONT ? CameraSelector.LENS_FACING_BACK : CameraSelector.LENS_FACING_FRONT;
+        //            CameraX.getCameraWithLensFacing(lensFacing);
+        bindCamera();
+    }
 
-    private void updateTransform() {
-        Matrix mx = new Matrix();
-        float w = textureView.getMeasuredWidth();
-        float h = textureView.getMeasuredHeight();
+    public void toggleFlash() {
+        flashMode = flashMode == ImageCapture.FLASH_MODE_ON ? ImageCapture.FLASH_MODE_OFF : ImageCapture.FLASH_MODE_ON;
+        imgCap.setFlashMode(flashMode);
+        //        bindCamera();
+    }
 
-        float cX = w / 2f;
-        float cY = h / 2f;
+    public void takePhotoIntializer(int time) {
+        File file = new File(Environment.getExternalStorageState() + "/" + System.currentTimeMillis() + ".png");
 
-        int rotationDgr;
-        int rotation = (int) textureView.getRotation();
+        if (time > 0) {
+            viewModel.delayTextVisibility.set(true);
+            timer = new Timer();
+            timer.schedule(new TimerTask() {
+                int counter = 0;
 
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                rotationDgr = 0;
-                break;
-            case Surface.ROTATION_90:
-                rotationDgr = 90;
-                break;
-            case Surface.ROTATION_180:
-                rotationDgr = 180;
-                break;
-            case Surface.ROTATION_270:
-                rotationDgr = 270;
-                break;
-            default:
-                return;
+                @Override
+                public void run() {
+                    if (counter >= time / 1000) {
+                        timer.cancel();
+                        viewModel.delayTextVisibility.set(false);
+                        takePhoto();
+                    }
+                    if (counter < time / 1000) {
+                        viewModel.delayText.set(String.valueOf(time / 1000 - counter));
+                    }
+                    counter++;
+
+                }
+            }, 0, 1000);
+        } else {
+            takePhoto();
         }
-
-        mx.postRotate((float) rotationDgr, cX, cY);
-        textureView.setTransform(mx);
+//        imgCap.takePicture(file, new ImageCapture.OnImageSavedListener() {
+//            @Override
+//            public void onImageSaved(@NonNull File file) {
+//
+//            }
+//
+//            @Override
+//            public void onError(@NonNull ImageCapture.UseCaseError useCaseError, @NonNull String message, @Nullable Throwable cause) {
+//
+//            }
+//        });
     }
+
+    @SuppressLint("RestrictedApi")
+    public void takePhoto() {
+        imgCap.takePicture(Runnable::run, new ImageCapture.OnImageCapturedCallback() {
+            @Override
+            public void onCaptureSuccess(@NonNull ImageProxy image) {
+                image.close();
+                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+//                super.onCaptureSuccess(image);
+            }
+
+            @Override
+            public void onError(@NonNull ImageCaptureException exception) {
+                Toast.makeText(getApplicationContext(), "blad" + exception.getMessage(), Toast.LENGTH_SHORT).show();
+                super.onError(exception);
+            }
+        });
+    }
+
+
+
 
     private boolean allPermissionsGranted() {
         for (String permission : REQUIRED_PERMISSIONS) {

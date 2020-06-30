@@ -15,6 +15,7 @@
         android:theme="@style/MainTheme">
         <activity android:name=".activites.camera.CameraActivity"
             android:theme="@style/CameraTheme"
+            android:screenOrientation="portrait"
             />
         <activity
             android:name=".activites.search_view.SearchViewActivity"

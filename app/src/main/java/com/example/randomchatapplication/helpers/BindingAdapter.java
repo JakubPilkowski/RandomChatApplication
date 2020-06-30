@@ -2,6 +2,9 @@ package com.example.randomchatapplication.helpers;
 
 import android.animation.ObjectAnimator;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -28,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -365,6 +369,30 @@ public class BindingAdapter {
             default:
                 break;
         }
+    }
+
+    @androidx.databinding.BindingAdapter("backgroundDrawable")
+    public static void setBackgroundDrawable(View view, Drawable drawable)
+    {
+        view.setBackground(drawable);
+    }
+
+    //Button extends TextView
+    @androidx.databinding.BindingAdapter("textColor")
+    public static void setTextColor(TextView view, int color){
+        view.setTextColor(view.getResources().getColor(color));
+    }
+
+    @androidx.databinding.BindingAdapter("tooltipTextProvider")
+    public static void setTooltipText(View view, int text){
+        view.setOnLongClickListener(v -> {
+            if(Build.VERSION.SDK_INT >= 26)
+                view.setTooltipText(view.getResources().getString(text));
+            else
+                TooltipCompat.setTooltipText(view,view.getResources().getString(text));
+            return false;
+        });
+
     }
 
 }
