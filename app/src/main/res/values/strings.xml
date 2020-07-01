@@ -33,4 +33,11 @@
     <string name="close">Zamknij</string>
     <string name="options">Opcje</string>
     <string name="flash">Lampa Błyskowa</string>
+    <string name="swap">Zmień Kamerkę</string>
+    <string name="selfTimer">Samowyzwalacz</string>
+    <string name="selfTimerReset">0 sekund</string>
+    <string name="selfTimerFiveSec">5 sekund</string>
+    <string name="selfTimerTwoSec">2 sekundy</string>
+    <string name="selfTimerTenSec">10 sekund</string>
+    <string name="photo">Zdjęcie</string>
 </resources>

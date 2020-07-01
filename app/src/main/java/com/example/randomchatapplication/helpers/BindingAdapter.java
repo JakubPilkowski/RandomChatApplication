@@ -3,8 +3,12 @@ package com.example.randomchatapplication.helpers;
 import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.res.ColorStateList;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.media.Image;
+import android.media.ImageReader;
 import android.os.Build;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -31,6 +35,7 @@ import android.widget.TextView;
 import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
@@ -43,6 +48,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
@@ -57,6 +64,7 @@ import com.example.randomchatapplication.models.Hobby;
 import com.example.randomchatapplication.ui.create_profile.fields.SearchViewModel;
 import com.example.randomchatapplication.viewmodels.HobbyViewModel;
 
+import java.nio.ByteBuffer;
 import java.util.List;
 
 public class BindingAdapter {
@@ -314,7 +322,6 @@ public class BindingAdapter {
     }
 
 
-
     @androidx.databinding.BindingAdapter("windowStatusBarPadding")
     public static void setWindowStatusBarPadding(View view, int top) {
         view.setPadding(0, top, 0, 0);
@@ -372,26 +379,42 @@ public class BindingAdapter {
     }
 
     @androidx.databinding.BindingAdapter("backgroundDrawable")
-    public static void setBackgroundDrawable(View view, Drawable drawable)
-    {
+    public static void setBackgroundDrawable(View view, Drawable drawable) {
         view.setBackground(drawable);
     }
 
     //Button extends TextView
     @androidx.databinding.BindingAdapter("textColor")
-    public static void setTextColor(TextView view, int color){
+    public static void setTextColor(TextView view, int color) {
         view.setTextColor(view.getResources().getColor(color));
     }
 
     @androidx.databinding.BindingAdapter("tooltipTextProvider")
-    public static void setTooltipText(View view, int text){
+    public static void setTooltipText(View view, int text) {
         view.setOnLongClickListener(v -> {
-            if(Build.VERSION.SDK_INT >= 26)
+            if (Build.VERSION.SDK_INT >= 26)
                 view.setTooltipText(view.getResources().getString(text));
             else
-                TooltipCompat.setTooltipText(view,view.getResources().getString(text));
+                TooltipCompat.setTooltipText(view, view.getResources().getString(text));
             return false;
         });
+    }
+
+    @androidx.databinding.BindingAdapter("image")
+    public static void setImage(ImageView view, Image image) {
+//        ImageReader reader = ImageReader.newInstance(image.getWidth(), image.getHeight(), image.getFormat(), 1);
+//        image = reader.acquireLatestImage();
+        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+        byte[] bytes = new byte[buffer.capacity()];
+        buffer.get(bytes);
+        Bitmap bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+        Glide.with(view.getContext())
+                .load(bitmapImage)
+                .diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true)
+                .thumbnail(0.5f)
+                .fitCenter()
+                .into(view);
 
     }
 
