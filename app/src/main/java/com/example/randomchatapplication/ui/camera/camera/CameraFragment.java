@@ -168,11 +168,10 @@ public class CameraFragment extends BaseFragment<CameraFragmentBinding, CameraFr
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
                 viewModel.onSettingsClick();
-                Log.d(TAG, String.valueOf(image.getImageInfo().getRotationDegrees()));
-
+//                Log.d(TAG, String.valueOf(imageProxy.getImageInfo().getRotationDegrees()));
                 Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
                 getNavigator().attach(PhotoEditorFragment.newInstance(image), PhotoEditorFragment.TAG);
-//                super.onCaptureSuccess(image);
+//                super.onCaptureSuccess(imageProxy);
             }
 
             @Override

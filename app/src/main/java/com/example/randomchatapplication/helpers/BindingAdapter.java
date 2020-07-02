@@ -37,6 +37,7 @@ import android.widget.Toolbar;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
+import androidx.camera.core.ImageProxy;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -401,19 +402,20 @@ public class BindingAdapter {
     }
 
     @androidx.databinding.BindingAdapter("image")
-    public static void setImage(ImageView view, Image image) {
-//        ImageReader reader = ImageReader.newInstance(image.getWidth(), image.getHeight(), image.getFormat(), 1);
-//        image = reader.acquireLatestImage();
-        ByteBuffer buffer = image.getPlanes()[0].getBuffer();
+    public static void setImage(ImageView view, ImageProxy image) {
+//        ImageReader reader = ImageReader.newInstance(imageProxy.getWidth(), imageProxy.getHeight(), imageProxy.getFormat(), 1);
+//        imageProxy = reader.acquireLatestImage();
+        ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();
         byte[] bytes = new byte[buffer.capacity()];
         buffer.get(bytes);
         Bitmap bitmapImage = BitmapFactory.decodeByteArray(bytes, 0, bytes.length, null);
+        bitmapImage = ImageHelper.rotateImageFromImageProxy(bitmapImage, image);
         Glide.with(view.getContext())
                 .load(bitmapImage)
                 .diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true)
                 .thumbnail(0.5f)
-                .fitCenter()
+                .centerCrop()
                 .into(view);
 
     }

@@ -190,12 +190,12 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
 //    public void takePhoto() {
 //        imgCap.takePicture(Runnable::run, new ImageCapture.OnImageCapturedCallback() {
 //            @Override
-//            public void onCaptureSuccess(@NonNull ImageProxy image) {
-//                image.close();
+//            public void onCaptureSuccess(@NonNull ImageProxy imageProxy) {
+//                imageProxy.close();
 //                Toast.makeText(getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
 //                navigator.attach(PhotoEditorFragment.newInstance(), PhotoEditorFragment.TAG);
 //
-//                super.onCaptureSuccess(image);
+//                super.onCaptureSuccess(imageProxy);
 //            }
 //
 //            @Override

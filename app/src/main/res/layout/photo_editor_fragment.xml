@@ -18,22 +18,36 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:image="@{viewModel.image}"
-                />
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:marginBottom="@{viewModel.navigationHeight}"
                 app:marginTop="@{viewModel.statusBarHeight}">
-
+                <com.example.randomchatapplication.custom_views.EditableImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:image="@{viewModel.imageProxy}"
+                    />
                 <Button
                     android:layout_width="44dp"
                     android:layout_height="44dp"
+                    android:layout_marginTop="6dp"
                     android:layout_marginStart="6dp"
+                    android:onClick="@{() -> viewModel.onBackPress()}"
                     android:background="@drawable/camera_backpress_button" />
+
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{() -> viewModel.onEditClick()}"
+                    android:background="@drawable/camera_edit_button"
+                    />
             </RelativeLayout>
         </RelativeLayout>
 
