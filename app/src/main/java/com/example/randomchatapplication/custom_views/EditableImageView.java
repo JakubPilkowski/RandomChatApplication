@@ -2,8 +2,13 @@ package com.example.randomchatapplication.custom_views;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.PointF;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -13,42 +18,69 @@ import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
+import com.example.randomchatapplication.R;
+
 @SuppressLint("AppCompatCustomView")
 public class EditableImageView extends ImageView {
     public static final String TAG = "EditableImageView";
 
-    public EditableImageView(Context context) {
-        super(context);
-        sharedConstructing(context);
-    }
-
-    public EditableImageView(Context context, @Nullable AttributeSet attrs) {
-        super(context, attrs);
-        sharedConstructing(context);
-    }
-
-    public EditableImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-        sharedConstructing(context);
-    }
-
+    //Przybliżanie
     Matrix matrix;
-
     float minScale = 1f;
     float maxScale = 4f;
     float[] m;
     int viewWidth, viewHeight;
-
     float saveScale = 1f;
-
     protected float origWidth, origHeight;
-
-    int oldMeasuredWidth, oldMeasuredHeight;
     ScaleGestureDetector mScaleDetector;
+
+    //Rysowanie
+    private boolean isDrawingEnabled = false;
+    Canvas canvas;
+    Paint paint;
+    private Path drawPath;
+    private Bitmap mBitmap;
+    private float mX, mY;
+    private static final float TOUCH_TOLERANCE = 4;
+    private int selectedColor = R.color.colorPrimary;
+    private float strokeWidth = 10f;
+
     Context context;
 
+
+    public EditableImageView(Context context) {
+        super(context);
+        initView(context);
+    }
+
+    public EditableImageView(Context context, @Nullable AttributeSet attrs) {
+        super(context, attrs);
+        initView(context);
+    }
+
+    public EditableImageView(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+        super(context, attrs, defStyleAttr);
+        initView(context);
+    }
+
+    public void setDrawingEnabled(boolean isDrawingEnabled) {
+        this.isDrawingEnabled = isDrawingEnabled;
+    }
+
+    public void setSelectedColor(int selectedColor) {
+//        invalidate();
+        this.selectedColor = selectedColor;
+        paint.setColor(selectedColor);
+    }
+
+    public void setStrokeWidth(float strokeWidth) {
+//        invalidate();
+        this.strokeWidth = strokeWidth;
+        paint.setStrokeWidth(strokeWidth);
+    }
+
     @SuppressLint("ClickableViewAccessibility")
-    private void sharedConstructing(Context context) {
+    private void initView(Context context) {
         this.context = context;
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         matrix = new Matrix();
@@ -56,13 +88,78 @@ public class EditableImageView extends ImageView {
         setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
         setOnTouchListener((v, event) -> {
-            if (event.getPointerCount() == 2){
+            if (event.getPointerCount() == 2) {
                 mScaleDetector.onTouchEvent(event);
                 setImageMatrix(matrix);
+            } else {
+                if (isDrawingEnabled) {
+                    Log.d(TAG, "rysowanko");
+                    float touchX = event.getX();
+                    float touchY = event.getY();
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            touch_start(touchX, touchY);
+                            break;
+                        case MotionEvent.ACTION_MOVE:
+                            touchMove(touchX, touchY);
+                            break;
+                        case MotionEvent.ACTION_UP:
+                            touch_up();
+                            break;
+                    }
+                    invalidate();
+                }
             }
-
-            return true; // indicate event was handled
+            return true;
         });
+        canvas = new Canvas();
+        drawPath = new Path();
+        paint = new Paint();
+        paint.setColor(getResources().getColor(selectedColor));
+        paint.setStrokeWidth(strokeWidth);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+    }
+
+    private void touch_start(float x, float y) {
+        drawPath.moveTo(x, y);
+        mX = x;
+        mY = y;
+    }
+
+
+    private void touchMove(float x, float y) {
+        float dx = Math.abs(x - mX);
+        float dy = Math.abs(y - mY);
+        if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
+            drawPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            mX = x;
+            mY = y;
+        }
+    }
+
+    private void touch_up() {
+        drawPath.lineTo(mX, mY);
+        // commit the path to our offscreen
+        canvas.drawPath(drawPath, paint);
+        //mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
+        // kill this so we don't double draw
+        drawPath.reset();
+        // mPath= new Path();
+    }
+    @Override
+    public void draw(Canvas canvas) {
+        // TODO Auto-generated method stub
+        super.draw(canvas);
+        canvas.drawBitmap(mBitmap, 0, 0, paint);
+        canvas.drawPath(drawPath, paint);
+    }
+    @Override
+    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+        super.onSizeChanged(w, h, oldw, oldh);
+        mBitmap = Bitmap.createBitmap(w, h, Bitmap.Config.ARGB_8888);
+        canvas = new Canvas(mBitmap);
     }
 
     public void setMaxZoom(float x) {
@@ -118,8 +215,7 @@ public class EditableImageView extends ImageView {
 
         float fixTransY = getFixTrans(transY, viewHeight, origHeight * saveScale);
 
-        if (fixTransX != 0 || fixTransY != 0)
-        {
+        if (fixTransX != 0 || fixTransY != 0) {
             matrix.postTranslate(fixTransX, fixTransY);
         }
 
@@ -155,18 +251,14 @@ public class EditableImageView extends ImageView {
         return 0;
 
     }
+
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-
         viewWidth = MeasureSpec.getSize(widthMeasureSpec);
-
         viewHeight = MeasureSpec.getSize(heightMeasureSpec);
 
-        oldMeasuredHeight = viewHeight;
-
-        oldMeasuredWidth = viewWidth;
 
         if (saveScale == 1) {
 

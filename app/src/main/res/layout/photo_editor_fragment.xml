@@ -40,14 +40,55 @@
                     android:background="@drawable/camera_backpress_button" />
 
                 <Button
+                    android:id="@+id/clear_painting_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/photo_editor_clear_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    />
+                <Button
+                    android:id="@+id/back_painting_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/editor_photo_back_painting_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    />
+                <Button
+                    android:id="@+id/brush_tickness_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/editor_photo_brush_tickness_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    />
+                <Button
+                    android:id="@+id/brush_color_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/editor_photo_brush_color_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    />
+                <Button
                     android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_marginTop="6dp"
                     android:layout_marginEnd="6dp"
                     android:layout_alignParentEnd="true"
                     android:onClick="@{() -> viewModel.onEditClick()}"
-                    android:background="@drawable/camera_edit_button"
+                    android:background="@drawable/photo_editor_edit_button"
                     />
+
+
+
+
+
             </RelativeLayout>
         </RelativeLayout>
 
