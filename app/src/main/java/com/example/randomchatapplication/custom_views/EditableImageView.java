@@ -4,10 +4,13 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.BlendMode;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
@@ -19,6 +22,9 @@ import android.widget.ImageView;
 import androidx.annotation.Nullable;
 
 import com.example.randomchatapplication.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @SuppressLint("AppCompatCustomView")
 public class EditableImageView extends ImageView {
@@ -38,6 +44,7 @@ public class EditableImageView extends ImageView {
     private boolean isDrawingEnabled = false;
     Canvas canvas;
     Paint paint;
+    private ArrayList<Path> paths = new ArrayList<>();
     private Path drawPath;
     private Bitmap mBitmap;
     private float mX, mY;
@@ -79,6 +86,31 @@ public class EditableImageView extends ImageView {
         paint.setStrokeWidth(strokeWidth);
     }
 
+    public void clearCanvas() {
+        if(paths.size()>0){
+            canvas.drawColor(0, PorterDuff.Mode.CLEAR);
+            drawPath.reset();
+            paths.clear();
+            invalidate();
+        }
+    }
+
+    public void clearLastPainting() {
+        if (paths.size() > 0) {
+            Log.d(TAG, "paths size" + paths.size());
+            Path tmpPath = paths.get(paths.size() - 1);
+            paths.remove(tmpPath);
+            drawPath.reset();
+            canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
+            for(Path path : paths)
+            {
+                canvas.drawPath(path, paint);
+            }
+            invalidate();
+        }
+    }
+
+
     @SuppressLint("ClickableViewAccessibility")
     private void initView(Context context) {
         this.context = context;
@@ -113,7 +145,6 @@ public class EditableImageView extends ImageView {
             return true;
         });
         canvas = new Canvas();
-        drawPath = new Path();
         paint = new Paint();
         paint.setColor(getResources().getColor(selectedColor));
         paint.setStrokeWidth(strokeWidth);
@@ -123,6 +154,7 @@ public class EditableImageView extends ImageView {
     }
 
     private void touch_start(float x, float y) {
+        drawPath = new Path();
         drawPath.moveTo(x, y);
         mX = x;
         mY = y;
@@ -133,7 +165,7 @@ public class EditableImageView extends ImageView {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            drawPath.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            drawPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
         }
@@ -141,20 +173,21 @@ public class EditableImageView extends ImageView {
 
     private void touch_up() {
         drawPath.lineTo(mX, mY);
-        // commit the path to our offscreen
         canvas.drawPath(drawPath, paint);
-        //mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SCREEN));
-        // kill this so we don't double draw
-        drawPath.reset();
+        paths.add(drawPath);
         // mPath= new Path();
     }
+
     @Override
     public void draw(Canvas canvas) {
         // TODO Auto-generated method stub
         super.draw(canvas);
         canvas.drawBitmap(mBitmap, 0, 0, paint);
-        canvas.drawPath(drawPath, paint);
+        if (drawPath != null)
+            canvas.drawPath(drawPath, paint);
+
     }
+
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);

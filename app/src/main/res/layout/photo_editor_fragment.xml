@@ -45,6 +45,7 @@
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="13dp"
+                    android:onClick="@{()->viewModel.onClearPainting()}"
                     android:background="@drawable/photo_editor_clear_button"
                     app:marginTop="@{viewModel.editingButtonsMarginTop}"
                     />
@@ -54,6 +55,7 @@
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="13dp"
+                    android:onClick="@{() -> viewModel.onBackPaiting()}"
                     android:background="@drawable/editor_photo_back_painting_button"
                     app:marginTop="@{viewModel.editingButtonsMarginTop}"
                     />
@@ -72,6 +74,7 @@
                     android:layout_height="36dp"
                     android:layout_alignParentEnd="true"
                     android:layout_marginEnd="13dp"
+                    app:backgroundTintAsInt="@{viewModel.brushColor}"
                     android:background="@drawable/editor_photo_brush_color_button"
                     app:marginTop="@{viewModel.editingButtonsMarginTop}"
                     />

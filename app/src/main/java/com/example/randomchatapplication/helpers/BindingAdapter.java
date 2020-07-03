@@ -417,7 +417,10 @@ public class BindingAdapter {
                 .thumbnail(0.5f)
                 .centerCrop()
                 .into(view);
-
+    }
+    @androidx.databinding.BindingAdapter("backgroundTintAsInt")
+    public static void setBackgroundTintAsInt(View view, int color){
+//        view.setBackgroundColor(color);
     }
 
 }

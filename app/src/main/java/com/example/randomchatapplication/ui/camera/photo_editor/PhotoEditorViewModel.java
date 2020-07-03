@@ -2,6 +2,7 @@ package com.example.randomchatapplication.ui.camera.photo_editor;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
@@ -10,10 +11,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.camera.core.ImageProxy;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.camera.CameraActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.custom_views.EditableImageView;
@@ -32,6 +36,8 @@ public class PhotoEditorViewModel extends BaseViewModel {
     public ObservableInt brushTicknessButtonsMarginTop = new ObservableInt();
     public ObservableInt brushColorButtonsMarginTop = new ObservableInt();
     public ObservableBoolean isDrawingEnabled = new ObservableBoolean(false);
+
+    public ObservableInt brushColor = new ObservableInt(R.color.gold);
 
     private Button clearPaintingButton;
     private Button backPaintingButton;
@@ -55,7 +61,6 @@ public class PhotoEditorViewModel extends BaseViewModel {
         brushColorButton = ((PhotoEditorFragmentBinding)getBinding()).brushColorButton;
         verticalTransitionDimensionFirst = DimensionsHelper.convertDpToPixel(60, getFragment().getContext());
         verticalTransitionDimensionOthers = DimensionsHelper.convertDpToPixel(53, getFragment().getContext());
-
         imageView = ((PhotoEditorFragmentBinding)getBinding()).imageView;
     }
 
@@ -92,5 +97,22 @@ public class PhotoEditorViewModel extends BaseViewModel {
     private void translateAnimation(float fromXDelta, float xToDelta, float fromYDelta, float yToDelta, Button button) {
         button.animate().translationX(xToDelta - fromXDelta).translationY(yToDelta - fromYDelta).setDuration(250).start();
     }
+
+    public void onClearPainting(){
+        imageView.clearCanvas();
+    }
+
+    public void onBackPaiting(){
+        imageView.clearLastPainting();
+    }
+
+    public void onBrushTicknessClick(){
+
+    }
+
+    public void onBrushColorClick(){
+
+    }
+
 
 }
