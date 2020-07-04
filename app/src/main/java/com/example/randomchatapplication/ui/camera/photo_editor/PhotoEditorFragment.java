@@ -7,6 +7,7 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.camera.CameraActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.PhotoEditorFragmentBinding;
+import com.example.randomchatapplication.helpers.ColorPickerAlert;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 

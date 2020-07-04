@@ -5,14 +5,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.widget.SearchView;
 
-import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.adapters.hobbies.hobbiesSearchViewAdapter.HobbySearchViewAdapter;
 import com.example.randomchatapplication.api.BaseCallback;
-import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.api.responses.HobbiesResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivitySearchViewBinding;
@@ -21,7 +19,6 @@ import com.example.randomchatapplication.interfaces.SearchViewListener;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SearchViewActivityViewModel extends BaseViewModel implements SearchViewListener {
 

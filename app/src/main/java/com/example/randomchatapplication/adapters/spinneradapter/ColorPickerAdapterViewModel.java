@@ -7,7 +7,7 @@ import com.example.randomchatapplication.interfaces.DragViewListener;
 import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.SpinnerItem;
 
-public class SpinnerAdapterViewModel extends BaseAdapterViewModel {
+public class ColorPickerAdapterViewModel extends BaseAdapterViewModel {
 
     private SpinnerItem item;
     public ObservableField<String> value = new ObservableField<>();

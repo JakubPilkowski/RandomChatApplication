@@ -38,6 +38,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.camera.core.ImageProxy;
+import androidx.core.content.ContextCompat;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -403,8 +405,7 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("image")
     public static void setImage(ImageView view, ImageProxy image) {
-//        ImageReader reader = ImageReader.newInstance(imageProxy.getWidth(), imageProxy.getHeight(), imageProxy.getFormat(), 1);
-//        imageProxy = reader.acquireLatestImage();
+
         ByteBuffer buffer = image.getImage().getPlanes()[0].getBuffer();
         byte[] bytes = new byte[buffer.capacity()];
         buffer.get(bytes);
@@ -418,9 +419,14 @@ public class BindingAdapter {
                 .centerCrop()
                 .into(view);
     }
+
     @androidx.databinding.BindingAdapter("backgroundTintAsInt")
-    public static void setBackgroundTintAsInt(View view, int color){
-//        view.setBackgroundColor(color);
+    public static void setBackgroundTintAsInt(View view, int color) {
+        if (color != R.color.colorAccent)
+            DrawableCompat.setTint(
+                    DrawableCompat.wrap(view.getBackground()),
+                    ContextCompat.getColor(view.getContext(), color)
+            );
     }
 
 }

@@ -3,6 +3,7 @@ package com.example.randomchatapplication.activites.camera;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
@@ -28,6 +29,7 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityCameraBinding;
+import com.example.randomchatapplication.helpers.ColorPickerAlert;
 import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
@@ -85,6 +87,7 @@ public class CameraActivity extends BaseActivity<ActivityCameraBinding, CameraVi
     @Override
     protected void onResume() {
         super.onResume();
+        ColorPickerAlert.init(this);
         View decorView = getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY;

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple android:color="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/camera_buttons_main_background" />
+            <item android:drawable="@drawable/ic_brush_tickness_size"
+                android:top="8dp"
+                android:right="8dp"
+                android:left="8dp"
+                android:bottom="8dp"
+                />
+        </layer-list>
+    </item>
+</ripple>
