@@ -7,12 +7,14 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.databinding.CustomColorPickerItemBinding;
+import com.example.randomchatapplication.interfaces.ColorPickerListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ColorPickerAdapter extends BaseRecyclerViewAdapter<Integer, BaseViewHolder>  {
     private List<ColorPickerAdapterViewModel> viewModels = new ArrayList<>();
+    private ColorPickerListener listener;
 
     @Override
     public int getItemLayoutRes() {
@@ -30,17 +32,19 @@ public class ColorPickerAdapter extends BaseRecyclerViewAdapter<Integer, BaseVie
         ColorPickerAdapterViewModel viewModel;
         if(viewModels.size()<=position){
             viewModel = new ColorPickerAdapterViewModel();
-//            viewModel.setSpinnerViewListener(spinnerViewListener);
-//            viewModel.setDragViewListener(dragViewListener);
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((CustomColorPickerItemBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), listener);
         }
         else {
             viewModel = viewModels.get(position);
             ((CustomColorPickerItemBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
+    }
+
+    public void setListener(ColorPickerListener listener) {
+        this.listener = listener;
     }
 }

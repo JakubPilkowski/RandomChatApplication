@@ -1,46 +1,53 @@
 package com.example.randomchatapplication.ui.camera.photo_editor;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.graphics.Color;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
 import androidx.camera.core.ImageProxy;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.example.randomchatapplication.R;
-import com.example.randomchatapplication.activites.camera.CameraActivity;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.custom_views.EditableImageView;
 import com.example.randomchatapplication.databinding.PhotoEditorFragmentBinding;
 import com.example.randomchatapplication.helpers.ColorPickerAlert;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
+import com.example.randomchatapplication.helpers.ImageHelper;
 import com.example.randomchatapplication.helpers.ScreenHelper;
+import com.example.randomchatapplication.interfaces.ColorPickerListener;
 
-import static com.example.randomchatapplication.ui.earn_points.EarnPointsFragment.TAG;
+public class PhotoEditorViewModel extends BaseViewModel implements ColorPickerListener {
+    //Tooltipy
+    public ObservableInt backTooltip = new ObservableInt(R.string.back);
+    public ObservableInt editorTooltip = new ObservableInt(R.string.edition);
+    public ObservableInt cleanTooltip = new ObservableInt(R.string.clean);
+    public ObservableInt backBrushTooltip = new ObservableInt(R.string.back_brush);
+    public ObservableInt brushTicknessTooltip = new ObservableInt(R.string.brush_tickness);
+    public ObservableInt brushColorTooltip = new ObservableInt(R.string.brush_color);
+    public ObservableInt brushTickness10Tooltip = new ObservableInt(R.string.brush_tickness_10);
+    public ObservableInt brushTickness25Tooltip = new ObservableInt(R.string.brush_tickness_25);
+    public ObservableInt brushTickness40Tooltip = new ObservableInt(R.string.brush_tickness_40);
+    public ObservableInt brushTickness55Tooltip = new ObservableInt(R.string.brush_tickness_55);
+    public ObservableInt acceptEditingTooltip = new ObservableInt(R.string.go_next);
 
-public class PhotoEditorViewModel extends BaseViewModel {
-    // TODO: Implement the ViewModel
+
+    //Reszta
+
     public ObservableInt statusBarHeight = new ObservableInt();
     public ObservableInt navigationHeight = new ObservableInt();
     public ObservableField<ImageProxy> imageProxy = new ObservableField<>();
     public ObservableInt editingButtonsMarginTop = new ObservableInt();
     public ObservableInt brushTicknessButtonsMarginTop = new ObservableInt();
-    public ObservableInt brushColorButtonsMarginTop = new ObservableInt();
     public ObservableBoolean isDrawingEnabled = new ObservableBoolean(false);
     public ObservableBoolean ticknessState = new ObservableBoolean(false);
     public ObservableBoolean ticknessButtonsVisibility = new ObservableBoolean(false);
-    public ObservableInt brushColor = new ObservableInt(R.color.gold);
+    public ObservableInt brushColor = new ObservableInt(R.color.colorAccent);
 
     private Button clearPaintingButton;
     private Button backPaintingButton;
@@ -71,12 +78,12 @@ public class PhotoEditorViewModel extends BaseViewModel {
         brushTickness15 = ((PhotoEditorFragmentBinding)getBinding()).brushTickness15;
         brushTickness20 = ((PhotoEditorFragmentBinding)getBinding()).brushTickness20;
         brushTickness25 = ((PhotoEditorFragmentBinding)getBinding()).brushTickness25;
-
         verticalTransitionDimensionFirst = DimensionsHelper.convertDpToPixel(60, getFragment().getContext());
         verticalTransitionDimensionOthers = DimensionsHelper.convertDpToPixel(53, getFragment().getContext());
         horizontalTransitionDimension = DimensionsHelper.convertDpToPixel(53,getFragment().getContext());
         imageView = ((PhotoEditorFragmentBinding)getBinding()).imageView;
         brushTicknessButtonsMarginTop.set((int) DimensionsHelper.convertDpToPixel(179, getFragment().getContext()));
+
     }
 
     public void onBackPress(){
@@ -169,8 +176,27 @@ public class PhotoEditorViewModel extends BaseViewModel {
         onBrushTicknessClick();
     }
     public void onBrushColorClick(){
-        ColorPickerAlert.get().show();
+        ColorPickerAlert.get().show(this);
     }
 
+    @Override
+    public void onColorPicked(int color) {
+        brushColor.set(color);
+        imageView.setSelectedColor(color);
+    }
+
+    public void onEndEditingClick(){
+        Bitmap bitmap = Bitmap.createBitmap(imageView.getWidth(), imageView.getHeight()
+        , Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        imageView.draw(canvas);
+        saveBitmapToGallery(bitmap);
+        getActivity().finish();
+    }
+    private void saveBitmapToGallery(Bitmap bitmap){
+
+        String filename = "tinderdlaubogichphoto-"+System.currentTimeMillis()+".png";
+        MediaStore.Images.Media.insertImage(getActivity().getContentResolver(), bitmap, filename , "Image");
+    }
 
 }

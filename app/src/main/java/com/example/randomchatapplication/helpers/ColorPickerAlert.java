@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.adapters.colorPicker.ColorPickerAdapter;
+import com.example.randomchatapplication.interfaces.ColorPickerListener;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -37,7 +38,7 @@ public class ColorPickerAlert {
         return INSTANCE;
     }
 
-    public void show() {
+    public void show(ColorPickerListener listener) {
         dismiss();
         RelativeLayout layout = (RelativeLayout) LayoutInflater.from(context).inflate(R.layout.custom_color_picker, null, false);
         RecyclerView view = layout.findViewById(R.id.color_picker_recycler_view);
@@ -47,8 +48,10 @@ public class ColorPickerAlert {
                 R.color.magenta, R.color.pink, R.color.apricot, R.color.beige, R.color.mint, R.color.lavender, R.color.maroon,
                 R.color.brown, R.color.olive, R.color.teal, R.color.navy, R.color.diamond));
         colorPickerAdapter.setItems(colors);
+        colorPickerAdapter.setListener(listener);
         view.setLayoutManager(new GridLayoutManager(context, 6));
         view.setAdapter(colorPickerAdapter);
+
 
         layout.setOnClickListener(v -> dismiss());
 

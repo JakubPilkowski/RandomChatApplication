@@ -422,7 +422,6 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("backgroundTintAsInt")
     public static void setBackgroundTintAsInt(View view, int color) {
-        if (color != R.color.colorAccent)
             DrawableCompat.setTint(
                     DrawableCompat.wrap(view.getBackground()),
                     ContextCompat.getColor(view.getContext(), color)

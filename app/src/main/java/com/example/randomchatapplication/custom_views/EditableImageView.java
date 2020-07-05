@@ -45,11 +45,12 @@ public class EditableImageView extends ImageView {
     Canvas canvas;
     Paint paint;
     private ArrayList<Path> paths = new ArrayList<>();
+    private ArrayList<Paint> paints = new ArrayList<>();
     private Path drawPath;
     private Bitmap mBitmap;
     private float mX, mY;
     private static final float TOUCH_TOLERANCE = 4;
-    private int selectedColor = R.color.colorPrimary;
+    private int selectedColor = R.color.colorAccent;
     private float strokeWidth = 10f;
 
     Context context;
@@ -75,36 +76,36 @@ public class EditableImageView extends ImageView {
     }
 
     public void setSelectedColor(int selectedColor) {
-//        invalidate();
         this.selectedColor = selectedColor;
-        paint.setColor(selectedColor);
     }
 
     public void setStrokeWidth(float strokeWidth) {
-//        invalidate();
         this.strokeWidth = strokeWidth;
-        paint.setStrokeWidth(strokeWidth);
+
     }
 
     public void clearCanvas() {
-        if(paths.size()>0){
+        if (paths.size() > 0) {
             canvas.drawColor(0, PorterDuff.Mode.CLEAR);
             drawPath.reset();
+            paint.reset();
             paths.clear();
+            paints.clear();
             invalidate();
         }
     }
 
     public void clearLastPainting() {
         if (paths.size() > 0) {
-            Log.d(TAG, "paths size" + paths.size());
             Path tmpPath = paths.get(paths.size() - 1);
+            Paint tmpPaint = paints.get(paints.size() - 1);
             paths.remove(tmpPath);
+            paints.remove(tmpPaint);
             drawPath.reset();
+            paint.reset();
             canvas.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-            for(Path path : paths)
-            {
-                canvas.drawPath(path, paint);
+            for (int i = 0; i < paths.size(); i++) {
+                canvas.drawPath(paths.get(i), paints.get(i));
             }
             invalidate();
         }
@@ -121,11 +122,12 @@ public class EditableImageView extends ImageView {
         setScaleType(ScaleType.MATRIX);
         setOnTouchListener((v, event) -> {
             if (event.getPointerCount() == 2) {
-                mScaleDetector.onTouchEvent(event);
-                setImageMatrix(matrix);
+                if (!isDrawingEnabled) {
+                    mScaleDetector.onTouchEvent(event);
+                    setImageMatrix(matrix);
+                }
             } else {
                 if (isDrawingEnabled) {
-                    Log.d(TAG, "rysowanko");
                     float touchX = event.getX();
                     float touchY = event.getY();
                     switch (event.getAction()) {
@@ -145,6 +147,18 @@ public class EditableImageView extends ImageView {
             return true;
         });
         canvas = new Canvas();
+        initPaint();
+    }
+
+    private void touch_start(float x, float y) {
+        drawPath = new Path();
+        initPaint();
+        drawPath.moveTo(x, y);
+        mX = x;
+        mY = y;
+    }
+
+    private void initPaint() {
         paint = new Paint();
         paint.setColor(getResources().getColor(selectedColor));
         paint.setStrokeWidth(strokeWidth);
@@ -152,14 +166,6 @@ public class EditableImageView extends ImageView {
         paint.setStrokeJoin(Paint.Join.ROUND);
         paint.setStrokeCap(Paint.Cap.ROUND);
     }
-
-    private void touch_start(float x, float y) {
-        drawPath = new Path();
-        drawPath.moveTo(x, y);
-        mX = x;
-        mY = y;
-    }
-
 
     private void touchMove(float x, float y) {
         float dx = Math.abs(x - mX);
@@ -175,6 +181,7 @@ public class EditableImageView extends ImageView {
         drawPath.lineTo(mX, mY);
         canvas.drawPath(drawPath, paint);
         paths.add(drawPath);
+        paints.add(paint);
         // mPath= new Path();
     }
 

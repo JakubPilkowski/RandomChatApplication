@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
@@ -22,15 +23,15 @@ import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 
 
-public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBinding,CreateProfileViewModel> implements Providers {
+public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBinding, CreateProfileViewModel> implements Providers {
 
 
     public static final int hobbyRequest = 1001;
 
 
-
     private int windowNavigationSize;
     private int statusBarHeight;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         windowNavigationSize = ScreenHelper.getNavBarHeight(getApplicationContext());
@@ -45,7 +46,6 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
     }
 
 
-
     @Override
     protected void initActivity(ActivityCreateProfileBinding binding) {
         SelectViewDialogManager.init(this);
@@ -56,9 +56,9 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        if(requestCode == hobbyRequest){
-            if(resultCode== RESULT_OK){
-                if(data!=null) {
+        if (requestCode == hobbyRequest) {
+            if (resultCode == RESULT_OK) {
+                if (data != null) {
 //                    ArrayList<Hobby> hobbies = data.getParcelableArrayListExtra("hobbies");
 //                    Fragment fragment = viewModel.viewPagerAdapter.get().getItem(3);
 //                    SearchViewModel viewModel = (SearchViewModel) ((CreateProfileFragment) fragment).viewModel.getSearchViewModel();
@@ -94,12 +94,26 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
         return false;
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            View decor = getWindow().getDecorView();
+            if (!lightStatusBar()) {
+                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            } else {
+                decor.setSystemUiVisibility(0);
+            }
+        }
+    }
+
     @Override
     public void onBackPressed() {
 //        if(SelectViewDialogManager.get().getDialog().isShowing())
 //            SelectViewDialogManager.get().dismiss();
 //        else
-            super.onBackPressed();
+        super.onBackPressed();
     }
 
     @Override
@@ -121,7 +135,6 @@ public class CreateProfileActivity extends BaseActivity<ActivityCreateProfileBin
     public BaseFragment getFragment() {
         return getCurrentFragment();
     }
-
 
 
 }

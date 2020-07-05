@@ -167,16 +167,13 @@ public class CameraFragment extends BaseFragment<CameraFragmentBinding, CameraFr
         imgCap.takePicture(Runnable::run, new ImageCapture.OnImageCapturedCallback() {
             @Override
             public void onCaptureSuccess(@NonNull ImageProxy image) {
-                viewModel.onSettingsClick();
-//                Log.d(TAG, String.valueOf(imageProxy.getImageInfo().getRotationDegrees()));
-                Toast.makeText(getActivity().getApplicationContext(), "success", Toast.LENGTH_SHORT).show();
+                if(viewModel.state.get())
+                    viewModel.onSettingsClick();
                 getNavigator().attach(PhotoEditorFragment.newInstance(image), PhotoEditorFragment.TAG);
-//                super.onCaptureSuccess(imageProxy);
             }
 
             @Override
             public void onError(@NonNull ImageCaptureException exception) {
-                Toast.makeText(getActivity().getApplicationContext(), "blad" + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 super.onError(exception);
             }
         });

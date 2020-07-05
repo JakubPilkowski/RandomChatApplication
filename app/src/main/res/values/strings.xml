@@ -40,4 +40,13 @@
     <string name="selfTimerTwoSec">2 sekundy</string>
     <string name="selfTimerTenSec">10 sekund</string>
     <string name="photo">Zdjęcie</string>
+    <string name="edition">Edycja Zdjęcia</string>
+    <string name="clean">Wyczyść rysunek</string>
+    <string name="back_brush">Cofnij ostatni malunek</string>
+    <string name="brush_tickness">Grubość pędzla</string>
+    <string name="brush_color">Kolor pędzla</string>
+    <string name="brush_tickness_10">Grubość 10</string>
+    <string name="brush_tickness_25">Grubość 25</string>
+    <string name="brush_tickness_40">Grubość 40</string>
+    <string name="brush_tickness_55">Grubość 55</string>
 </resources>

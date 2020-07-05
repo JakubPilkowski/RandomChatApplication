@@ -34,7 +34,6 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
         MockyConnection.init();
         LoginConnection.init();
         ProgressDialogManager.init(this);
-//        setStatusBarColor();
         navigator.setActivity(this);
         navigator.setFragmentContainer(getIdFragmentContainer());
         binding = DataBindingUtil.setContentView(this, getLayoutRes());
@@ -43,17 +42,6 @@ public abstract class BaseActivity<B extends ViewDataBinding, VM extends BaseVie
     }
 
     public abstract boolean lightStatusBar();
-
-    private void setStatusBarColor() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            View decor = getWindow().getDecorView();
-            if (!lightStatusBar()) {
-                decor.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-            } else {
-                decor.setSystemUiVisibility(0);
-            }
-        }
-    }
 
 
     public BaseFragment getCurrentFragment() {

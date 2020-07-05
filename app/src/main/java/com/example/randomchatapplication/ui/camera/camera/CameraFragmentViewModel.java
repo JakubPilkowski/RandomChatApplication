@@ -1,6 +1,7 @@
 package com.example.randomchatapplication.ui.camera.camera;
 
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.camera.core.ImageCapture;
@@ -56,9 +57,9 @@ public class CameraFragmentViewModel extends BaseViewModel {
     private Drawable flash_off;
     public ObservableField<Drawable> flashDrawable = new ObservableField<>();
 
-    private boolean flashState = false;
-    private boolean timeState = false;
-    private boolean state = false;
+    public ObservableBoolean flashState = new ObservableBoolean(false);
+    public ObservableBoolean timeState = new ObservableBoolean(false);
+    public ObservableBoolean state = new ObservableBoolean(false);
 
     private int delay = 0;
 
@@ -86,12 +87,12 @@ public class CameraFragmentViewModel extends BaseViewModel {
 
 
     public void onSettingsClick() {
-        if (!state) {
+        if (!state.get()) {
             openSettings();
         } else {
             closeSettings();
         }
-        state = !state;
+        state.set(!state.get());
     }
 
     private void openSettings() {
@@ -101,9 +102,9 @@ public class CameraFragmentViewModel extends BaseViewModel {
     }
 
     private void closeSettings() {
-        if (timeState) {
+        if (timeState.get()) {
             closeClock();
-            timeState = false;
+            timeState.set(false);
         }
         if (timeButtonsVisibility.get())
             timeButtonsVisibility.set(false);
@@ -121,8 +122,8 @@ public class CameraFragmentViewModel extends BaseViewModel {
     }
 
     public void onFlashClick() {
-        flashState = !flashState;
-        if (flashState) flashDrawable.set(flash_on);
+        flashState.set(!flashState.get());
+        if (flashState.get()) flashDrawable.set(flash_on);
         else flashDrawable.set(flash_off);
         ((CameraFragment) getFragment()).toggleFlash();
     }
@@ -133,12 +134,12 @@ public class CameraFragmentViewModel extends BaseViewModel {
     }
 
     public void onTimeClick() {
-        if (!timeState) {
+        if (!timeState.get()) {
             openClock();
         } else {
             closeClock();
         }
-        timeState = !timeState;
+        timeState.set(!timeState.get());
     }
 
     private void openClock() {
