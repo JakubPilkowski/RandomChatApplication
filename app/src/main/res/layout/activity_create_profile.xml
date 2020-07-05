@@ -19,7 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:overScrollMode="never"
-            app:layoutMarginBottom="@{viewModel.windowNavigationSize}"
+            app:marginBottom="@{viewModel.windowNavigationSize}"
             app:pageChangedListener="@{viewModel.listener}"
             app:setOffScreenPageLimit="@{viewModel.dotsCount}"
             app:viewPagerAdapter="@{viewModel.viewPagerAdapter}" />
@@ -30,7 +30,7 @@
             android:layout_height="40dp"
             android:layout_gravity="bottom"
             app:dotsCount="@{viewModel.dotsCount}"
-            app:layoutMarginBottom="@{viewModel.windowNavigationSize}" />
+            app:marginBottom="@{viewModel.windowNavigationSize}" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:layout_width="wrap_content"
@@ -41,7 +41,7 @@
             android:onClick="@{() -> viewModel.onNextClick()}"
             android:src="@drawable/accept_create_profile_background"
             android:theme="@style/FullImageFloatingButton"
-            app:layoutMarginBottom="@{viewModel.fabMarginBottom}"
+            app:marginBottom="@{viewModel.fabMarginBottom}"
             app:maxImageSize="56dp"
             app:visibility="@{viewModel.visibility}"
             />

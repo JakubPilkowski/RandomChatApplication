@@ -3,7 +3,6 @@ package com.example.randomchatapplication.ui.auth.login;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.databinding.ObservableField;
@@ -11,9 +10,6 @@ import androidx.databinding.ObservableField;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.LoginConnection;
-import com.example.randomchatapplication.api.LoginService;
-import com.example.randomchatapplication.api.MockyConnection;
-import com.example.randomchatapplication.api.MockyService;
 import com.example.randomchatapplication.api.requests.AuthRequest;
 import com.example.randomchatapplication.api.responses.AuthResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
@@ -23,8 +19,6 @@ import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.helpers.Validator;
 import com.example.randomchatapplication.helpers.WebViewHelper;
 import com.example.randomchatapplication.ui.auth.register.RegisterFragment;
-
-import org.w3c.dom.Text;
 
 public class LoginViewModel extends BaseViewModel {
     public ObservableField<String> htmlEffect = new ObservableField<>(WebViewHelper.MOVING_BORDER_TYPE);

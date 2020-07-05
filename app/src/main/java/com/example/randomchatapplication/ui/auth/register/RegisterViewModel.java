@@ -3,12 +3,10 @@ package com.example.randomchatapplication.ui.auth.register;
 import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.databinding.ObservableField;
 
-import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.activites.profile_creation.CreateProfileActivity;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.LoginConnection;

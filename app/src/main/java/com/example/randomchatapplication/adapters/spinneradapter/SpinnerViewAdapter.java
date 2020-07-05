@@ -1,7 +1,6 @@
 package com.example.randomchatapplication.adapters.spinneradapter;
 
 import android.content.res.Resources;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -12,13 +11,12 @@ import com.example.randomchatapplication.databinding.SpinnerItemBinding;
 import com.example.randomchatapplication.interfaces.DragViewListener;
 import com.example.randomchatapplication.interfaces.SpinnerViewListener;
 import com.example.randomchatapplication.models.SpinnerItem;
-import com.example.randomchatapplication.ui.spinner.SpinnerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, BaseViewHolder> {
-    private List<SpinnerAdapterViewModel> viewModels = new ArrayList<>();
+    private List<ColorPickerAdapterViewModel> viewModels = new ArrayList<>();
 
     private SpinnerViewListener spinnerViewListener;
     private DragViewListener dragViewListener;
@@ -40,9 +38,9 @@ public class SpinnerViewAdapter extends BaseRecyclerViewAdapter<SpinnerItem, Bas
 
     @Override
     public void onBindView(BaseViewHolder holder, int position) {
-        SpinnerAdapterViewModel viewModel;
+        ColorPickerAdapterViewModel viewModel;
         if(viewModels.size()<=position){
-            viewModel = new SpinnerAdapterViewModel();
+            viewModel = new ColorPickerAdapterViewModel();
             viewModel.setSpinnerViewListener(spinnerViewListener);
             viewModel.setDragViewListener(dragViewListener);
             viewModels.add(viewModel);

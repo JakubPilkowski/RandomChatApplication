@@ -8,12 +8,14 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.LayerDrawable;
 import android.graphics.drawable.VectorDrawable;
+import android.media.Image;
 import android.util.AttributeSet;
 
 import androidx.core.content.ContextCompat;
 
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.helpers.ImageHelper;
 
 public class CustomRangeSeekbar extends CrystalRangeSeekbar {
     public CustomRangeSeekbar(Context context) {
@@ -51,18 +53,11 @@ public class CustomRangeSeekbar extends CrystalRangeSeekbar {
     @Override
     protected Bitmap getBitmap(Drawable drawable) {
         if (drawable instanceof VectorDrawable || drawable instanceof LayerDrawable){
-            return DrawableToBitmap(drawable);
+            return ImageHelper.drawableToBitmap(drawable);
         }
         else{
             return super.getBitmap(drawable);
         }
     }
-    private static Bitmap DrawableToBitmap(Drawable drawable) {
-        Bitmap bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(),
-                drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
-        Canvas canvas = new Canvas(bitmap);
-        drawable.setBounds(0, 0, canvas.getWidth(), canvas.getHeight());
-        drawable.draw(canvas);
-        return bitmap;
-    }
+
 }

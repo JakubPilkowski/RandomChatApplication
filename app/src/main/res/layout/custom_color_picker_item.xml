@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.adapters.colorPicker.ColorPickerAdapterViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/color_picker_item"
+            android:backgroundTint="@color/colorBlack"
+            android:layout_centerInParent="true"
+            android:onClick="@{()->viewModel.onClick()}"
+            />
+        <Button xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_margin="6dp"
+            android:onClick="@{()->viewModel.onClick()}"
+            android:background="@drawable/color_picker_item"
+            android:layout_centerInParent="true"
+            app:backgroundTintAsInt="@{viewModel.color}">
+        </Button>
+    </RelativeLayout>
+
+</layout>

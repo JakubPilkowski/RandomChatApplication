@@ -1,10 +1,7 @@
 package com.example.randomchatapplication.activites.profile_creation;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
@@ -16,22 +13,17 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
-import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
 import com.example.randomchatapplication.api.RxJavaCallback;
-import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.api.responses.HobbiesAndFieldsResponse;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ActivityCreateProfileBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.HobbiesHelper;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
-import com.example.randomchatapplication.models.Hobby;
 
 import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.annotations.Nullable;
 import io.reactivex.rxjava3.core.Observer;
-import io.reactivex.rxjava3.disposables.Disposable;
 
 public class CreateProfileViewModel extends BaseViewModel {
     public ObservableInt dotsCount = new ObservableInt(5);
@@ -105,23 +97,6 @@ public class CreateProfileViewModel extends BaseViewModel {
 
     };
 
-
-//    private BaseCallback<FieldsResponse> callback = new BaseCallback<FieldsResponse>() {
-//        @Override
-//        public void onSuccess(FieldsResponse response) {
-//            ProgressDialogManager.get().dismiss();
-//            viewPagerListAdapter = getNavigator().showCreateProfileFragments(response, statusBarHeight.get());
-//            viewPagerAdapter.set(viewPagerListAdapter);
-//            int size = response.getKroki().size();
-//            dotsCount.set(size);
-//            listener.set(viewPagerListener);
-//        }
-//
-//        @Override
-//        public void onError(String message) {
-//            ProgressDialogManager.get().dismiss();
-//        }
-//    };
 
     private void moveLeft() {
         float xFromDelta;

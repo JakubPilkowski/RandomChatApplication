@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.camera.photo_editor.PhotoEditorViewModel" />
+    </data>
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorBlack"
+        tools:context=".ui.camera.photo_editor.PhotoEditorFragment">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:marginBottom="@{viewModel.navigationHeight}"
+                app:marginTop="@{viewModel.statusBarHeight}">
+                <com.example.randomchatapplication.custom_views.EditableImageView
+                    android:id="@+id/image_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:clickable="true"
+                    android:focusable="true"
+                    app:image="@{viewModel.imageProxy}"
+                    />
+                <Button
+                    android:layout_width="44dp"
+                    android:layout_height="44dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="6dp"
+                    android:onClick="@{() -> viewModel.onBackPress()}"
+                    android:background="@drawable/camera_backpress_button"
+                    app:tooltipTextProvider="@{viewModel.backTooltip}"
+                    />
+
+                <Button
+                    android:id="@+id/brush_tickness_10"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:elevation="4dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{()->viewModel.onBrushTickness10Click()}"
+                    android:background="@drawable/photo_editor_brush_tickness_10_button"
+                    app:visibility="@{viewModel.ticknessButtonsVisibility}"
+                    app:marginTop="@{viewModel.brushTicknessButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.brushTickness10Tooltip}"
+
+                    />
+
+                <Button
+                    android:id="@+id/brush_tickness_15"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:elevation="4dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{()->viewModel.onBrushTickness15Click()}"
+                    android:background="@drawable/photo_editor_brush_tickness_15_button"
+                    app:visibility="@{viewModel.ticknessButtonsVisibility}"
+                    app:marginTop="@{viewModel.brushTicknessButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.brushTickness25Tooltip}"
+                    />
+                <Button
+                    android:id="@+id/brush_tickness_20"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:elevation="4dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    app:visibility="@{viewModel.ticknessButtonsVisibility}"
+                    android:onClick="@{()->viewModel.onBrushTickness20Click()}"
+                    android:background="@drawable/photo_editor_brush_tickness_20_button"
+                    app:marginTop="@{viewModel.brushTicknessButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.brushTickness40Tooltip}"
+                    />
+                <Button
+                    android:id="@+id/brush_tickness_25"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_alignParentTop="true"
+                    android:elevation="4dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{()->viewModel.onBrushTickness25Click()}"
+                    android:background="@drawable/photo_editor_brush_tickness_25_button"
+                    app:marginTop="@{viewModel.brushTicknessButtonsMarginTop}"
+                    app:visibility="@{viewModel.ticknessButtonsVisibility}"
+                    app:tooltipTextProvider="@{viewModel.brushTickness55Tooltip}"
+                    />
+
+                <Button
+                    android:id="@+id/clear_painting_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:elevation="6dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{()->viewModel.onClearPainting()}"
+                    android:background="@drawable/photo_editor_clear_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.cleanTooltip}"
+                    />
+                <Button
+                    android:id="@+id/back_painting_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:elevation="6dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{() -> viewModel.onBackPaiting()}"
+                    android:background="@drawable/photo_editor_back_painting_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.backBrushTooltip}"
+                    />
+                <Button
+                    android:id="@+id/brush_tickness_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:elevation="6dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    android:onClick="@{() -> viewModel.onBrushTicknessClick()}"
+                    android:background="@drawable/photo_editor_brush_tickness_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.brushTicknessTooltip}"
+                    />
+                <Button
+                    android:id="@+id/brush_color_button"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:elevation="6dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginEnd="13dp"
+                    app:backgroundTintAsInt="@{viewModel.brushColor}"
+                    android:onClick="@{()->viewModel.onBrushColorClick()}"
+                    android:background="@drawable/photo_editor_brush_color_button"
+                    app:marginTop="@{viewModel.editingButtonsMarginTop}"
+                    app:tooltipTextProvider="@{viewModel.brushColorTooltip}"
+                    />
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="6dp"
+                    android:layout_alignParentTop="true"
+                    android:elevation="8dp"
+                    android:layout_marginEnd="6dp"
+                    android:layout_alignParentEnd="true"
+                    android:onClick="@{() -> viewModel.onEditClick()}"
+                    android:background="@drawable/photo_editor_edit_button"
+                    app:tooltipTextProvider="@{viewModel.editorTooltip}"
+                    />
+                <Button
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentBottom="true"
+                    android:layout_margin="6dp"
+                    app:tooltipTextProvider="@{viewModel.acceptEditingTooltip}"
+                    android:onClick="@{() -> viewModel.onEndEditingClick()}"
+                    android:background="@drawable/photo_editor_end_editing_button"
+                    />
+            </RelativeLayout>
+        </RelativeLayout>
+
+    </FrameLayout>
+</layout>

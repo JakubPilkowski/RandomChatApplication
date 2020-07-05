@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.camera.camera.CameraFragmentViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.camera.camera.CameraFragment"
+        tools:targetApi="o">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/view_finder"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Button
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:layout_marginStart="6dp"
+            android:background="@drawable/camera_close_button"
+            android:onClick="@{()-> viewModel.onClose()}"
+            app:marginTop="@{viewModel.statusBarHeight}"
+            app:tooltipTextProvider="@{viewModel.closeTooltip}" />
+
+        <Button
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@drawable/camera_photo_background"
+            android:onClick="@{() -> viewModel.onPhotoClick()}"
+            app:marginBottom="@{viewModel.navigationHeight}"
+            app:tooltipTextProvider="@{viewModel.photoTooltip}"
+            />
+
+        <Button
+            android:id="@+id/time_button_reset"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_buttons_main_background"
+            android:elevation="2dp"
+            android:onClick="@{() -> viewModel.onResetDelayClick()}"
+            android:text="@string/zero_number"
+            android:textSize="22sp"
+            app:tooltipTextProvider="@{viewModel.resetSelfTimerTooltip}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            app:textColor="@{viewModel.timeColorReset}"
+            app:visibility="@{viewModel.timeButtonsVisibility}" />
+
+
+        <Button
+            android:id="@+id/time_button_2"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_buttons_main_background"
+            android:elevation="2dp"
+            android:onClick="@{() -> viewModel.on2SecDelayClick()}"
+            android:text="@string/two_number"
+            android:textSize="22sp"
+            app:tooltipTextProvider="@{viewModel.twoSecSeltTimerTooltip}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            app:textColor="@{viewModel.timeColor2}"
+            app:visibility="@{viewModel.timeButtonsVisibility}" />
+
+        <Button
+            android:id="@+id/time_button_5"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_buttons_main_background"
+            android:elevation="2dp"
+            android:onClick="@{() -> viewModel.on5SecDelayClick()}"
+            android:text="@string/five_number"
+            android:textSize="22sp"
+            app:tooltipTextProvider="@{viewModel.fiveSecSeltTimerTooltip}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            app:textColor="@{viewModel.timeColor5}"
+            app:visibility="@{viewModel.timeButtonsVisibility}" />
+
+        <Button
+            android:id="@+id/time_button_10"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_buttons_main_background"
+            android:elevation="2dp"
+            android:onClick="@{()->viewModel.on10SecDelayClick()}"
+            android:text="@string/ten_number"
+            android:textColor="@color/colorPrimary"
+            android:textSize="22sp"
+            app:tooltipTextProvider="@{viewModel.tenSecSeltTimerTooltip}"
+            app:marginTop="@{viewModel.timeButtonsMarginTop}"
+            app:textColor="@{viewModel.timeColor10}"
+            app:visibility="@{viewModel.timeButtonsVisibility}" />
+
+
+        <Button
+            android:id="@+id/swap_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_swap_button_ripple"
+            android:elevation="4dp"
+            android:onClick="@{() -> viewModel.onSwapClick()}"
+            android:stateListAnimator="@null"
+            app:tooltipTextProvider="@{viewModel.swapTooltip}"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}" />
+
+        <Button
+            android:id="@+id/flash_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:elevation="4dp"
+            android:onClick="@{() -> viewModel.onFlashClick()}"
+            android:stateListAnimator="@null"
+            app:backgroundDrawable="@{viewModel.flashDrawable}"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}"
+            app:tooltipTextProvider="@{viewModel.flashTooltip}" />
+
+        <Button
+            android:id="@+id/time_button"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/camera_time_button_ripple"
+            android:elevation="4dp"
+            android:onClick="@{() -> viewModel.onTimeClick()}"
+            android:stateListAnimator="@null"
+            app:tooltipTextProvider="@{viewModel.selfTimerTooltip}"
+            app:marginTop="@{viewModel.settingsButtonMarginTop}" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="6dp"
+            android:background="@drawable/camera_settings_button_ripple"
+            android:elevation="6dp"
+            android:onClick="@{() -> viewModel.onSettingsClick()}"
+            android:stateListAnimator="@null"
+            app:marginTop="@{viewModel.statusBarHeight}"
+            app:tooltipTextProvider="@{viewModel.optionsTooltip}" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@{viewModel.delayText}"
+            android:textColor="@color/colorAccent"
+            android:textSize="100sp"
+            app:visibility="@{viewModel.delayTextVisibility}" />
+
+        <!--        </RelativeLayout>-->
+
+    </RelativeLayout>
+</layout>

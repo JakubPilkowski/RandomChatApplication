@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple android:color="@color/colorPrimary"
+    xmlns:android="http://schemas.android.com/apk/res/android" >
+    <item>
+        <layer-list>
+            <item android:drawable="@drawable/camera_buttons_main_background" />
+            <item android:drawable="@drawable/ic_accept_red"
+                android:left="10dp"
+                android:right="10dp"
+                android:top="10dp"
+                android:bottom="10dp"
+                />
+        </layer-list>
+    </item>
+</ripple>
