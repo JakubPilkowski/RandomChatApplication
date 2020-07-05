@@ -2,9 +2,12 @@ package com.example.randomchatapplication.api;
 
 import android.util.Log;
 
+import com.example.randomchatapplication.api.responses.AuthResponse;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.api.responses.HobbiesAndFieldsResponse;
 import com.example.randomchatapplication.api.responses.HobbiesResponse;
+import com.example.randomchatapplication.api.responses.ProfilesResponse;
+import com.example.randomchatapplication.models.Profile;
 
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.annotations.Nullable;
@@ -40,6 +43,14 @@ public class MockyConnection {
         Observable<HobbiesResponse> hobbiesObservable = mockyClient.getService().getHobbies().subscribeOn(Schedulers.newThread()).observeOn(Schedulers.computation());
         Observable<HobbiesAndFieldsResponse> combined = Observable.zip(hobbiesObservable,fieldsObservable , HobbiesAndFieldsResponse::new);
         combined.subscribe(callback);
+    }
+
+    public void getProfiles(BaseCallback<ProfilesResponse> callback){
+        Call<ProfilesResponse> call = mockyClient.getService().getProfiles();
+        call.enqueue(callback);
+
+//        Observable<ProfilesResponse> profilesResponse = mockyClient.getService().getProfiles().subscribeOn(Schedulers.newThread()).observeOn(Schedulers.computation());
+//        profilesResponse.subscribe(callback);
     }
 
 //    public void getHobbies(BaseCallback<HobbiesResponse> callback){
