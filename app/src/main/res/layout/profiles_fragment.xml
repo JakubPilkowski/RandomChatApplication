@@ -14,12 +14,19 @@
         android:layout_height="match_parent"
         tools:context=".ui.profiles.ProfilesFragment">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/profiles_fragment_recycler_view"
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/profiles_fragment_viewpager"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="6dp"
             android:overScrollMode="never"
-            app:recyclerViewAdapter="@{viewModel.adapter}"
             />
+<!--        <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/profiles_fragment_recycler_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:overScrollMode="never"-->
+<!--        app:recyclerViewAdapter="@{viewModel.adapter}"-->
+<!--        />-->
     </FrameLayout>
 </layout>

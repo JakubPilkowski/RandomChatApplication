@@ -1,25 +1,15 @@
 package com.example.randomchatapplication.ui.profiles;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
 
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.animation.Animation;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ProfilesFragmentBinding;
-import com.example.randomchatapplication.helpers.CubeAnimation;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.navigation.Navigator;
 
@@ -29,15 +19,6 @@ public class ProfilesFragment extends BaseFragment<ProfilesFragmentBinding, Prof
 
     public static ProfilesFragment newInstance() {
         return new ProfilesFragment();
-    }
-
-    @Nullable
-    @Override
-    public Animation onCreateAnimation(int transit, boolean enter, int nextAnim) {
-        if (!enter)
-            return CubeAnimation.create(CubeAnimation.RIGHT, false, 500);
-        else
-            return super.onCreateAnimation(transit, true, nextAnim);
     }
 
     @Override
