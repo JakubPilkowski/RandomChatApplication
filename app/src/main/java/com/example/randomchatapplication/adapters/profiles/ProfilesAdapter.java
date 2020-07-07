@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.adapters.profiles;
 
+import android.app.Activity;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -14,9 +15,15 @@ import java.util.ArrayList;
 public class ProfilesAdapter extends BaseRecyclerViewAdapter<Profile, BaseViewHolder> {
 
     private ArrayList<ProfilesAdapterViewModel> viewModels = new ArrayList<>();
+    private Activity activity;
+
     @Override
     public int getItemLayoutRes() {
         return R.layout.single_profile_item;
+    }
+
+    public void setActivity(Activity activity) {
+        this.activity = activity;
     }
 
     @Override
@@ -33,7 +40,7 @@ public class ProfilesAdapter extends BaseRecyclerViewAdapter<Profile, BaseViewHo
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((SingleProfileItemBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), activity, holder.getBinding());
         }
         else {
             viewModel = viewModels.get(position);

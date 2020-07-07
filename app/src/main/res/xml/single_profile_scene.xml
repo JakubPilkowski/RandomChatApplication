@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetStart="@id/single_profile_trans_start"
+        app:constraintSetEnd="@id/single_profile_trans_end"
+        app:duration="200"
+        app:motionInterpolator="linear"
+        >
+        <OnClick
+            app:clickAction="toggle"
+            />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/single_profile_trans_start">
+
+        <Constraint android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:id="@+id/profile_image" />
+
+        <Constraint
+            android:id="@+id/photo_image_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="52dp"
+            android:orientation="vertical"
+            android:alpha="1"
+            />
+        <Constraint
+            android:id="@+id/single_profile_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            />
+
+
+    </ConstraintSet>
+
+
+    <ConstraintSet android:id="@+id/single_profile_trans_end">
+
+        <Constraint android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:scaleType="fitXY"
+            android:id="@+id/profile_image" />
+
+        <Constraint
+            android:id="@+id/photo_image_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="52dp"
+            android:orientation="vertical"
+            android:alpha="0"
+            />
+
+        <Constraint
+            android:id="@+id/single_profile_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="visible"
+            app:layout_constraintTop_toBottomOf="@id/profile_image"
+            />
+    </ConstraintSet>
+</MotionScene>
