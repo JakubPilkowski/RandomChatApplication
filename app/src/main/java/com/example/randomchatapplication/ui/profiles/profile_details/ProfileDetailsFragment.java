@@ -33,7 +33,11 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
         return profileDetailsFragment;
     }
 
-
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return super.onCreateView(inflater, container, savedInstanceState);
+    }
 
     private void setProfile(Profile profile) {
         this.profile = profile;
@@ -52,6 +56,8 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public void bindData(ProfileDetailsFragmentBinding binding) {
+        binding.profileDetailsMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
+        binding.profileDetailsMotionLayout.transitionToEnd();
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init(profile);

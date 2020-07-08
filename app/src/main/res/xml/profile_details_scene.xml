@@ -13,27 +13,118 @@
 
     <ConstraintSet android:id="@+id/profile_details_main_scene_start">
 
+        <Constraint
+            android:id="@+id/profile_details_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <Constraint
+            android:id="@+id/single_profile_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <Constraint
+            android:id="@+id/profile_details_main_info_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="30dp"
+            android:translationX="-250dp"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:contentPadding="12dp" />
+
+
+        <Constraint
+            android:id="@+id/decline_profile_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/camera_close_button"
+            android:theme="@style/FullImageFloatingButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="parent"
+            app:maxImageSize="56dp" />
+        <Constraint
+            android:id="@+id/accept_profile_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/profile_love_button"
+            android:theme="@style/FullImageFloatingButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="parent"
+            app:maxImageSize="56dp" />
 
     </ConstraintSet>
     <ConstraintSet android:id="@+id/profile_details_main_scene_end">
 
+        <Constraint
+            android:id="@+id/profile_details_scroll_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+
+        <Constraint
+            android:id="@+id/single_profile_more_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+        <Constraint
+            android:id="@+id/profile_details_main_info_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="30dp"
+            app:cardBackgroundColor="@color/colorAccent"
+            app:cardCornerRadius="12dp"
+            app:cardElevation="0dp"
+            app:contentPadding="12dp" />
+
+        <Constraint
+            android:id="@+id/decline_profile_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/camera_close_button"
+            android:theme="@style/FullImageFloatingButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:maxImageSize="56dp" />
+        <Constraint
+            android:id="@+id/accept_profile_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="30dp"
+            android:src="@drawable/profile_love_button"
+            android:theme="@style/FullImageFloatingButton"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:maxImageSize="56dp" />
     </ConstraintSet>
 
 
-
-<!--    collapsing toolbar animation-->
-    <Transition app:constraintSetStart="@id/profile_details_main_swipe_start"
+    <!--    collapsing toolbar animation-->
+    <Transition
         app:constraintSetEnd="@id/profile_details_main_swipe_end"
-        >
+        app:constraintSetStart="@id/profile_details_main_swipe_start">
 
 
     </Transition>
-    <ConstraintSet android:id="@+id/profile_details_main_swipe_start" >
+    <ConstraintSet android:id="@+id/profile_details_main_swipe_start">
 
     </ConstraintSet>
 
-    <ConstraintSet android:id="@+id/profile_details_main_swipe_end"
-        >
+    <ConstraintSet android:id="@+id/profile_details_main_swipe_end">
 
     </ConstraintSet>
 
