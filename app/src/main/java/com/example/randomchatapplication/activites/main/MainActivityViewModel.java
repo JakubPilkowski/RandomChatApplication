@@ -1,34 +1,20 @@
 package com.example.randomchatapplication.activites.main;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.util.Log;
-import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableFloat;
-import androidx.databinding.ObservableInt;
-
-import com.example.randomchatapplication.R;
 
 import com.example.randomchatapplication.activites.camera.CameraActivity;
 import com.example.randomchatapplication.api.BaseCallback;
 import com.example.randomchatapplication.api.MockyConnection;
-import com.example.randomchatapplication.api.RxJavaCallback;
 import com.example.randomchatapplication.api.responses.ProfilesResponse;
-import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.base.BaseViewModel;
-import com.example.randomchatapplication.databinding.ActivityMainBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
 import com.example.randomchatapplication.models.Profile;
-import com.example.randomchatapplication.ui.profiles.ProfilesFragment;
+import com.example.randomchatapplication.ui.profiles.profile.ProfilesFragment;
 
 import java.util.ArrayList;
-
-import io.reactivex.rxjava3.annotations.NonNull;
-import io.reactivex.rxjava3.core.Observer;
 
 
 public class MainActivityViewModel extends BaseViewModel {

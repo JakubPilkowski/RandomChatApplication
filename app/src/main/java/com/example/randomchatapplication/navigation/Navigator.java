@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.adapters.ViewPagerListAdapter;
 import com.example.randomchatapplication.api.responses.FieldsResponse;
 import com.example.randomchatapplication.base.BaseActivity;
@@ -61,6 +62,7 @@ public class Navigator {
         if (!isAvailable(tag)) {
             activity.getSupportFragmentManager()
                     .beginTransaction()
+
                     .addToBackStack(tag)
                     .replace(fragmentContainer, fragment, tag)
                     .setTransition(FragmentTransaction.TRANSIT_NONE)

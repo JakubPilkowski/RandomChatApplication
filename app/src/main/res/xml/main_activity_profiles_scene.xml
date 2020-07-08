@@ -15,6 +15,13 @@
     <ConstraintSet android:id="@+id/main_activity_profile_scene_start">
 
         <Constraint
+            android:id="@+id/main_activity_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="46dp" />
+
+
+        <Constraint
             android:layout_width="match_parent"
             android:layout_height="46dp"
             android:id="@+id/bottom_navigation_view"
@@ -40,6 +47,11 @@
 
     <ConstraintSet android:id="@+id/main_activity_profile_scene_end">
 
+        <Constraint
+            android:id="@+id/main_activity_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp" />
         <Constraint
             android:layout_width="match_parent"
             android:layout_height="46dp"

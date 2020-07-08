@@ -3,13 +3,13 @@ package com.example.randomchatapplication.activites.main;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
@@ -23,7 +23,8 @@ import com.example.randomchatapplication.navigation.Navigator;
 import com.example.randomchatapplication.ui.account.AccountFragment;
 import com.example.randomchatapplication.ui.chats.ChatsFragment;
 import com.example.randomchatapplication.ui.earn_points.EarnPointsFragment;
-import com.example.randomchatapplication.ui.profiles.ProfilesFragment;
+import com.example.randomchatapplication.ui.profiles.profile.ProfilesFragment;
+import com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivityViewModel> implements Providers, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -58,6 +59,18 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         }
         super.onResume();
     }
+
+    @Override
+    public void onBackPressed() {
+        if(getCurrentFragment() instanceof ProfileDetailsFragment)
+        {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            binding.mainCoordinator.transitionToStart();
+        }
+        super.onBackPressed();
+    }
+
 
     @Override
     protected Class<MainActivityViewModel> getViewModel() {

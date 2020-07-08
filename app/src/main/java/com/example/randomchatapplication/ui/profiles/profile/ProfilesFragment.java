@@ -1,10 +1,6 @@
-package com.example.randomchatapplication.ui.profiles;
+package com.example.randomchatapplication.ui.profiles.profile;
 
 import androidx.databinding.ViewDataBinding;
-
-import androidx.annotation.Nullable;
-
-import android.view.animation.Animation;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;

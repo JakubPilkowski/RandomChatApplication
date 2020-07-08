@@ -1,4 +1,4 @@
-package com.example.randomchatapplication.ui.profiles;
+package com.example.randomchatapplication.ui.profiles.profile;
 
 import android.util.Log;
 import android.view.View;
@@ -24,9 +24,7 @@ public class ProfilesViewModel extends BaseViewModel {
     public ObservableField<ProfilesAdapter> adapter = new ObservableField<>();
     private ProfilesAdapter profilesAdapter;
     public void init() {
-//        LinearLayoutManager layoutManager = new LinearLayoutManager(getFragment().getContext(),LinearLayoutManager.HORIZONTAL, false);
         ViewPager2 viewPager2 = ((ProfilesFragmentBinding)getBinding()).profilesFragmentViewpager;
-
         viewPager2.setOrientation(ViewPager2.ORIENTATION_HORIZONTAL);
         profilesAdapter = new ProfilesAdapter();
         profilesAdapter.setActivity(getActivity());

@@ -7,14 +7,14 @@
 
         <variable
             name="viewModel"
-            type="com.example.randomchatapplication.ui.profiles.ProfilesViewModel" />
+            type="com.example.randomchatapplication.ui.profiles.profile.ProfilesViewModel" />
     </data>
 
     <androidx.constraintlayout.motion.widget.MotionLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/profiles_fragment_motion_layout"
-        tools:context=".ui.profiles.ProfilesFragment"
+        tools:context=".ui.profiles.profile.ProfilesFragment"
         app:layoutDescription="@xml/profiles_fragment_scene"
         >
         <RelativeLayout
