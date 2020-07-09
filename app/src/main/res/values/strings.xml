@@ -49,4 +49,5 @@
     <string name="brush_tickness_25">Grubość 25</string>
     <string name="brush_tickness_40">Grubość 40</string>
     <string name="brush_tickness_55">Grubość 55</string>
+    <string name="profile_details"><b><i>Szczegóły profilu</i></b></string>
 </resources>

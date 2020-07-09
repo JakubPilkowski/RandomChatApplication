@@ -38,6 +38,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.camera.core.ImageProxy;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.core.graphics.drawable.RoundedBitmapDrawable;
@@ -327,8 +328,13 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("marginTop")
     public static void setLayoutMarginTop(View view, int value) {
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.topMargin = value;
+//        if (view.getLayoutParams() instanceof ConstraintLayout.LayoutParams) {
+//            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+//            params.topMargin = value;
+//        } else {
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            layoutParams.topMargin = value;
+//        }
     }
 
 
@@ -429,15 +435,14 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("backgroundTintAsInt")
     public static void setBackgroundTintAsInt(View view, int color) {
-            DrawableCompat.setTint(
-                    DrawableCompat.wrap(view.getBackground()),
-                    ContextCompat.getColor(view.getContext(), color)
-            );
+        DrawableCompat.setTint(
+                DrawableCompat.wrap(view.getBackground()),
+                ContextCompat.getColor(view.getContext(), color)
+        );
     }
 
     @androidx.databinding.BindingAdapter({"roundedImage"})
-    public static void setRoundedImage(ImageView view, String imageUrl)
-    {
+    public static void setRoundedImage(ImageView view, String imageUrl) {
         Context context = view.getContext();
         Glide.with(context)
                 .load(imageUrl)

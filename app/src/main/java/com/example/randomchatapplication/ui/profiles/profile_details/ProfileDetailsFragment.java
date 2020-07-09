@@ -1,5 +1,6 @@
 package com.example.randomchatapplication.ui.profiles.profile_details;
 
+import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -9,8 +10,13 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.Scene;
+import androidx.transition.TransitionInflater;
+import androidx.transition.TransitionManager;
+import androidx.transition.TransitionSet;
 
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -33,12 +39,6 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
         return profileDetailsFragment;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
-    }
-
     private void setProfile(Profile profile) {
         this.profile = profile;
     }
@@ -56,8 +56,30 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public void bindData(ProfileDetailsFragmentBinding binding) {
-        binding.profileDetailsMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
-        binding.profileDetailsMotionLayout.transitionToEnd();
+        binding.profileDetailsMainMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
+        binding.profileDetailsMainMotionLayout.transitionToEnd();
+        binding.profileDetailsMainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
+            @Override
+            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
+
+            }
+
+            @Override
+            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
+
+            }
+
+            @Override
+            public void onTransitionCompleted(MotionLayout motionLayout, int i) {
+                binding.profileDetailsButtonsMotionLayout.setTransition(R.id.profile_details_buttons_scene_start, R.id.profile_details_buttons_scene_end);
+                binding.profileDetailsButtonsMotionLayout.transitionToEnd();
+            }
+
+            @Override
+            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
+
+            }
+        });
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init(profile);
