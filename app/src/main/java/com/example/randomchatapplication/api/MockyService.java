@@ -15,10 +15,10 @@ public interface MockyService {
     Observable<FieldsResponse> getFields();
 
 
-    @GET("7c75d6cc-41c3-4270-962e-85a5375c1415")
+    @GET("ed8938c6-a537-4771-9ce3-f8fb8aaadb0f")
     Observable<HobbiesResponse> getHobbies();
 
-    @GET("0cdea54f-1f71-4afb-8d7e-f1ba4943644b")
+    @GET("1138048d-152b-4a6b-b0fb-619ef0050eac")
     Call<ProfilesResponse> getProfiles();
 
 }

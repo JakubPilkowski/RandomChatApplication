@@ -1,6 +1,8 @@
 package com.example.randomchatapplication.ui.profiles.profile_details;
 
 import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -24,6 +26,8 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBinding;
+import com.example.randomchatapplication.helpers.DimensionsHelper;
+import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.navigation.Navigator;
@@ -56,6 +60,10 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public void bindData(ProfileDetailsFragmentBinding binding) {
+        ConstraintSet swipeConstraintEnd = binding.profileDetailsMotionLayout.getConstraintSet(R.id.profile_details_main_swipe_end);
+        ConstraintSet.Constraint profileImageEnd = swipeConstraintEnd.getConstraint(R.id.profile_image);
+        profileImageEnd.layout.mHeight = (int) (ScreenHelper.getStatusBarHeight(getContext()) + DimensionsHelper.convertDpToPixel(48, getContext()));
+
         binding.profileDetailsMainMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
         binding.profileDetailsMainMotionLayout.transitionToEnd();
         binding.profileDetailsMainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
