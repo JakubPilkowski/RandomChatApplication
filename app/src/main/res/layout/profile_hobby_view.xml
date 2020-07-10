@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.adapters.profile_hobbies.ProfileHobbiesAdapterViewModel" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:background="@drawable/profile_hobby_background"
+        app:backgroundTintAsInt="@{viewModel.backgroundColor}"
+        android:padding="6dp"
+        android:layout_marginBottom="12dp"
+        android:gravity="center"
+        >
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@{viewModel.value}"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
+        android:textSize="20sp"
+        android:drawablePadding="6dp"
+        android:drawableStart="@drawable/ic_hobby"
+        />
+    </LinearLayout>
+</layout>
