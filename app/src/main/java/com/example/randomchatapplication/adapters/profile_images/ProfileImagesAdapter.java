@@ -1,7 +1,9 @@
 package com.example.randomchatapplication.adapters.profile_images;
 
 import android.content.Context;
+import android.media.MediaCodec;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,55 +13,50 @@ import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
+import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.custom_views.ArrayView;
+import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBinding;
 import com.example.randomchatapplication.databinding.ProfileDetailsImageViewBinding;
 import com.example.randomchatapplication.models.Photo;
 
 import java.util.ArrayList;
 
-public class ProfileImagesAdapter extends ArrayAdapter<Photo> {
+public class ProfileImagesAdapter extends BaseRecyclerViewAdapter<Photo, BaseViewHolder> {
 
-    private ArrayList<Photo> photos = new ArrayList<>();
-    private LayoutInflater mInflater;
+    private ArrayList<ProfileImagesAdapterViewModel> viewModels = new ArrayList<>();
 
-    public ProfileImagesAdapter(@NonNull Context context, ArrayList<Photo> photos) {
-        super(context, R.layout.profile_details_image_view);
-        this.photos.clear();
-        this.photos.addAll(photos);
-        mInflater = LayoutInflater.from(context);
+    @Override
+    public int getItemLayoutRes() {
+        return R.layout.profile_details_image_view;
     }
 
-    @NonNull
     @Override
-    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        LinearLayout linearLayout = (LinearLayout) convertView;
-        if (linearLayout==null){
-            linearLayout = (LinearLayout) mInflater.inflate(R.layout.profile_details_image_view,parent, false);
+    public BaseViewHolder onCreateItemViewHolder(ViewGroup parent, int viewType, View itemView) {
+        ProfileDetailsImageViewBinding binding = ProfileDetailsImageViewBinding.bind(itemView);
+        return new BaseViewHolder(itemView, binding);
+    }
+
+    @Override
+    public void onBindView(BaseViewHolder holder, int position) {
+        ProfileImagesAdapterViewModel viewModel;
+        if(viewModels.size()<=position){
+            viewModel = new ProfileImagesAdapterViewModel();
+            viewModels.add(viewModel);
+            holder.setViewModel(viewModel);
+            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
+            holder.setElement(items.get(position));
         }
-        ImageView imageView = linearLayout.findViewById(R.id.profile_details_single_image_view);
-        imageView.getLayoutParams().height = parent.getWidth()/2;
-        ProfileDetailsImageViewBinding binding = ProfileDetailsImageViewBinding.bind(linearLayout);
-        ProfileImagesAdapterViewModel viewModel = new ProfileImagesAdapterViewModel();
-        binding.setViewModel(viewModel);
-        viewModel.init(photos.get(position));
-        return linearLayout;
-    }
-
-    @Override
-    public int getCount() {
-        return photos.size();
-    }
-
-    @Nullable
-    @Override
-    public Photo getItem(int position) {
-        return photos.get(position);
-    }
-
-    @Override
-    public int getPosition(@Nullable Photo item) {
-        return photos.indexOf(item);
+        else {
+            viewModel = viewModels.get(position);
+            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
+            holder.setViewModel(viewModel);
+        }
     }
 }

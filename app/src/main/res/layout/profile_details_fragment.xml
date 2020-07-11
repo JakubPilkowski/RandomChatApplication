@@ -247,17 +247,39 @@
                                 <TextView
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginBottom="12dp"
                                     android:text="Zdjęcia"
+                                    android:layout_marginBottom="12dp"
                                     android:textAlignment="center"
                                     android:textColor="@color/colorBlack"
                                     android:textSize="24sp" />
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginBottom="12dp"
+                                    android:weightSum="4"
+                                    >
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="3"
+                                        android:textColor="@color/colorBlack"
+                                        android:textSize="18sp"
+                                        android:text="Przesuwaj w prawo"
+                                        />
+                                    <TextView
+                                        android:layout_width="0dp"
+                                        android:layout_height="wrap_content"
+                                        android:textSize="18sp"
+                                        android:textColor="@color/colorBlack"
+                                        android:text="@{viewModel.actualImage}"
+                                        android:textAlignment="textEnd"
+                                        android:layout_weight="1" />
+                                </LinearLayout>
 
-                                <GridView
+                                <androidx.recyclerview.widget.RecyclerView
                                     android:id="@+id/images_grid_view"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:numColumns="2"
                                     />
 
                             </LinearLayout>

@@ -18,7 +18,7 @@ public interface MockyService {
     @GET("ed8938c6-a537-4771-9ce3-f8fb8aaadb0f")
     Observable<HobbiesResponse> getHobbies();
 
-    @GET("1138048d-152b-4a6b-b0fb-619ef0050eac")
+    @GET("ac7a43e5-edba-4c95-be17-2d615210c78d")
     Call<ProfilesResponse> getProfiles();
 
 }
