@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import androidx.viewpager.widget.ViewPager;
+import androidx.viewpager2.widget.ViewPager2;
 
 public class CustomViewPager extends ViewPager {
 
@@ -18,44 +19,18 @@ public class CustomViewPager extends ViewPager {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (this.enabled) {
-            return super.onTouchEvent(event);
+        if (event.getPointerCount()>1) {
+            return false;
         }
-
-        return false;
+        return super.onTouchEvent(event);
     }
-    @Override
-    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
-        try {
-            int numChildren = getChildCount();
-            for (int i = 0; i < numChildren; i++) {
-                View child = getChildAt(i);
-                if (child != null) {
-                    child.measure(widthMeasureSpec, MeasureSpec.makeMeasureSpec(0, MeasureSpec.UNSPECIFIED));
-                    int h = child.getMeasuredHeight();
-                    heightMeasureSpec = Math.max(heightMeasureSpec, MeasureSpec.makeMeasureSpec(h, MeasureSpec.EXACTLY));
-                }
-            }
-
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    }
     @Override
     public boolean onInterceptTouchEvent(MotionEvent event) {
-        if (this.enabled) {
-            return super.onInterceptTouchEvent(event);
+        if (event.getPointerCount()>1) {
+            return false;
         }
-        return false;
-//        return enabled ? super.onInterceptTouchEvent(event) : false;
-    }
-
-    public void setSwipeEnabled(boolean enabled) {
-        this.enabled = enabled;
+        return super.onInterceptTouchEvent(event);
     }
 }
 

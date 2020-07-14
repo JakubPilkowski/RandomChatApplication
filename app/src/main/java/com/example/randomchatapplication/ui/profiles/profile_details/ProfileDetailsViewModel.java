@@ -28,14 +28,17 @@ import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBindi
 import com.example.randomchatapplication.databinding.ProfileHobbyViewBinding;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.ScreenHelper;
+import com.example.randomchatapplication.interfaces.ImageClickListener;
 import com.example.randomchatapplication.models.Hobby;
+import com.example.randomchatapplication.models.Photo;
 import com.example.randomchatapplication.models.Profile;
+import com.example.randomchatapplication.ui.profiles.profile_image_gallery.ProfileImageGalleryFragment;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ProfileDetailsViewModel extends BaseViewModel {
+public class ProfileDetailsViewModel extends BaseViewModel implements ImageClickListener {
 
     private Profile profile;
     public ObservableField<String> imageUrl = new ObservableField<>("");
@@ -88,6 +91,7 @@ public class ProfileDetailsViewModel extends BaseViewModel {
         actualImage.set("1/" + profile.getPhotos().size());
         RecyclerView imagesRecyclerView = ((ProfileDetailsFragmentBinding) getBinding()).imagesGridView;
         ProfileImagesAdapter adapter = new ProfileImagesAdapter();
+        adapter.setImageClickListener(this);
         adapter.setItems(profile.getPhotos());
         final int[] scrollAmount = {0};
         LinearLayoutManager layoutManager = new LinearLayoutManager(getFragment().getContext());
@@ -142,5 +146,10 @@ public class ProfileDetailsViewModel extends BaseViewModel {
 
     public void onBackPress() {
         getActivity().onBackPressed();
+    }
+
+    @Override
+    public void onImageClick(Photo photo) {
+        getNavigator().attach(ProfileImageGalleryFragment.newInstance(profile.getPhotos(), photo), ProfileImageGalleryFragment.TAG);
     }
 }

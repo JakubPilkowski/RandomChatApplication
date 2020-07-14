@@ -63,7 +63,6 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
         ConstraintSet swipeConstraintEnd = binding.profileDetailsMotionLayout.getConstraintSet(R.id.profile_details_main_swipe_end);
         ConstraintSet.Constraint profileImageEnd = swipeConstraintEnd.getConstraint(R.id.profile_image);
         profileImageEnd.layout.mHeight = (int) (ScreenHelper.getStatusBarHeight(getContext()) + DimensionsHelper.convertDpToPixel(48, getContext()));
-
         binding.profileDetailsMainMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
         binding.profileDetailsMainMotionLayout.transitionToEnd();
         binding.profileDetailsMainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {

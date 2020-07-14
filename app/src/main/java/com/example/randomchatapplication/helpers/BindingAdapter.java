@@ -21,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -159,7 +160,7 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("swipeEnabled")
     public static void setSwipeEnabled(CustomViewPager viewPager, boolean swipeEnabled) {
-        viewPager.setSwipeEnabled(swipeEnabled);
+//        viewPager.setSwipeEnabled(swipeEnabled);
     }
 
     @androidx.databinding.BindingAdapter("onTextChangedListener")
@@ -460,4 +461,10 @@ public class BindingAdapter {
                     }
                 });
     }
+
+    @androidx.databinding.BindingAdapter("viewPager2adapter")
+    public static void setViewPager2Adapter(ViewPager2 viewPager2, Adapter adapter){
+        viewPager2.setAdapter((RecyclerView.Adapter) adapter);
+    }
+
 }

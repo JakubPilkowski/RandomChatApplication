@@ -24,6 +24,7 @@ import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.custom_views.ArrayView;
 import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBinding;
 import com.example.randomchatapplication.databinding.ProfileDetailsImageViewBinding;
+import com.example.randomchatapplication.interfaces.ImageClickListener;
 import com.example.randomchatapplication.models.Photo;
 
 import java.util.ArrayList;
@@ -31,6 +32,7 @@ import java.util.ArrayList;
 public class ProfileImagesAdapter extends BaseRecyclerViewAdapter<Photo, BaseViewHolder> {
 
     private ArrayList<ProfileImagesAdapterViewModel> viewModels = new ArrayList<>();
+    private ImageClickListener imageClickListener;
 
     @Override
     public int getItemLayoutRes() {
@@ -51,12 +53,16 @@ public class ProfileImagesAdapter extends BaseRecyclerViewAdapter<Photo, BaseVie
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), imageClickListener);
         }
         else {
             viewModel = viewModels.get(position);
             ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
+    }
+
+    public void setImageClickListener(ImageClickListener imageClickListener) {
+        this.imageClickListener = imageClickListener;
     }
 }

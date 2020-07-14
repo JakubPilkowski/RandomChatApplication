@@ -20,6 +20,7 @@ import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.randomchatapplication.R;
 
@@ -117,16 +118,23 @@ public class EditableImageView extends ImageView {
         this.context = context;
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
         matrix = new Matrix();
+//        matrix.setScale(1,1);
         m = new float[9];
-        setImageMatrix(matrix);
         setScaleType(ScaleType.MATRIX);
+        setImageMatrix(matrix);
         setOnTouchListener((v, event) -> {
             if (event.getPointerCount() == 2) {
                 if (!isDrawingEnabled) {
                     mScaleDetector.onTouchEvent(event);
                     setImageMatrix(matrix);
                 }
+                if(getParent().getParent() instanceof ViewPager2){
+                    ((ViewPager2) getParent().getParent()).setUserInputEnabled(false);
+                }
             } else {
+                if(getParent().getParent() instanceof ViewPager2){
+                    ((ViewPager2) getParent().getParent()).setUserInputEnabled(true);
+                }
                 if (isDrawingEnabled) {
                     float touchX = event.getX();
                     float touchY = event.getY();
@@ -309,46 +317,48 @@ public class EditableImageView extends ImageView {
             trzeba sprawdzić na innych urządzeniach
              */
 
-//            float scale;
+            float scale;
 
-//            Drawable drawable = getDrawable();
+            Drawable drawable = getDrawable();
 
-//            if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0)
-//                return;
+            if (drawable == null || drawable.getIntrinsicWidth() == 0 || drawable.getIntrinsicHeight() == 0)
+                return;
 
-//            int bmWidth = drawable.getIntrinsicWidth();
+            int bmWidth = drawable.getIntrinsicWidth();
 
-//            int bmHeight = drawable.getIntrinsicHeight();
+            int bmHeight = drawable.getIntrinsicHeight();
 
-//            Log.d("bmSize", "bmWidth: " + bmWidth + " bmHeight : " + bmHeight);
+            Log.d("size", "bmWidth: " + bmWidth + " bmHeight : " + bmHeight);
+            Log.d("size", "viewWidth: " + viewWidth + " viewHeight : " + viewHeight);
 
-//            float scaleX = (float) viewWidth / (float) bmWidth;
-//
-//            float scaleY = (float) viewHeight / (float) bmHeight;
-//
-//
-//            scale = Math.min(scaleX, scaleY);
 
-//            Log.d(TAG, "onMeasureScale " + scale);
-            matrix.setScale(1, 1);
+            float scaleX = (float) viewWidth / (float) bmWidth;
 
-            // Center the image
+            float scaleY = (float) viewHeight / (float) bmHeight;
 
-//            float redundantYSpace = (float) viewHeight - (1 * (float) bmHeight);
 
-//            float redundantXSpace = (float) viewWidth - (1 * (float) bmWidth);
+            scale = Math.min(scaleX, scaleY);
 
-//            redundantYSpace /= (float) 2;
+            Log.d(TAG, "onMeasureScale " + scale);
+            matrix.setScale(scale, scale);
 
-//            redundantXSpace /= (float) 2;
+//             Center the image
 
-//            Log.d(TAG, "redundantXSpace: " + redundantXSpace);
-//            Log.d(TAG, "redundantYSpace: "+ redundantYSpace);
+            float redundantYSpace = (float) viewHeight - (1 * (float) bmHeight);
+
+            float redundantXSpace = (float) viewWidth - (1 * (float) bmWidth);
+
+            redundantYSpace /= (float) 2;
+
+            redundantXSpace /= (float) 2;
+
+            Log.d(TAG, "redundantXSpace: " + redundantXSpace);
+            Log.d(TAG, "redundantYSpace: "+ redundantYSpace);
             matrix.postTranslate(0f, 0f);
 
-//            origWidth = viewWidth - 2 * redundantXSpace;
+            origWidth = viewWidth - 2 * redundantXSpace;
 
-//            origHeight = viewHeight - 2 * redundantYSpace;
+            origHeight = viewHeight - 2 * redundantYSpace;
 
             origWidth = viewWidth;
             origHeight = viewHeight;

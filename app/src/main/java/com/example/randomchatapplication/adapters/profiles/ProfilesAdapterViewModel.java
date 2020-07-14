@@ -57,6 +57,7 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
             mainMotionLayout.transitionToEnd();
             Window window = mainActivity.getWindow();
             window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.setStatusBarColor(mainActivity.getResources().getColor(R.color.colorPrimary));
             ProfilesFragment profilesFragment = (ProfilesFragment) mainActivity.getCurrentFragment();
             MotionLayout motionLayout = ((ProfilesFragmentBinding) profilesFragment.getBinding()).profilesFragmentMotionLayout;
             motionLayout.setTransition(R.id.profiles_start_transition, R.id.profiles_end_transition);
