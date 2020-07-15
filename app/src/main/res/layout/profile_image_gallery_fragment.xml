@@ -8,11 +8,14 @@
             type="com.example.randomchatapplication.ui.profiles.profile_image_gallery.ProfileImageGalleryViewModel" />
     </data>
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.profiles.profile_image_gallery.ProfileImageGalleryFragment">
+        android:id="@+id/profile_image_gallery_motion_layout"
+        tools:context=".ui.profiles.profile_image_gallery.ProfileImageGalleryFragment"
+        app:layoutDescription="@xml/profile_details_image_gallery_fragment_scene"
+        >
 
         <androidx.viewpager2.widget.ViewPager2
             android:layout_width="match_parent"
@@ -20,9 +23,10 @@
             android:id="@+id/profile_image_gallery_view_pager"
             />
         <RelativeLayout
+            android:id="@+id/profile_image_gallery_toolbar"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:layout_alignParentTop="true"
+            app:layout_constraintTop_toTopOf="parent"
             android:background="@color/colorBlackOpacity"
             app:marginTop="@{viewModel.marginTop}"
             >
@@ -45,5 +49,5 @@
                 android:textSize="20sp"
                 />
         </RelativeLayout>
-    </RelativeLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

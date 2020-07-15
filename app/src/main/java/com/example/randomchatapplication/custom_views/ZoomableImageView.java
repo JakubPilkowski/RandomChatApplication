@@ -2,11 +2,9 @@ package com.example.randomchatapplication.custom_views;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.graphics.PointF;
 import android.graphics.drawable.Drawable;
@@ -15,15 +13,13 @@ import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
-import android.view.View;
 import android.widget.ImageView;
-
-import androidx.annotation.Nullable;
 
 @SuppressLint("AppCompatCustomView")
 public class ZoomableImageView extends ImageView {
+
     Matrix matrix = new Matrix();
-    public static final String TAG = "ZOOMABLE";
+    public static final String TAG = "ZoomableImageView";
     static final int NONE = 0;
     static final int DRAG = 1;
     static final int ZOOM = 2;
@@ -48,12 +44,27 @@ public class ZoomableImageView extends ImageView {
     private float scaleX;
     private float scaleY;
 
+    private GestureListener gestureListener;
+
+    public void setGestureListener(GestureListener gestureListener) {
+        this.gestureListener = gestureListener;
+    }
+
+    public interface GestureListener {
+        void onMove(MotionEvent event, float deltaX, float deltaY);
+        void onDoubleTap(MotionEvent event);
+        void onScaleStart(ScaleGestureDetector detector);
+        void onScaleEnd(ScaleGestureDetector detector, float saveScale);
+        void onClick(MotionEvent event);
+    }
+
+
     public ZoomableImageView(Context context, AttributeSet attr) {
         super(context, attr);
         super.setClickable(true);
         this.context = context;
         mScaleDetector = new ScaleGestureDetector(context, new ScaleListener());
-        gestureDetector = new GestureDetector(context, new DoubleTapListener());
+        gestureDetector = new GestureDetector(context, new CustomGestureListener());
         matrix.setTranslate(1f, 1f);
         m = new float[9];
         setImageMatrix(matrix);
@@ -85,16 +96,15 @@ public class ZoomableImageView extends ImageView {
                 case MotionEvent.ACTION_MOVE:
                     //if the mode is ZOOM or
                     //if the mode is DRAG and already zoomed
-                    if (mode == ZOOM || (mode == DRAG && saveScale > minScale)) {
+                    if (mode == DRAG && saveScale > minScale) {
+
                         float deltaX = curr.x - last.x;// x difference
                         float deltaY = curr.y - last.y;// y difference
-
                         float scaleWidth = Math.round(origWidth * saveScale);// width after applying current scale
                         float scaleHeight = Math.round(origHeight * saveScale);// height after applying current scale
                         //if scaleWidth is smaller than the views width
                         //in other words if the image width fits in the view
                         //limit left and right movement
-
 
                         if (scaleWidth < width) {
                             deltaX = 0;
@@ -107,7 +117,6 @@ public class ZoomableImageView extends ImageView {
                         //in other words if the image height fits in the view
                         //limit up and down movement
                         else if (scaleHeight < height) {
-
                             deltaY = 0;
                             if (x + deltaX > 0)
                                 deltaX = -x;
@@ -131,6 +140,9 @@ public class ZoomableImageView extends ImageView {
                         matrix.postTranslate(deltaX, deltaY);
                         //set the last touch location to the current
                         last.set(curr.x, curr.y);
+                        if(gestureListener != null){
+                            gestureListener.onMove(event, deltaX, deltaY);
+                        }
                     }
                     break;
                 //first finger is lifted
@@ -160,7 +172,7 @@ public class ZoomableImageView extends ImageView {
         maxScale = x;
     }
 
-    private class DoubleTapListener extends GestureDetector.SimpleOnGestureListener{
+    private class CustomGestureListener extends GestureDetector.SimpleOnGestureListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             if (mode == ZOOM || saveScale > minScale) {
@@ -177,7 +189,7 @@ public class ZoomableImageView extends ImageView {
                     bottom = height * value - height - (2 * redundantYSpace * value);
                     float xDiff = x - (x * (right / lastRight));
                     float yDiff = y - (y * (bottom / lastBottom));
-                    matrix.setScale(value*scaleX, value*scaleY);
+                    matrix.setScale(value * scaleX, value * scaleY);
                     matrix.postTranslate(x - xDiff, y - yDiff);
                     setImageMatrix(matrix);
                     invalidate();
@@ -189,10 +201,21 @@ public class ZoomableImageView extends ImageView {
                         saveScale = 1f;
                         right = width * saveScale - width - (2 * redundantXSpace * saveScale);
                         bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
+                        mode = NONE;
+                        if(gestureListener !=null){
+                            gestureListener.onDoubleTap(e);
+                        }
                     }
                 });
             }
             return super.onDoubleTap(e);
+        }
+
+        @Override
+        public boolean onSingleTapConfirmed(MotionEvent e) {
+            if(gestureListener != null)
+                gestureListener.onClick(e);
+            return super.onSingleTapConfirmed(e);
         }
     }
 
@@ -202,14 +225,26 @@ public class ZoomableImageView extends ImageView {
         @Override
         public boolean onScaleBegin(ScaleGestureDetector detector) {
             mode = ZOOM;
+            if(gestureListener !=null){
+                gestureListener.onScaleStart(detector);
+            }
             return true;
+        }
+
+
+        @Override
+        public void onScaleEnd(ScaleGestureDetector detector) {
+            if(gestureListener!=null){
+                gestureListener.onScaleEnd(detector, saveScale);
+            }
+            super.onScaleEnd(detector);
         }
 
         @Override
         public boolean onScale(ScaleGestureDetector detector) {
             float mScaleFactor = detector.getScaleFactor();
-            Log.d(TAG, "mScaleFactor " + mScaleFactor);
             float origScale = saveScale;
+
             saveScale *= mScaleFactor;
             if (saveScale > maxScale) {
                 saveScale = maxScale;
@@ -219,54 +254,65 @@ public class ZoomableImageView extends ImageView {
                 mScaleFactor = minScale / origScale;
             }
 
-            lastRight = right;
-            lastBottom = bottom;
-
             right = width * saveScale - width - (2 * redundantXSpace * saveScale);
             bottom = height * saveScale - height - (2 * redundantYSpace * saveScale);
 
-            if (origWidth * saveScale <= width || origHeight * saveScale <= height) {
-                Log.d(TAG, "czy to się wykonuje");
+            if (origWidth * saveScale <= width || origHeight * saveScale <= height){
                 matrix.postScale(mScaleFactor, mScaleFactor, width / 2, height / 2);
-                if (mScaleFactor < 1) {
-                    matrix.getValues(m);
-                    float x = m[Matrix.MTRANS_X];
-                    float y = m[Matrix.MTRANS_Y];
-                    if (mScaleFactor < 1) {
-                        if (Math.round(origWidth * saveScale) < width) {
-                            if (y < -bottom) {
-                                matrix.postTranslate(0, -(y + bottom));
-                            } else if (y > 0)
-                                matrix.postTranslate(0, -y);
-                        } else {
-                            if (x < -right) {
-                                matrix.postTranslate(-(x + right), 0);
-                            } else if (x > 0)
-                                matrix.postTranslate(-x, 0);
-                        }
-                    }
-                }
-            } else {
-                matrix.postScale(mScaleFactor, mScaleFactor, detector.getFocusX(), detector.getFocusY());
-                matrix.getValues(m);
-                float x = m[Matrix.MTRANS_X];
-                float y = m[Matrix.MTRANS_Y];
-
-                if (mScaleFactor < 1) {
-                    if (x < -right)
-                        matrix.postTranslate(-(x + right), 0);
-                    else if (x > 0)
-                        matrix.postTranslate(-x, 0);
-                    if (y < -bottom)
-                        matrix.postTranslate(0, -(y + bottom));
-                    else if (y > 0)
-                        matrix.postTranslate(0, -y);
-                }
             }
+            else
+                matrix.postScale(mScaleFactor, mScaleFactor, detector.getFocusX(), detector.getFocusY());
+            fixTrans();
             return true;
+            }
         }
+    void fixTrans() {
+
+        matrix.getValues(m);
+
+        float transX = m[Matrix.MTRANS_X];
+
+        float transY = m[Matrix.MTRANS_Y];
+
+        float fixTransX = getFixTrans(transX, width, origWidth * saveScale);
+
+        float fixTransY = getFixTrans(transY, height, origHeight * saveScale);
+
+        if (fixTransX != 0 || fixTransY != 0) {
+            matrix.postTranslate(fixTransX, fixTransY);
+        }
+
     }
 
+    float getFixTrans(float trans, float viewSize, float contentSize) {
+
+        float minTrans, maxTrans;
+
+        if (contentSize <= viewSize) {
+
+            minTrans = 0;
+
+            maxTrans = viewSize - contentSize;
+
+        } else {
+
+            minTrans = viewSize - contentSize;
+
+            maxTrans = 0;
+
+        }
+
+        if (trans < minTrans)
+
+            return -trans + minTrans;
+
+        if (trans > maxTrans)
+
+            return -trans + maxTrans;
+
+        return 0;
+
+    }
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);

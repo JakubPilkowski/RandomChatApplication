@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
+import com.example.randomchatapplication.databinding.ProfileImageGalleryFragmentBinding;
 import com.example.randomchatapplication.databinding.ProfileImageGallerySingleImageBinding;
 import com.example.randomchatapplication.models.Photo;
 
@@ -14,6 +15,7 @@ import java.util.ArrayList;
 
 public class ProfileImageGalleryAdapter extends BaseRecyclerViewAdapter<Photo, BaseViewHolder> {
     private ArrayList<ProfileImageGalleryAdapterViewModel> viewModels = new ArrayList<>();
+    private ProfileImageGalleryFragmentBinding parentBinding;
 
     @Override
     public int getItemLayoutRes() {
@@ -34,12 +36,16 @@ public class ProfileImageGalleryAdapter extends BaseRecyclerViewAdapter<Photo, B
             viewModels.add(viewModel);
             holder.setViewModel(viewModel);
             ((ProfileImageGallerySingleImageBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position));
+            holder.setElement(items.get(position), holder.getBinding(), parentBinding);
         }
         else {
             viewModel = viewModels.get(position);
             ((ProfileImageGallerySingleImageBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
+    }
+
+    public void setParentBinding(ProfileImageGalleryFragmentBinding parentBinding) {
+        this.parentBinding = parentBinding;
     }
 }

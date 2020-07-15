@@ -1,20 +1,16 @@
 package com.example.randomchatapplication.ui.profiles.profile_image_gallery;
 
-import android.annotation.SuppressLint;
-import android.os.Build;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.View;
-
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
-import androidx.lifecycle.ViewModel;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.adapters.profile_image_gallery.ProfileImageGalleryAdapter;
-import com.example.randomchatapplication.adapters.profile_images.ProfileImagesAdapter;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ProfileImageGalleryFragmentBinding;
+import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.models.Photo;
 
@@ -30,17 +26,30 @@ public class ProfileImageGalleryViewModel extends BaseViewModel {
     public ObservableInt marginTop = new ObservableInt();
 //    public ObservableField<ProfileImageGalleryAdapter> profileImageGalleryAdapter = new ObservableField<>();
     private ViewPager2 viewPager2;
+    public ObservableBoolean toolbarExpanded = new ObservableBoolean(false);
+
 
     public void init(ArrayList<Photo> photos, Photo chosenPhoto){
         this.photos.addAll(photos);
         this.chosenPhoto = chosenPhoto;
         adapter = new ProfileImageGalleryAdapter();
         adapter.setItems(photos);
+        adapter.setParentBinding((ProfileImageGalleryFragmentBinding) getBinding());
         imageInfo.set(photos.indexOf(chosenPhoto)+1+"/"+photos.size());
         marginTop.set(ScreenHelper.getStatusBarHeight(getActivity().getApplicationContext()));
         viewPager2 = ((ProfileImageGalleryFragmentBinding)getBinding()).profileImageGalleryViewPager;
+        ConstraintSet imageGalleryConstraintSetStart = ((ProfileImageGalleryFragmentBinding)getBinding()).profileImageGalleryMotionLayout.getConstraintSet(R.id.profile_details_image_gallery_trans_start);
+        ConstraintSet.Constraint imageGalleryToolbarStart = imageGalleryConstraintSetStart.getConstraint(R.id.profile_image_gallery_toolbar);
+        imageGalleryToolbarStart.layout.topMargin = marginTop.get();
+
+        ConstraintSet imageGalleryConstraintSetEnd = ((ProfileImageGalleryFragmentBinding)getBinding()).profileImageGalleryMotionLayout.getConstraintSet(R.id.profile_details_image_gallery_trans_end);
+        ConstraintSet.Constraint imageGalleryToolbarEnd = imageGalleryConstraintSetEnd.getConstraint(R.id.profile_image_gallery_toolbar);
+        imageGalleryToolbarEnd.layout.topMargin = marginTop.get();
+
+
+
 //        profileImageGalleryAdapter.set(adapter);
-        viewPager2.setUserInputEnabled(false);
+//        viewPager2.setUserInputEnabled(false);
         viewPager2.setAdapter(adapter);
         viewPager2.setCurrentItem(photos.indexOf(chosenPhoto));
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
