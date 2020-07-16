@@ -13,7 +13,7 @@ import com.example.randomchatapplication.databinding.ProfileImageGallerySingleIm
 import com.example.randomchatapplication.models.Photo;
 import com.example.randomchatapplication.ui.profiles.profile_image_gallery.ProfileImageGalleryViewModel;
 
-public class ProfileImageGalleryAdapterViewModel extends BaseAdapterViewModel {
+public class ProfileImageGalleryAdapterViewModel extends BaseAdapterViewModel{
 
     public ObservableField<String> imageUrl = new ObservableField<>();
     private Photo photo;
@@ -22,9 +22,9 @@ public class ProfileImageGalleryAdapterViewModel extends BaseAdapterViewModel {
 
     @Override
     public void init(Object[] values) {
-        photo = (Photo) values[0];
-        binding = (ProfileImageGallerySingleImageBinding) values[1];
-        fragmentBinding = (ProfileImageGalleryFragmentBinding) values[2];
+        this.photo = (Photo) values[0];
+        this.binding = (ProfileImageGallerySingleImageBinding) values[1];
+        this.fragmentBinding = (ProfileImageGalleryFragmentBinding) values[2];
         imageUrl.set(photo.getPhoto());
         binding.imageGallerySingleImageView.setGestureListener(new ZoomableImageView.GestureListener() {
             @Override

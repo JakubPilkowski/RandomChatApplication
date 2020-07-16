@@ -3,41 +3,55 @@ package com.example.randomchatapplication.ui.profiles.profile_details;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.core.app.SharedElementCallback;
 import androidx.databinding.ViewDataBinding;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.transition.Fade;
 import androidx.transition.Scene;
 import androidx.transition.TransitionInflater;
 import androidx.transition.TransitionManager;
 import androidx.transition.TransitionSet;
 
+import android.telecom.Call;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.target.Target;
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBinding;
+import com.example.randomchatapplication.helpers.DetailsTransition;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.navigation.Navigator;
 
-public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentBinding,ProfileDetailsViewModel> implements Providers {
+import java.util.List;
+
+public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentBinding, ProfileDetailsViewModel> implements Providers {
 
     public static final String TAG = "ProfileDetailsFragment";
     private Profile profile;
 
-    public static ProfileDetailsFragment newInstance(Profile profile) {
+    public static ProfileDetailsFragment newInstance(Profile profile, Context context) {
         ProfileDetailsFragment profileDetailsFragment = new ProfileDetailsFragment();
         profileDetailsFragment.setProfile(profile);
         return profileDetailsFragment;
@@ -60,33 +74,53 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public void bindData(ProfileDetailsFragmentBinding binding) {
-        ConstraintSet swipeConstraintEnd = binding.profileDetailsMotionLayout.getConstraintSet(R.id.profile_details_main_swipe_end);
-        ConstraintSet.Constraint profileImageEnd = swipeConstraintEnd.getConstraint(R.id.profile_image);
-        profileImageEnd.layout.mHeight = (int) (ScreenHelper.getStatusBarHeight(getContext()) + DimensionsHelper.convertDpToPixel(48, getContext()));
-        binding.profileDetailsMainMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
-        binding.profileDetailsMainMotionLayout.transitionToEnd();
-        binding.profileDetailsMainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
-            @Override
-            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
+        postponeEnterTransition();
+        ImageView imageView = binding.profileImage;
+        Context context = imageView.getContext();
+        Glide.with(context)
+                .load(profile.getPhotos().get(0).getPhoto())
+                .listener(new RequestListener<Drawable>() {
+                    @Override
+                    public boolean onLoadFailed(@Nullable GlideException e, Object model, Target<Drawable> target, boolean isFirstResource) {
+                        return false;
+                    }
 
-            }
+                    @Override
+                    public boolean onResourceReady(Drawable resource, Object model, Target<Drawable> target, DataSource dataSource, boolean isFirstResource) {
+                        startPostponedEnterTransition();
+                        ConstraintSet swipeConstraintEnd = binding.profileDetailsMotionLayout.getConstraintSet(R.id.profile_details_main_swipe_end);
+                        ConstraintSet.Constraint profileImageEnd = swipeConstraintEnd.getConstraint(R.id.profile_image);
+                        profileImageEnd.layout.mHeight = (int) (ScreenHelper.getStatusBarHeight(getContext()) + DimensionsHelper.convertDpToPixel(48, getContext()));
 
-            @Override
-            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
+                        binding.profileDetailsMainMotionLayout.setTransition(R.id.profile_details_main_scene_start, R.id.profile_details_main_scene_end);
+                        binding.profileDetailsMainMotionLayout.transitionToEnd();
+                        binding.profileDetailsMainMotionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
+                            @Override
+                            public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
 
-            }
+                            }
 
-            @Override
-            public void onTransitionCompleted(MotionLayout motionLayout, int i) {
-                binding.profileDetailsButtonsMotionLayout.setTransition(R.id.profile_details_buttons_scene_start, R.id.profile_details_buttons_scene_end);
-                binding.profileDetailsButtonsMotionLayout.transitionToEnd();
-            }
+                            @Override
+                            public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
 
-            @Override
-            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
+                            }
 
-            }
-        });
+                            @Override
+                            public void onTransitionCompleted(MotionLayout motionLayout, int i) {
+                                binding.profileDetailsButtonsMotionLayout.setTransition(R.id.profile_details_buttons_scene_start, R.id.profile_details_buttons_scene_end);
+                                binding.profileDetailsButtonsMotionLayout.transitionToEnd();
+                            }
+
+                            @Override
+                            public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
+
+                            }
+                        });
+                        return false;
+                    }
+
+                })
+                .into(imageView);
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init(profile);
@@ -114,7 +148,7 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public Navigator getNavigator() {
-        return ((MainActivity)getActivity()).navigator;
+        return ((MainActivity) getActivity()).navigator;
     }
 
     @Override
@@ -124,7 +158,7 @@ public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentB
 
     @Override
     public ViewDataBinding getActivityOrFragmentBinding() {
-        return ((MainActivity)getActivity()).binding;
+        return ((MainActivity) getActivity()).binding;
     }
 
     @Override

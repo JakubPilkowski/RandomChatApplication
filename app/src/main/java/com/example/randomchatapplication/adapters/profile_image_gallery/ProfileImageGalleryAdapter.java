@@ -10,7 +10,6 @@ import com.example.randomchatapplication.databinding.ProfileImageGalleryFragment
 import com.example.randomchatapplication.databinding.ProfileImageGallerySingleImageBinding;
 import com.example.randomchatapplication.models.Photo;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 
 public class ProfileImageGalleryAdapter extends BaseRecyclerViewAdapter<Photo, BaseViewHolder> {

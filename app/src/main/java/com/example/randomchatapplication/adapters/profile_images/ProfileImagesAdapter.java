@@ -47,19 +47,19 @@ public class ProfileImagesAdapter extends BaseRecyclerViewAdapter<Photo, BaseVie
 
     @Override
     public void onBindView(BaseViewHolder holder, int position) {
-        ProfileImagesAdapterViewModel viewModel;
-        if(viewModels.size()<=position){
-            viewModel = new ProfileImagesAdapterViewModel();
-            viewModels.add(viewModel);
-            holder.setViewModel(viewModel);
-            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setElement(items.get(position), imageClickListener);
-        }
-        else {
-            viewModel = viewModels.get(position);
-            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
-            holder.setViewModel(viewModel);
-        }
+//        ProfileImagesAdapterViewModel viewModel;
+//        if(viewModels.size()<=position){
+//            viewModel = new ProfileImagesAdapterViewModel();
+//            viewModels.add(viewModel);
+//            holder.setViewModel(viewModel);
+//            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
+//            holder.setElement(items.get(position), imageClickListener);
+//        }
+//        else {
+//            viewModel = viewModels.get(position);
+//            ((ProfileDetailsImageViewBinding)holder.getBinding()).setViewModel(viewModel);
+//            holder.setViewModel(viewModel);
+//        }
     }
 
     public void setImageClickListener(ImageClickListener imageClickListener) {

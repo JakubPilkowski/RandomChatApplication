@@ -1,10 +1,9 @@
 package com.example.randomchatapplication.adapters.profiles;
 
 import android.app.Activity;
-import android.util.Log;
+import android.transition.Fade;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.databinding.ObservableBoolean;
@@ -15,6 +14,7 @@ import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseAdapterViewModel;
 import com.example.randomchatapplication.databinding.ProfilesFragmentBinding;
 import com.example.randomchatapplication.databinding.SingleProfileItemBinding;
+import com.example.randomchatapplication.helpers.DetailsTransition;
 import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.ui.profiles.profile.ProfilesFragment;
 import com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsFragment;
@@ -44,7 +44,7 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
             getShortCutProfile = profile.getDescription().substring(0, 24) + "...";
         else getShortCutProfile = profile.getDescription();
         description.set(getShortCutProfile);
-        profileDetailsFragment = ProfileDetailsFragment.newInstance(profile);
+        profileDetailsFragment = ProfileDetailsFragment.newInstance(profile, activity.getApplicationContext());
     }
 
 
@@ -62,6 +62,28 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
             MotionLayout motionLayout = ((ProfilesFragmentBinding) profilesFragment.getBinding()).profilesFragmentMotionLayout;
             motionLayout.setTransition(R.id.profiles_start_transition, R.id.profiles_end_transition);
             motionLayout.transitionToEnd();
+            motionLayout.setTransitionListener(new MotionLayout.TransitionListener() {
+                @Override
+                public void onTransitionStarted(MotionLayout motionLayout, int i, int i1) {
+
+                }
+
+                @Override
+                public void onTransitionChange(MotionLayout motionLayout, int i, int i1, float v) {
+
+                }
+
+                @Override
+                public void onTransitionCompleted(MotionLayout motionLayout, int i) {
+
+                }
+
+                @Override
+                public void onTransitionTrigger(MotionLayout motionLayout, int i, boolean b, float v) {
+
+                }
+            });
+
             MotionLayout singleProfileMotion = binding.singleProfileMotionLayout;
             singleProfileMotion.setTransition(R.id.single_profile_trans_start, R.id.single_profile_trans_end);
             singleProfileMotion.transitionToEnd();
@@ -77,8 +99,10 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
 
                 @Override
                 public void onTransitionCompleted(MotionLayout motionLayout, int i) {
-
-                    mainActivity.navigator.attach(profileDetailsFragment, ProfileDetailsFragment.TAG);
+                    profileDetailsFragment.setSharedElementEnterTransition(new DetailsTransition());
+                    profileDetailsFragment.setExitTransition(new Fade());
+                    mainActivity.navigator.profileSharedTransition(profileDetailsFragment, ProfileDetailsFragment.TAG,
+                            binding.profileImage, "profile details image");
                 }
 
                 @Override

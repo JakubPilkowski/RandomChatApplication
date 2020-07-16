@@ -8,7 +8,7 @@ import com.example.randomchatapplication.base.BaseAdapterViewModel;
 import com.example.randomchatapplication.interfaces.ImageClickListener;
 import com.example.randomchatapplication.models.Photo;
 
-public class ProfileImagesAdapterViewModel extends BaseAdapterViewModel {
+public class ProfileImagesAdapterViewModel {
 
     public ObservableField<String> imageUrl = new ObservableField<>();
     private Photo photo;
@@ -18,11 +18,9 @@ public class ProfileImagesAdapterViewModel extends BaseAdapterViewModel {
         listener.onImageClick(photo);
     }
 
-    @Override
-    public void init(Object[] values) {
-        photo = (Photo) values[0];
-        listener = (ImageClickListener) values[1];
-        Log.d("init: ", "halo");
+    public void init(Photo photo, ImageClickListener listener) {
+        this.photo = photo;
+        this.listener = listener;
         imageUrl.set(photo.getPhoto());
     }
 }

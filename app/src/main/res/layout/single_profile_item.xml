@@ -32,6 +32,7 @@
                 android:focusable="true"
                 android:onClick="@{()->viewModel.initTransition()}"
                 android:scaleType="fitXY"
+                android:transitionName="profile image"
                 app:imageUrl="@{viewModel.imageUrl}" />
         </androidx.cardview.widget.CardView>
 
@@ -47,19 +48,10 @@
                 android:id="@+id/single_profile_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.name}"
+                android:text="@{viewModel.name+'\n'+viewModel.age}"
                 android:textAlignment="center"
                 android:textColor="@color/colorAccent"
                 android:textSize="24sp" />
-
-            <TextView
-                android:id="@+id/single_profile_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{viewModel.age}"
-                android:textAlignment="center"
-                android:textColor="@color/colorAccent"
-                android:textSize="18sp" />
 
             <TextView
                 android:id="@+id/single_profile_desc"
@@ -70,30 +62,30 @@
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp" />
         </LinearLayout>
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/decline_profile_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:id="@+id/decline_profile_fab"
+            android:layout_marginStart="16dp"
+            android:layout_marginBottom="52dp"
             android:src="@drawable/camera_close_button"
             android:theme="@style/FullImageFloatingButton"
-            app:maxImageSize="56dp"
-            android:layout_marginBottom="52dp"
-            android:layout_marginStart="16dp"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:maxImageSize="56dp" />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/accept_profile_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:id="@+id/accept_profile_fab"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="52dp"
             android:src="@drawable/profile_love_button"
             android:theme="@style/FullImageFloatingButton"
-            app:maxImageSize="56dp"
-            android:layout_marginBottom="52dp"
-            android:layout_marginEnd="16dp"
-            />
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:maxImageSize="56dp" />
 
     </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>
