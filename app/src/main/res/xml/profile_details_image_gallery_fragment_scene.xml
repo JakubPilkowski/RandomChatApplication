@@ -5,15 +5,13 @@
         app:constraintSetEnd="@id/profile_details_image_gallery_trans_end"
         app:constraintSetStart="@id/profile_details_image_gallery_trans_start"
         app:duration="250"
-        app:motionInterpolator="linear"
-        >
+        app:motionInterpolator="linear">
 
         <KeyFrameSet>
             <KeyAttribute
-                app:framePosition="50"
-                app:motionTarget="@id/profile_image_gallery_toolbar"
                 android:alpha="0"
-                />
+                app:framePosition="50"
+                app:motionTarget="@id/profile_image_gallery_toolbar" />
         </KeyFrameSet>
 
     </Transition>
@@ -25,8 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:alpha="0"
-            app:layout_constraintBottom_toTopOf="parent"
-            />
+            app:layout_constraintBottom_toTopOf="parent" />
     </ConstraintSet>
 
 
@@ -37,8 +34,7 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:alpha="1"
-            app:layout_constraintTop_toTopOf="parent"
-            />
+            app:layout_constraintTop_toTopOf="parent" />
 
     </ConstraintSet>
 </MotionScene>

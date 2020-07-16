@@ -6,14 +6,12 @@
     <Transition
         android:id="@+id/profiles_fragment_swipe_transition"
         app:constraintSetEnd="@id/profile_details_main_swipe_end"
-        app:constraintSetStart="@id/profile_details_main_swipe_start"
-        >
+        app:constraintSetStart="@id/profile_details_main_swipe_start">
 
         <OnSwipe
             app:dragDirection="dragUp"
             app:onTouchUp="stop"
-            app:touchAnchorId="@id/profile_details_scroll_view"
-            />
+            app:touchAnchorId="@id/profile_details_scroll_view" />
 
         <KeyFrameSet>
             <KeyAttribute
@@ -32,29 +30,25 @@
             </KeyAttribute>
 
             <KeyAttribute
-                app:framePosition="90"
-                app:motionTarget="@id/profile_details_back_button"
                 android:alpha="0"
-                >
-            </KeyAttribute>
+                app:framePosition="90"
+                app:motionTarget="@id/profile_details_back_button" />
 
 
             <KeyAttribute
                 android:alpha="1"
                 app:framePosition="40"
-                app:motionTarget="@id/profile_details_title"/>
+                app:motionTarget="@id/profile_details_title" />
 
             <KeyAttribute
                 android:alpha="0"
                 app:framePosition="80"
-                app:motionTarget="@id/profile_details_title">
-            </KeyAttribute>
+                app:motionTarget="@id/profile_details_title" />
 
             <KeyAttribute
                 android:alpha="0"
                 app:framePosition="95"
-                app:motionTarget="@id/profile_details_title_collapsed"
-                />
+                app:motionTarget="@id/profile_details_title_collapsed" />
 
         </KeyFrameSet>
 
@@ -68,37 +62,36 @@
             android:layout_height="36dp"
             android:layout_marginStart="6dp"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/ic_close_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
-            android:translationY="-1in"
             android:alpha="0"
-            />
+            android:background="@drawable/ic_close_white_24dp"
+            android:translationY="-1in"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
             android:id="@+id/profile_details_title_collapsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:alpha="0"
             android:text="@{viewModel.name+' '+viewModel.age}"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="12dp"
-            android:alpha="0"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
             app:layout_constraintStart_toEndOf="@id/profile_details_back_button" />
 
-        <Constraint  android:id="@+id/profile_details_title"
+        <Constraint
+            android:id="@+id/profile_details_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textColor="@color/colorAccent"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:alpha="1"
-            />
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/profile_details_main_swipe_end">
@@ -109,36 +102,35 @@
             android:layout_height="36dp"
             android:layout_marginStart="6dp"
             android:layout_marginBottom="6dp"
-            android:background="@drawable/ic_close_white_24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
-            android:translationY="0in"
             android:alpha="1"
-            />
+            android:background="@drawable/ic_close_white_24dp"
+            android:translationY="0in"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintStart_toStartOf="parent" />
 
         <Constraint
             android:id="@+id/profile_details_title_collapsed"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginBottom="12dp"
+            android:alpha="1"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="12dp"
-            android:alpha="1"
             app:layout_constraintBottom_toBottomOf="@id/profile_image"
             app:layout_constraintStart_toEndOf="@id/profile_details_back_button" />
 
-        <Constraint  android:id="@+id/profile_details_title"
+        <Constraint
+            android:id="@+id/profile_details_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="22sp"
-            android:textColor="@color/colorAccent"
             android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="@id/profile_image"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
             android:alpha="0"
-            />
+            android:textColor="@color/colorAccent"
+            android:textSize="22sp"
+            app:layout_constraintBottom_toBottomOf="@id/profile_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
 
 
     </ConstraintSet>

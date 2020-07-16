@@ -5,7 +5,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.randomchatapplication.adapters.profile_hobbies.ProfileHobbiesAdapterViewModel" />
+            type="com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsHobbyViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"

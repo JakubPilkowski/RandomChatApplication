@@ -1,14 +1,11 @@
-package com.example.randomchatapplication.adapters.profile_images;
-
-import android.util.Log;
+package com.example.randomchatapplication.ui.profiles.profile_details;
 
 import androidx.databinding.ObservableField;
 
-import com.example.randomchatapplication.base.BaseAdapterViewModel;
 import com.example.randomchatapplication.interfaces.ImageClickListener;
 import com.example.randomchatapplication.models.Photo;
 
-public class ProfileImagesAdapterViewModel {
+public class ProfileDetailsImageViewModel {
 
     public ObservableField<String> imageUrl = new ObservableField<>();
     private Photo photo;

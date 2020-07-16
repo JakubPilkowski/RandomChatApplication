@@ -1,16 +1,10 @@
 package com.example.randomchatapplication.ui.profiles.profile;
 
-import android.util.Log;
 import android.view.View;
 
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.ViewModel;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.LinearSnapHelper;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
-import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.adapters.profiles.ProfilesAdapter;
 import com.example.randomchatapplication.base.BaseViewModel;
 import com.example.randomchatapplication.databinding.ProfilesFragmentBinding;

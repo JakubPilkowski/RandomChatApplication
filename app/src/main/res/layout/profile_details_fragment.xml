@@ -58,7 +58,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="12dp"
-                                android:text="Podstawowe dane"
+                                android:text="@string/basic_info"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="24sp" />
@@ -137,7 +137,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="12dp"
-                                android:text="Coś o sobie"
+                                android:text="@string/smth_about_you"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="24sp" />
@@ -164,7 +164,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="12dp"
-                                android:text="Zainteresowania"
+                                android:text="@string/interests"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="24sp" />
@@ -190,7 +190,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginBottom="12dp"
-                                android:text="Zdjęcia"
+                                android:text="@string/photos"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBlack"
                                 android:textSize="24sp" />

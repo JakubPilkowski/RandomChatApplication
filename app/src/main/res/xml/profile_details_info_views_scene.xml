@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
         android:id="@+id/profiles_fragment_main_transition"
         app:constraintSetEnd="@id/profile_details_main_scene_end"
         app:constraintSetStart="@id/profile_details_main_scene_start"
         app:duration="350"
-        app:motionInterpolator="linear"/>
+        app:motionInterpolator="linear" />
 
 
     <ConstraintSet android:id="@+id/profile_details_main_scene_start">
@@ -19,71 +19,40 @@
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
             android:translationX="-2.5in"
-            app:layout_constraintTop_toTopOf="parent"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
-
-<!--        <Constraint-->
-<!--            android:id="@+id/profile_details_preferences"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="12dp"-->
-<!--            android:layout_marginEnd="12dp"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            android:translationX="2.5in"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view"-->
-<!--            app:cardBackgroundColor="@color/colorAccent"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="0dp"-->
-<!--            app:contentPadding="12dp" />-->
+            app:layout_constraintTop_toTopOf="parent" />
 
         <Constraint
             android:id="@+id/profile_details_description_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="30dp"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="12dp"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view"
             android:translationX="-2.5in"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view" />
 
         <Constraint
             android:id="@+id/profile_details_interests_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="12dp"
             android:translationX="2.5in"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_description_view"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toBottomOf="@id/profile_details_description_view" />
 
         <Constraint
             android:id="@+id/profile_details_images_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="12dp"
             android:translationX="-2.5in"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_interests_view"
-            android:layout_marginTop="30dp"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toBottomOf="@id/profile_details_interests_view" />
 
 
     </ConstraintSet>
-
 
 
     <ConstraintSet android:id="@+id/profile_details_main_scene_end">
@@ -95,54 +64,30 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginEnd="12dp"
-            app:layout_constraintTop_toTopOf="parent"
             android:translationX="0in"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toTopOf="parent" />
 
-<!--        <Constraint-->
-<!--            android:id="@+id/profile_details_preferences"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="12dp"-->
-<!--            android:layout_marginEnd="12dp"-->
-<!--            android:translationX="0in"-->
-<!--            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view"-->
-<!--            android:layout_marginTop="30dp"-->
-<!--            app:cardBackgroundColor="@color/colorAccent"-->
-<!--            app:cardCornerRadius="12dp"-->
-<!--            app:cardElevation="0dp"-->
-<!--            app:contentPadding="12dp" />-->
 
         <Constraint
             android:id="@+id/profile_details_description_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="30dp"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view"
+            android:layout_marginEnd="12dp"
             android:translationX="0in"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view" />
 
 
-        <Constraint android:id="@+id/profile_details_interests_view"
+        <Constraint
+            android:id="@+id/profile_details_interests_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
             android:layout_marginTop="30dp"
+            android:layout_marginEnd="12dp"
             android:translationX="0in"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_description_view"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:layout_constraintTop_toBottomOf="@id/profile_details_description_view" />
 
 
         <Constraint
@@ -150,14 +95,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="12dp"
             android:translationX="0in"
-            android:layout_marginTop="30dp"
-            app:cardBackgroundColor="@color/colorAccent"
-            app:layout_constraintTop_toBottomOf="@id/profile_details_interests_view"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp"
-            app:contentPadding="12dp" />
+            app:cardBackgroundColor="@color/colorAccent" />
 
 
     </ConstraintSet>

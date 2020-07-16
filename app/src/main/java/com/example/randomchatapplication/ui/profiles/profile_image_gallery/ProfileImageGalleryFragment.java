@@ -1,18 +1,6 @@
 package com.example.randomchatapplication.ui.profiles.profile_image_gallery;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.app.Activity;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;

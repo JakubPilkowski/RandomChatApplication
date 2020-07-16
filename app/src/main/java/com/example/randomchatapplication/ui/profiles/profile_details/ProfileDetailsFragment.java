@@ -1,32 +1,13 @@
 package com.example.randomchatapplication.ui.profiles.profile_details;
 
-import androidx.constraintlayout.motion.widget.MotionLayout;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.constraintlayout.widget.ConstraintSet;
-import androidx.core.app.SharedElementCallback;
-import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.transition.Fade;
-import androidx.transition.Scene;
-import androidx.transition.TransitionInflater;
-import androidx.transition.TransitionManager;
-import androidx.transition.TransitionSet;
-
-import android.telecom.Call;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
+
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.motion.widget.MotionLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
+import androidx.databinding.ViewDataBinding;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.DataSource;
@@ -37,14 +18,11 @@ import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ProfileDetailsFragmentBinding;
-import com.example.randomchatapplication.helpers.DetailsTransition;
 import com.example.randomchatapplication.helpers.DimensionsHelper;
 import com.example.randomchatapplication.helpers.ScreenHelper;
 import com.example.randomchatapplication.interfaces.Providers;
 import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.navigation.Navigator;
-
-import java.util.List;
 
 public class ProfileDetailsFragment extends BaseFragment<ProfileDetailsFragmentBinding, ProfileDetailsViewModel> implements Providers {
 

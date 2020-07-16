@@ -7,7 +7,7 @@
         app:constraintSetEnd="@id/profile_details_buttons_scene_end"
         app:constraintSetStart="@id/profile_details_buttons_scene_start"
         app:duration="200"
-        app:motionInterpolator="linear"/>
+        app:motionInterpolator="linear" />
 
     <ConstraintSet android:id="@+id/profile_details_buttons_scene_start">
 
@@ -45,8 +45,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="30dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            />
+            app:layout_constraintEnd_toEndOf="parent" />
     </ConstraintSet>
 
 

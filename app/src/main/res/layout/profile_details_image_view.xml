@@ -6,7 +6,7 @@
 
         <variable
             name="viewModel"
-            type="com.example.randomchatapplication.adapters.profile_images.ProfileImagesAdapterViewModel" />
+            type="com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsImageViewModel" />
     </data>
 
     <androidx.cardview.widget.CardView

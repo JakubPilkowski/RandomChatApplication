@@ -50,4 +50,8 @@
     <string name="brush_tickness_40">Grubość 40</string>
     <string name="brush_tickness_55">Grubość 55</string>
     <string name="profile_details"><b><i>Szczegóły profilu</i></b></string>
+    <string name="basic_info">Podstawowe dane</string>
+    <string name="smth_about_you">Coś o sobie</string>
+    <string name="interests">Zainteresowania</string>
+    <string name="photos">Zdjęcia</string>
 </resources>

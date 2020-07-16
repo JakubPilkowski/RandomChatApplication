@@ -1,17 +1,16 @@
-package com.example.randomchatapplication.adapters.profile_hobbies;
+package com.example.randomchatapplication.ui.profiles.profile_details;
 
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
 import com.example.randomchatapplication.R;
-import com.example.randomchatapplication.base.BaseAdapterViewModel;
 import com.example.randomchatapplication.models.Hobby;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Random;
 
-public class ProfileHobbiesAdapterViewModel  {
+public class ProfileDetailsHobbyViewModel {
 
 
     public ObservableField<String> value = new ObservableField<>();
