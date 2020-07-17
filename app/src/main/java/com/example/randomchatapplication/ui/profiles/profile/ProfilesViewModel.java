@@ -23,6 +23,7 @@ public class ProfilesViewModel extends BaseViewModel {
         profilesAdapter = new ProfilesAdapter();
         profilesAdapter.setActivity(getActivity());
         viewPager2.setAdapter(profilesAdapter);
+        viewPager2.setUserInputEnabled(false);
         viewPager2.setPageTransformer(new CubeInPageTransformer());
         viewPager2.getChildAt(0).setOverScrollMode(View.OVER_SCROLL_NEVER);
     }

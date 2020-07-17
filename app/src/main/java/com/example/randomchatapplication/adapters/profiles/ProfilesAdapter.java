@@ -1,6 +1,7 @@
 package com.example.randomchatapplication.adapters.profiles;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -47,5 +48,12 @@ public class ProfilesAdapter extends BaseRecyclerViewAdapter<Profile, BaseViewHo
             ((SingleProfileItemBinding)holder.getBinding()).setViewModel(viewModel);
             holder.setViewModel(viewModel);
         }
+    }
+
+    public void removeItem(Profile profile) {
+        int position = items.indexOf(profile);
+        viewModels.remove(position);
+        items.remove(position);
+        notifyItemRemoved(position);
     }
 }

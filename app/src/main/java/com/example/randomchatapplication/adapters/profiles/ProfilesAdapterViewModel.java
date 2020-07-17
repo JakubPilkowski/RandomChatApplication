@@ -1,17 +1,24 @@
 package com.example.randomchatapplication.adapters.profiles;
 
 import android.app.Activity;
+import android.os.Handler;
 import android.transition.Fade;
+import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.view.animation.LinearInterpolator;
 
+import androidx.annotation.NonNull;
 import androidx.constraintlayout.motion.widget.MotionLayout;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
 import com.example.randomchatapplication.base.BaseAdapterViewModel;
+import com.example.randomchatapplication.custom_views.ProfileResultView;
 import com.example.randomchatapplication.databinding.ProfilesFragmentBinding;
 import com.example.randomchatapplication.databinding.SingleProfileItemBinding;
 import com.example.randomchatapplication.helpers.DetailsTransition;
@@ -36,6 +43,10 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
         profile = (Profile) values[0];
         activity = (Activity) values[1];
         binding = (SingleProfileItemBinding) values[2];
+        if(!binding.declineProfileFab.isEnabled())
+            binding.declineProfileFab.setEnabled(true);
+        if(!binding.acceptProfileFab.isEnabled())
+            binding.acceptProfileFab.setEnabled(true);
         imageUrl.set(profile.getPhotos().get(0).getPhoto());
         name.set(profile.getName());
         age.set(String.valueOf(profile.getAge()));
@@ -45,6 +56,32 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
         else getShortCutProfile = profile.getDescription();
         description.set(getShortCutProfile);
         profileDetailsFragment = ProfileDetailsFragment.newInstance(profile, activity.getApplicationContext());
+        binding.profileResultView.setResultListener(new ProfileResultView.ResultListener() {
+            @Override
+            public void onResultAnimEnd() {
+                MainActivity mainActivity = (MainActivity) activity;
+                ProfilesFragment profilesFragment = (ProfilesFragment) mainActivity.getCurrentFragment();
+                ViewPager2 viewPager2 = ((ProfilesFragmentBinding) profilesFragment.getBinding()).profilesFragmentViewpager;
+                RecyclerView recyclerView = (RecyclerView) viewPager2.getChildAt(0);
+                ProfilesAdapter adapter = (ProfilesAdapter) viewPager2.getAdapter();
+                recyclerView.smoothScrollBy(viewPager2.getWidth(), 0, new LinearInterpolator(), 500);
+                new Handler().postDelayed(() -> {
+                    if(adapter.getItems().size()!=1){
+                        adapter.removeItem(profile);
+                    }
+                  },500);
+            }
+
+            @Override
+            public void onResultAnimStart() {
+                binding.declineProfileFab.setEnabled(false);
+                binding.acceptProfileFab.setEnabled(false);
+            }
+        });
+    }
+
+    public void onDeclineClick(){
+        binding.profileResultView.onDeclineDrawing();
     }
 
 

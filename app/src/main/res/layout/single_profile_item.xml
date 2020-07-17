@@ -63,12 +63,23 @@
                 android:textSize="16sp" />
         </LinearLayout>
 
+        <com.example.randomchatapplication.custom_views.ProfileResultView
+            android:id="@+id/profile_result_view"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/decline_profile_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginBottom="52dp"
+            android:onClick="@{()->viewModel.onDeclineClick()}"
             android:src="@drawable/camera_close_button"
             android:theme="@style/FullImageFloatingButton"
             app:layout_constraintBottom_toBottomOf="parent"
