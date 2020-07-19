@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.randomchatapplication.R;
+import com.example.randomchatapplication.base.BaseAdapterViewModel;
 import com.example.randomchatapplication.base.BaseRecyclerViewAdapter;
 import com.example.randomchatapplication.base.BaseViewHolder;
 import com.example.randomchatapplication.databinding.SingleProfileItemBinding;
@@ -55,5 +56,8 @@ public class ProfilesAdapter extends BaseRecyclerViewAdapter<Profile, BaseViewHo
         viewModels.remove(position);
         items.remove(position);
         notifyItemRemoved(position);
+    }
+    public BaseAdapterViewModel getViewModel(int index){
+        return viewModels.get(index);
     }
 }

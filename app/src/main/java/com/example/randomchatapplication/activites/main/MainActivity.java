@@ -13,12 +13,15 @@ import android.view.WindowManager;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
+import com.example.randomchatapplication.adapters.profiles.ProfilesAdapter;
+import com.example.randomchatapplication.adapters.profiles.ProfilesAdapterViewModel;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityMainBinding;
 import com.example.randomchatapplication.helpers.ProgressDialogManager;
 import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.interfaces.Providers;
+import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.navigation.Navigator;
 import com.example.randomchatapplication.ui.account.AccountFragment;
 import com.example.randomchatapplication.ui.chats.ChatsFragment;
@@ -62,6 +65,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
 
     @Override
     public void onBackPressed() {
+        stopAnimationIfExist();
         if(getCurrentFragment() instanceof ProfileDetailsFragment)
         {
             Window window = getWindow();
@@ -69,6 +73,16 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
             binding.mainCoordinator.transitionToStart();
         }
         super.onBackPressed();
+    }
+
+    private void stopAnimationIfExist() {
+        if(getCurrentFragment() instanceof ProfilesFragment){
+            ProfilesFragment profilesFragment = (ProfilesFragment) getCurrentFragment();
+            ProfilesAdapter profilesAdapter = (ProfilesAdapter) profilesFragment.binding.profilesFragmentViewpager.getAdapter();
+            int index = profilesFragment.binding.profilesFragmentViewpager.getCurrentItem();
+            ProfilesAdapterViewModel viewModel = (ProfilesAdapterViewModel) profilesAdapter.getViewModel(index);
+            viewModel.binding.profileResultView.stopAnimations();
+        }
     }
 
 
@@ -115,6 +129,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
+        stopAnimationIfExist();
         switch (item.getItemId()) {
             case R.id.nav_profiles:
                 navigator.attach(ProfilesFragment.newInstance(), ProfilesFragment.TAG);

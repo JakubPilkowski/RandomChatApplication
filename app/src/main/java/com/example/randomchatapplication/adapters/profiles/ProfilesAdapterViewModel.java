@@ -55,12 +55,12 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
             getShortCutProfile = profile.getDescription().substring(0, 24) + "...";
         else getShortCutProfile = profile.getDescription();
         description.set(getShortCutProfile);
+        MainActivity mainActivity = (MainActivity) activity;
+        ProfilesFragment profilesFragment = (ProfilesFragment) mainActivity.getCurrentFragment();
         profileDetailsFragment = ProfileDetailsFragment.newInstance(profile, activity.getApplicationContext());
         binding.profileResultView.setResultListener(new ProfileResultView.ResultListener() {
             @Override
             public void onResultAnimEnd() {
-                MainActivity mainActivity = (MainActivity) activity;
-                ProfilesFragment profilesFragment = (ProfilesFragment) mainActivity.getCurrentFragment();
                 ViewPager2 viewPager2 = ((ProfilesFragmentBinding) profilesFragment.getBinding()).profilesFragmentViewpager;
                 RecyclerView recyclerView = (RecyclerView) viewPager2.getChildAt(0);
                 ProfilesAdapter adapter = (ProfilesAdapter) viewPager2.getAdapter();
@@ -69,7 +69,7 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
                     if(adapter.getItems().size()!=1){
                         adapter.removeItem(profile);
                     }
-                  },500);
+                  },550);
             }
 
             @Override
@@ -82,6 +82,10 @@ public class ProfilesAdapterViewModel extends BaseAdapterViewModel {
 
     public void onDeclineClick(){
         binding.profileResultView.onDeclineDrawing();
+    }
+
+    public void onAcceptClick(){
+        binding.profileResultView.onAcceptDrawing();
     }
 
 
