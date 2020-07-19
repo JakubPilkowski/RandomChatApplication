@@ -94,11 +94,11 @@ public class ProfileResultView extends View {
 
         setBackgroundColor(getResources().getColor(R.color.colorBlackOpacity));
         declineFirstBellAnimation = ValueAnimator.ofInt(0, size);
-        declineFirstBellAnimation.setDuration(300);
+        declineFirstBellAnimation.setDuration(250);
         declineFirstBellAnimation.addUpdateListener(declineFirstBellUpdateListener);
         declineFirstBellAnimation.addListener(declineFirstBellEndAnimListener);
         declineSecondBellAnimation = ValueAnimator.ofInt(0, size);
-        declineSecondBellAnimation.setDuration(300);
+        declineSecondBellAnimation.setDuration(250);
         declineSecondBellAnimation.addUpdateListener(declineSecondBellUpdateListener);
         declineSecondBellAnimation.addListener(declineSecondBellEndAnimListener);
         declineFirstBellAnimation.start();
@@ -122,13 +122,13 @@ public class ProfileResultView extends View {
         path.cubicTo(point.x+size/2, point.y, point.x, point.y, point.x, point.y+topCurveHeight);
 
         heartTranslateAnimation = ValueAnimator.ofFloat(getMeasuredHeight(), 0);
-        heartTranslateAnimation.setDuration(500);
+        heartTranslateAnimation.setDuration(400);
         heartTranslateAnimation.addUpdateListener(heartUpdateListener);
         heartTranslateAnimation.start();
         heartTranslateAnimation.addListener(translateEndListener);
 
         heartScaleAnimation = ValueAnimator.ofFloat(1, 10);
-        heartScaleAnimation.setDuration(500);
+        heartScaleAnimation.setDuration(400);
         heartScaleAnimation.addUpdateListener(heartUpdateListener);
         heartScaleAnimation.addListener(scaleEndListener);
         if (resultListener != null) {
@@ -187,13 +187,12 @@ public class ProfileResultView extends View {
         @Override
         public void onAnimationEnd(Animator animation) {
             path.close();
-
+            if (resultListener != null)
+                resultListener.onResultAnimEnd();
             new Handler().postDelayed(() -> {
                 path.reset();
                 setBackgroundColor(Color.TRANSPARENT);
                 invalidate();
-                if (resultListener != null)
-                    resultListener.onResultAnimEnd();
             }, 300);
             super.onAnimationEnd(animation);
         }

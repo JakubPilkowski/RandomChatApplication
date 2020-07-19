@@ -58,6 +58,9 @@ public class ProfilesAdapter extends BaseRecyclerViewAdapter<Profile, BaseViewHo
         notifyItemRemoved(position);
     }
     public BaseAdapterViewModel getViewModel(int index){
-        return viewModels.get(index);
+        if(viewModels != null){
+            return viewModels.get(index);
+        }
+        return null;
     }
 }
