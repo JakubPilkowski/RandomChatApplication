@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsViewModel" />
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.motion.widget.MotionLayout xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/profile_details_motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/iconGrayLight"
+            app:layoutDescription="@xml/profile_details_collapse_scene"
+            tools:context=".ui.profiles.profile_details.ProfileDetailsFragment">
+
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/profile_details_scroll_view"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/profile_image">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginEnd="12dp"
+                    android:layout_marginBottom="116dp"
+                    app:cardBackgroundColor="@color/colorAccent"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="0dp"
+                    app:contentPadding="12dp">
+
+                    <androidx.constraintlayout.motion.widget.MotionLayout
+                        android:id="@+id/profile_details_main_motion_layout"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:layoutDescription="@xml/profile_details_info_views_scene">
+
+                        <LinearLayout
+                            android:id="@+id/profile_details_main_info_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:text="@string/basic_info"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp" />
+
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@drawable/ic_city"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.city}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@drawable/ic_voivodeship"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.voivodeship}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@{viewModel.plecDrawable}"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.plec}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@drawable/ic_heart"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.gender}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@drawable/ic_target"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.target}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:drawableStart="@drawable/ic_strong"
+                                android:drawablePadding="6dp"
+                                android:text="@{viewModel.motto}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="18sp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/profile_details_description_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/profile_details_main_info_view">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:text="@string/smth_about_you"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:text="@{viewModel.description}"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="16sp" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/profile_details_interests_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/profile_details_description_view">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:text="@string/interests"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp" />
+
+                            <LinearLayout
+                                android:id="@+id/profile_details_hobbies_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" />
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:id="@+id/profile_details_images_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="30dp"
+                            android:orientation="vertical"
+                            app:layout_constraintTop_toBottomOf="@id/profile_details_interests_view">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="12dp"
+                                android:text="@string/photos"
+                                android:textAlignment="center"
+                                android:textColor="@color/colorBlack"
+                                android:textSize="24sp" />
+
+                            <LinearLayout
+                                android:id="@+id/profile_details_images_container"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical" />
+
+                        </LinearLayout>
+
+                    </androidx.constraintlayout.motion.widget.MotionLayout>
+                </androidx.cardview.widget.CardView>
+            </androidx.core.widget.NestedScrollView>
+
+
+            <ImageView
+                android:id="@+id/profile_image"
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:background="@color/colorPrimary"
+                android:scaleType="fitXY"
+                android:transitionName="profile details image"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <Button
+                android:id="@+id/profile_details_back_button"
+                android:layout_width="36dp"
+                android:layout_height="36dp"
+                android:layout_marginStart="6dp"
+                android:layout_marginBottom="6dp"
+                android:background="@drawable/profile_details_close_button"
+                android:onClick="@{()->viewModel.onBackPress()}"
+                android:stateListAnimator="@null"
+                app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                app:layout_constraintStart_toStartOf="parent" />
+
+
+            <TextView
+                android:id="@+id/profile_details_title_collapsed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.name+' '+viewModel.age}"
+                android:textColor="@color/colorAccent"
+                android:textSize="20sp"
+                app:layout_constraintStart_toEndOf="@id/profile_details_back_button"
+                app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                />
+
+            <TextView
+                android:id="@+id/profile_details_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:text="@{viewModel.name+' '+viewModel.age}"
+                android:textColor="@color/colorAccent"
+                android:textSize="24sp"
+                app:layout_constraintBottom_toBottomOf="@id/profile_image"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+
+        <androidx.constraintlayout.motion.widget.MotionLayout
+            android:id="@+id/profile_details_buttons_motion_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            app:layoutDescription="@xml/profile_details_buttons_scene">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/decline_profile_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/camera_close_button"
+                android:theme="@style/FullImageFloatingButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:maxImageSize="56dp" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/accept_profile_fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="30dp"
+                android:src="@drawable/profile_love_button"
+                android:theme="@style/FullImageFloatingButton"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:maxImageSize="56dp" />
+        </androidx.constraintlayout.motion.widget.MotionLayout>
+    </RelativeLayout>
+</layout>

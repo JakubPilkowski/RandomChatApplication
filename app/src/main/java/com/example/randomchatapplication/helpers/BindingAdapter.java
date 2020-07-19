@@ -21,6 +21,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
 import android.webkit.WebView;
+import android.widget.Adapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -38,8 +39,10 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.TooltipCompat;
 import androidx.camera.core.ImageProxy;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.graphics.drawable.DrawableCompat;
+import androidx.core.graphics.drawable.RoundedBitmapDrawable;
 import androidx.core.view.MarginLayoutParamsCompat;
 import androidx.databinding.ViewDataBinding;
 import androidx.fragment.app.FragmentPagerAdapter;
@@ -50,8 +53,14 @@ import androidx.viewpager.widget.ViewPager;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.DataSource;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.engine.GlideException;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.bumptech.glide.request.RequestListener;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.target.Target;
 import com.bumptech.glide.request.transition.Transition;
 import com.crystal.crystalrangeseekbar.interfaces.OnRangeSeekbarChangeListener;
 import com.crystal.crystalrangeseekbar.widgets.CrystalRangeSeekbar;
@@ -151,7 +160,7 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("swipeEnabled")
     public static void setSwipeEnabled(CustomViewPager viewPager, boolean swipeEnabled) {
-        viewPager.setSwipeEnabled(swipeEnabled);
+//        viewPager.setSwipeEnabled(swipeEnabled);
     }
 
     @androidx.databinding.BindingAdapter("onTextChangedListener")
@@ -320,8 +329,13 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("marginTop")
     public static void setLayoutMarginTop(View view, int value) {
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
-        layoutParams.topMargin = value;
+//        if (view.getLayoutParams() instanceof ConstraintLayout.LayoutParams) {
+//            ConstraintLayout.LayoutParams params = (ConstraintLayout.LayoutParams) view.getLayoutParams();
+//            params.topMargin = value;
+//        } else {
+            ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
+            layoutParams.topMargin = value;
+//        }
     }
 
 
@@ -422,10 +436,35 @@ public class BindingAdapter {
 
     @androidx.databinding.BindingAdapter("backgroundTintAsInt")
     public static void setBackgroundTintAsInt(View view, int color) {
-            DrawableCompat.setTint(
-                    DrawableCompat.wrap(view.getBackground()),
-                    ContextCompat.getColor(view.getContext(), color)
-            );
+        DrawableCompat.setTint(
+                DrawableCompat.wrap(view.getBackground()),
+                ContextCompat.getColor(view.getContext(), color)
+        );
+    }
+
+    @androidx.databinding.BindingAdapter({"roundedImage"})
+    public static void setRoundedImage(ImageView view, String imageUrl) {
+        Context context = view.getContext();
+        Glide.with(context)
+                .load(imageUrl)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .thumbnail(0.1f)
+                .into(new CustomTarget<Drawable>() {
+                    @Override
+                    public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                        view.setImageDrawable(resource);
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+
+                    }
+                });
+    }
+
+    @androidx.databinding.BindingAdapter("viewPager2adapter")
+    public static void setViewPager2Adapter(ViewPager2 viewPager2, Adapter adapter){
+        viewPager2.setAdapter((RecyclerView.Adapter) adapter);
     }
 
 }

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <Transition
+        app:constraintSetStart="@id/main_activity_profile_scene_start"
+        app:constraintSetEnd="@id/main_activity_profile_scene_end"
+        app:duration="200"
+        app:motionInterpolator="linear"
+        >
+
+    </Transition>
+
+
+
+    <ConstraintSet android:id="@+id/main_activity_profile_scene_start">
+
+        <Constraint
+            android:id="@+id/main_activity_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="46dp" />
+
+
+        <Constraint
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:id="@+id/bottom_navigation_view"
+            android:background="?android:attr/windowBackground"
+            app:itemBackground="@null"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_nav_menu"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/accept_fab"
+            android:src="@drawable/photo_main_button_background"
+            android:theme="@style/FullImageFloatingButton"
+            app:maxImageSize="56dp"
+            android:layout_marginBottom="18dp" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/main_activity_profile_scene_end">
+
+        <Constraint
+            android:id="@+id/main_activity_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="0dp" />
+        <Constraint
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:id="@+id/bottom_navigation_view"
+            android:background="?android:attr/windowBackground"
+            app:itemBackground="@null"
+            app:labelVisibilityMode="unlabeled"
+            app:menu="@menu/bottom_nav_menu"
+            app:layout_constraintTop_toBottomOf="parent" />
+        <Constraint
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/accept_fab"
+            android:src="@drawable/photo_main_button_background"
+            android:theme="@style/FullImageFloatingButton"
+            app:maxImageSize="56dp"
+            android:layout_marginBottom="0dp" />
+    </ConstraintSet>
+</MotionScene>

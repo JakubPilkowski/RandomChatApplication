@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <Transition
+        app:constraintSetEnd="@id/profiles_end_transition"
+        app:constraintSetStart="@id/profiles_start_transition"
+        app:duration="200"
+        app:motionInterpolator="linear">
+
+    </Transition>
+
+    <ConstraintSet android:id="@+id/profiles_start_transition">
+
+        <Constraint
+            android:id="@+id/toolbar_profiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/profiles_fragment_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="6dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_profiles" />
+        <Constraint
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary"
+            android:visibility="visible" />
+
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/profiles_end_transition">
+
+        <Constraint
+            android:id="@+id/toolbar_profiles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toTopOf="parent" />
+
+        <Constraint
+            android:id="@+id/main_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@color/colorPrimary" />
+
+        <Constraint
+            android:id="@+id/profiles_fragment_viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginEnd="0dp"
+            android:layout_marginBottom="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar_profiles" />
+
+    </ConstraintSet>
+
+</MotionScene>

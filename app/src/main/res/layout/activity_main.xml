@@ -9,62 +9,39 @@
             type="com.example.randomchatapplication.activites.main.MainActivityViewModel" />
     </data>
 
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <androidx.constraintlayout.motion.widget.MotionLayout
         android:id="@+id/main_coordinator"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:layoutDescription="@xml/main_activity_profiles_scene">
 
-        <LinearLayout
+        <FrameLayout
+            android:id="@+id/main_activity_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorAccent"
-            android:orientation="vertical"
-            android:weightSum="1">
+            android:layout_marginBottom="46dp" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+        <com.example.randomchatapplication.custom_views.CurvedBottomNavigation
+            android:id="@+id/bottom_navigation_view"
+            android:layout_width="match_parent"
+            android:layout_height="46dp"
+            android:background="?android:attr/windowBackground"
+            app:itemBackground="@null"
+            app:labelVisibilityMode="unlabeled"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:menu="@menu/bottom_nav_menu" />
 
-                <androidx.appcompat.widget.Toolbar
-                    android:id="@+id/main_toolbar"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:background="@color/colorPrimary" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:gravity="center"
-                    android:text="@string/title"
-                    android:textColor="@android:color/white"
-                    android:textSize="22sp" />
-            </RelativeLayout>
-
-            <FrameLayout
-                android:id="@+id/main_activity_container"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <com.example.randomchatapplication.custom_views.CurvedBottomNavigation
-                android:layout_width="match_parent"
-                android:layout_height="46dp"
-                android:id="@+id/bottom_navigation_view"
-                android:background="?android:attr/windowBackground"
-                app:itemBackground="@null"
-                app:labelVisibilityMode="unlabeled"
-                app:menu="@menu/bottom_nav_menu" />
-        </LinearLayout>
         <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/accept_fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
-            android:id="@+id/accept_fab"
+            android:layout_marginBottom="18dp"
             android:onClick="@{() -> viewModel.onClick()}"
             android:src="@drawable/photo_main_button_background"
             android:theme="@style/FullImageFloatingButton"
-            app:maxImageSize="56dp"
-            android:layout_marginBottom="18dp"
-            />
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:maxImageSize="56dp" />
+    </androidx.constraintlayout.motion.widget.MotionLayout>
 </layout>

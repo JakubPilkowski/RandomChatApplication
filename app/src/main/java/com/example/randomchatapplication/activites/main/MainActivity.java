@@ -3,26 +3,31 @@ package com.example.randomchatapplication.activites.main;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
-import androidx.drawerlayout.widget.DrawerLayout;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.authentication.AuthActivity;
+import com.example.randomchatapplication.adapters.profiles.ProfilesAdapter;
+import com.example.randomchatapplication.adapters.profiles.ProfilesAdapterViewModel;
 import com.example.randomchatapplication.base.BaseActivity;
 import com.example.randomchatapplication.base.BaseFragment;
 import com.example.randomchatapplication.databinding.ActivityMainBinding;
+import com.example.randomchatapplication.helpers.ProgressDialogManager;
 import com.example.randomchatapplication.helpers.UserPreferences;
 import com.example.randomchatapplication.interfaces.Providers;
+import com.example.randomchatapplication.models.Profile;
 import com.example.randomchatapplication.navigation.Navigator;
 import com.example.randomchatapplication.ui.account.AccountFragment;
 import com.example.randomchatapplication.ui.chats.ChatsFragment;
 import com.example.randomchatapplication.ui.earn_points.EarnPointsFragment;
-import com.example.randomchatapplication.ui.profiles.ProfilesFragment;
+import com.example.randomchatapplication.ui.profiles.profile.ProfilesFragment;
+import com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivityViewModel> implements Providers, BottomNavigationView.OnNavigationItemSelectedListener {
@@ -57,6 +62,29 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         }
         super.onResume();
     }
+
+    @Override
+    public void onBackPressed() {
+        stopAnimationIfExist();
+        if(getCurrentFragment() instanceof ProfileDetailsFragment)
+        {
+            Window window = getWindow();
+            window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            binding.mainCoordinator.transitionToStart();
+        }
+        super.onBackPressed();
+    }
+
+    private void stopAnimationIfExist() {
+        if(getCurrentFragment() instanceof ProfilesFragment){
+            ProfilesFragment profilesFragment = (ProfilesFragment) getCurrentFragment();
+            ProfilesAdapter profilesAdapter = (ProfilesAdapter) profilesFragment.binding.profilesFragmentViewpager.getAdapter();
+            int index = profilesFragment.binding.profilesFragmentViewpager.getCurrentItem();
+            ProfilesAdapterViewModel viewModel = (ProfilesAdapterViewModel) profilesAdapter.getViewModel(index);
+            viewModel.binding.profileResultView.stopAnimations();
+        }
+    }
+
 
     @Override
     protected Class<MainActivityViewModel> getViewModel() {
@@ -101,6 +129,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         item.setChecked(true);
+        stopAnimationIfExist();
         switch (item.getItemId()) {
             case R.id.nav_profiles:
                 navigator.attach(ProfilesFragment.newInstance(), ProfilesFragment.TAG);
@@ -119,5 +148,11 @@ public class MainActivity extends BaseActivity<ActivityMainBinding, MainActivity
         }
 
         return false;
+    }
+
+    @Override
+    protected void onDestroy() {
+        ProgressDialogManager.get().dismiss();
+        super.onDestroy();
     }
 }

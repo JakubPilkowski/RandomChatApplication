@@ -1,17 +1,6 @@
-package com.example.randomchatapplication.ui.profiles;
+package com.example.randomchatapplication.ui.profiles.profile;
 
 import androidx.databinding.ViewDataBinding;
-import androidx.lifecycle.ViewModelProviders;
-
-import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.example.randomchatapplication.R;
 import com.example.randomchatapplication.activites.main.MainActivity;
@@ -28,7 +17,6 @@ public class ProfilesFragment extends BaseFragment<ProfilesFragmentBinding, Prof
         return new ProfilesFragment();
     }
 
-
     @Override
     public int getLayoutRes() {
         return R.layout.profiles_fragment;
@@ -44,6 +32,7 @@ public class ProfilesFragment extends BaseFragment<ProfilesFragmentBinding, Prof
         viewModel.setProviders(this);
         binding.setViewModel(viewModel);
         viewModel.init();
+        viewModel.setProfiles(((MainActivity)getActivity()).viewModel.getProfiles());
     }
 
     @Override

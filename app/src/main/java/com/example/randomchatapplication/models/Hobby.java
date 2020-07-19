@@ -1,7 +1,5 @@
 package com.example.randomchatapplication.models;
 
-import java.util.Comparator;
-
 public class Hobby implements Comparable<Hobby>{
 
     private String value;

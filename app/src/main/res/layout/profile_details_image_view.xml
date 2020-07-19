@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="viewModel"
+            type="com.example.randomchatapplication.ui.profiles.profile_details.ProfileDetailsImageViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginBottom="12dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/profile_details_single_image_view"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:onClick="@{()->viewModel.onImageClick()}"
+            android:scaleType="fitXY"
+            app:imageUrl="@{viewModel.imageUrl}" />
+    </androidx.cardview.widget.CardView>
+</layout>
