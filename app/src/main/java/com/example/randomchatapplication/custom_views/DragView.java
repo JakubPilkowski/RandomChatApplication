@@ -85,6 +85,7 @@ public class DragView extends ViewGroup {
     public void maximize(){
         smoothSlideTo(0f);
     }
+
     boolean smoothSlideTo(float slideOffset){
         final int topBound = getPaddingTop();
         int y = (int) (topBound + slideOffset * mDragRange);
