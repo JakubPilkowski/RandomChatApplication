@@ -52,7 +52,6 @@ public class CustomProgressView extends View {
      mRect = new RectF();
      mPaint.setColor(getResources().getColor(R.color.colorPrimary));
      mPaint.setStyle(Paint.Style.STROKE);
-
      mPaint.setStrokeWidth(mThickness);
      mPaint.setStrokeCap(Paint.Cap.ROUND);
 
